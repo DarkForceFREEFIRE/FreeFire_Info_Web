@@ -66,6 +66,6 @@ export const RankMapper = {
      * @param {number|string} id 
      */
     getClothesUrl(id) {
-        return `https://raw.githubusercontent.com/ashqking/FF-Items/refs/heads/main/ICONS/${id}.png`;
+        return `https://raw.githubusercontent.com/ShahGCreator/icon/main/PNG/${id}.png`;
     }
 };
