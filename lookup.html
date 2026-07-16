@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player lookup - Walker Regedits</title>
+    <link href="https://cdn.jsdelivr.net/npm/product-sans-webfont@1.0.0/GoogleSans.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dark">
+
+    <header class="app-bar animate-fade-up">
+        <div class="header-inner">
+            <div class="brand-group">
+                <span class="portal-badge">WR</span>
+                <span class="brand-text">Walker Regedits <span class="accent-dim font-mono">UTILITIES</span></span>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="lookup.html" class="nav-link active">FF Info</a>
+                <a href="docs.html" class="nav-link">API Docs</a>
+            </nav>
+
+            <div class="app-bar-actions">
+                <label class="theme-toggle-compact" id="theme-toggle" aria-checked="true" title="Toggle Theme">
+                    <div class="toggle-switch-track">
+                        <div class="toggle-switch-thumb"></div>
+                    </div>
+                    <img src="icons/App%20theme.svg" class="theme-toggle-svg" alt="Theme icon">
+                </label>
+            </div>
+        </div>
+    </header>
+
+    <main class="router-container">
+        <section id="view-lookup" class="view-section animate-fade-up">
+            <div class="app-content">
+                
+                <div class="search-command-deck">
+                    <div class="command-group">
+                        <label class="compact-label" for="uid-input-field">Player UID</label>
+                        <div class="search-box">
+                            <img src="icons/Cloud%20Search.svg" class="search-icon" alt="Search icon">
+                            <input type="text" id="uid-input-field" class="fluent-input" placeholder="e.g. 10597688191" value="10597688191">
+                        </div>
+                        <span id="uid-error-field" class="error-text hidden">Enter a valid numeric UID</span>
+                    </div>
+                    
+                    <input type="hidden" id="api-source-field" value="api">
+
+                    <button id="search-btn-field" class="fluent-btn primary query-submit-btn">
+                        <img src="icons/Cloud%20Search.svg" alt="Launch icon" class="btn-svg inverted">
+                        Search Player
+                    </button>
+                </div>
+
+                <div id="results-placeholder" class="fluent-card result-card">
+                    <div class="visualizer-container">
+                        <div class="placeholder-text">
+                            <img src="icons/Cloud%20Search.svg" alt="Search network" style="width: 48px; height: 48px; opacity: 0.35; margin-bottom: 16px;">
+                            <p>Provide a Free Fire player UID on the options panel to retrieve and visual profile metrics.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="skeleton-loader" class="fluent-card result-card hidden">
+                    <div class="loader-content">
+                        <div class="spinner-win11"></div>
+                        <p class="text-secondary">Interrogating Garena server clusters...</p>
+                    </div>
+                </div>
+
+                <div id="results-workspace" class="dashboard-unified-layout hidden">
+                    
+                    <div class="dashboard-column">
+                        <div class="fluent-card banner-hero">
+                            <div class="banner-hero-content">
+                                <div class="avatar-container">
+                                    <img id="hero-avatar" class="avatar-img" src="" alt="Player Avatar" onerror="this.src='https://raw.githubusercontent.com/ashqking/FF-Items/refs/heads/main/ICONS/101000018.png'">
+                                    <div class="avatar-level-tag" id="hero-level">Lvl.0</div>
+                                </div>
+                                <div class="banner-hero-meta">
+                                    <div class="banner-hero-header">
+                                        <h2 id="hero-nickname" class="nickname-display">--</h2>
+                                        <div class="ban-badge-wrapper">
+                                            <img id="hero-ban-icon" src="icons/NotBanned.svg" alt="Ban status icon" class="ban-icon active">
+                                            <span id="hero-ban-badge" class="ban-status-badge">Active</span>
+                                        </div>
+                                    </div>
+                                    <div class="tags-row">
+                                        <div class="tag copyable-uid" id="copy-uid-trigger" title="Click to copy UID">
+                                            UID: <strong id="hero-uid" class="font-mono">--</strong>
+                                            <img src="icons/Copy.svg" class="inline-copy-icon" alt="Copy UID icon">
+                                        </div>
+                                        <span class="tag" id="hero-region">--</span>
+                                        <span class="tag secondary" id="hero-version">--</span>
+                                    </div>
+                                    <p id="hero-signature" class="signature-quote">"--"</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fluent-card board-card">
+                            <div class="board-card-header">
+                                <img src="icons/Guild.svg" alt="Guild Logo">
+                                <h4>Guild Membership</h4>
+                            </div>
+                            <div class="board-card-body guild-card-body">
+                                <div class="guild-info-title" id="guild-name">No Guild</div>
+                                <div class="guild-info-id-strip" id="guild-id-strip">
+                                    <span class="text-secondary">GUILD ID</span>
+                                    <span id="guild-id-val" class="font-mono">--</span>
+                                    <img src="icons/Copy.svg" class="guild-copy-btn" alt="Copy icon">
+                                </div>
+                                <div class="guild-metrics-row">
+                                    <div>
+                                        <span class="badge-label text-secondary">GUILD LV.</span>
+                                        <div class="badge-val" id="guild-val-lvl">--</div>
+                                    </div>
+                                    <div>
+                                        <span class="badge-label text-secondary">MEMBERS</span>
+                                        <div class="badge-val" id="guild-val-members">--</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fluent-card board-card">
+                            <div class="board-card-header">
+                                <img src="icons/Creditscore.svg" alt="Honor standing logo">
+                                <h4>Honor Score</h4>
+                            </div>
+                            <div class="board-card-body">
+                                <div class="credit-display">
+                                    <span id="val-credit-score" class="huge-metric-val">100</span>
+                                    <div class="fluent-progress-track">
+                                        <div id="credit-progress-fill" class="fluent-progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="text-secondary" style="font-size: 11px; text-align: center; margin-bottom: 14px;" id="credit-status-text">Perfect Honor Integrity</span>
+                                    
+                                    <div class="honor-permissions">
+                                        <div class="perm-header">MODE ELIGIBILITY</div>
+                                        <div class="permission-item" id="perm-br">
+                                            <span class="perm-status-dot"></span>
+                                            <span class="perm-text">BR Ranked Match</span>
+                                        </div>
+                                        <div class="permission-item" id="perm-cs">
+                                            <span class="perm-status-dot"></span>
+                                            <span class="perm-text">CS Ranked Match</span>
+                                        </div>
+                                        <div class="permission-item" id="perm-casual">
+                                            <span class="perm-status-dot"></span>
+                                            <span class="perm-text">Casual Matchmaking</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-column">
+                        <div class="fluent-card detail-subcard">
+                            <h3 class="subcard-title"><img src="icons/Person.svg" alt="Stats Icon"> Profile Statistics</h3>
+                            <div class="stats-metric-grid">
+                                <div class="metric-tile">
+                                    <span class="metric-title">Experience Points</span>
+                                    <span class="metric-value" id="val-exp">--</span>
+                                </div>
+                                <div class="metric-tile">
+                                    <span class="metric-title">Level</span>
+                                    <span class="metric-value" id="val-level">--</span>
+                                </div>
+                                <div class="metric-tile">
+                                    <span class="metric-title">Profile Likes</span>
+                                    <span class="metric-value" id="val-likes">--</span>
+                                </div>
+                                <div class="metric-tile">
+                                    <span class="metric-title">EP/BP Badges</span>
+                                    <span class="metric-value" id="val-badges">--</span>
+                                </div>
+                                <div class="metric-tile" style="grid-column: span 2;">
+                                    <span class="metric-title">Creation Date</span>
+                                    <span class="metric-value" id="val-created">--</span>
+                                </div>
+                                <div class="metric-tile" style="grid-column: span 2;">
+                                    <span class="metric-title">Last Activity</span>
+                                    <span class="metric-value" id="val-login">--</span>
+                                </div>
+                            </div>
+                            <div class="language-wrapper">
+                                <span class="input-label" style="margin: 0; font-size: 11px;">Preferred Language:</span>
+                                <span class="tag font-mono" id="val-lang">--</span>
+                            </div>
+                        </div>
+
+                        <div class="fluent-card captain-card">
+                            <h3 class="subcard-title">
+                                <img src="icons/Guild%20owner.svg" alt="Captain Icon" style="width:18px; height:18px;">
+                                Guild Captain: <span id="captain-name" class="accent-text" style="font-weight:700;">--</span>
+                            </h3>
+                            <div class="captain-metrics-grid">
+                                <div class="metric-tile">
+                                    <span class="metric-title">Captain Level</span>
+                                    <span class="metric-value" id="capt-val-lvl">--</span>
+                                </div>
+                                <div class="metric-tile">
+                                    <span class="metric-title">Likes Received</span>
+                                    <span class="metric-value" id="capt-val-likes">--</span>
+                                </div>
+                                <div class="metric-tile" style="grid-column: span 2;">
+                                    <span class="metric-title">BR Placement</span>
+                                    <span class="metric-value" id="capt-val-br">--</span>
+                                </div>
+                                <div class="metric-tile" style="grid-column: span 2;">
+                                    <span class="metric-title">CS Placement</span>
+                                    <span class="metric-value" id="capt-val-cs">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-column">
+                        <div class="fluent-card detail-subcard">
+                            <h3 class="subcard-title"><img src="icons/Outfits.svg" alt="Outfit Icon"> Equipped Outfit</h3>
+                            <div class="wardrobe-visualizer">
+                                <div class="wardrobe-grid" id="outfit-slots">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fluent-card board-card" id="br-rank-card">
+                            <div class="board-card-header">
+                                <img src="icons/Rank%20status.svg" alt="BR icon">
+                                <h4>Battle Royale</h4>
+                            </div>
+                            <div class="board-card-body">
+                                <div class="rank-badge-display">
+                                    <img id="br-badge-img" class="rank-badge-img" src="" alt="BR Rank" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                                    <div class="rank-fallback-icon hidden">🏆</div>
+                                </div>
+                                <div class="rank-meta">
+                                    <span class="rank-name" id="br-badge-name">--</span>
+                                    <span class="rank-points" id="br-badge-points">0 points</span>
+                                </div>
+                            </div>
+                            <div class="rank-range-info">
+                                <div class="metrics-comparison-labels">
+                                    <span>Current: <strong id="br-val-current">--</strong></span>
+                                    <span>Peak: <strong id="br-val-max">--</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fluent-card board-card" id="cs-rank-card">
+                            <div class="board-card-header">
+                                <img src="icons/Rank%20status.svg" alt="CS icon">
+                                <h4>Clash Squad</h4>
+                            </div>
+                            <div class="board-card-body">
+                                <div class="rank-badge-display">
+                                    <img id="cs-badge-img" class="rank-badge-img" src="" alt="CS Rank" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                                    <div class="rank-fallback-icon hidden">🏆</div>
+                                </div>
+                                <div class="rank-meta">
+                                    <span class="rank-name" id="cs-badge-name">--</span>
+                                    <span class="rank-points" id="cs-badge-points">0 points</span>
+                                </div>
+                            </div>
+                            <div class="rank-range-info">
+                                <div class="metrics-comparison-labels">
+                                    <span>Stars: <strong id="cs-val-current">--</strong></span>
+                                    <span>Peak: <strong id="cs-val-max">--</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="portal-footer">
+        <div class="footer-bottom">
+            <div class="footer-col brand-col">
+                <div class="brand-group">
+                    <span class="portal-badge">WR</span>
+                    <span class="brand-text">Walker Regedits</span>
+                </div>
+                <p class="text-secondary text-dim font-mono" style="margin-top:10px; max-width:300px; font-size:11px; line-height:1.4;">
+                    Dedicated utility hub for player stats tracking. Real-time data retrieved directly via public API platforms. Unofficial tool.
+                </p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>TOOLS</h4>
+                <a href="lookup.html" class="footer-link">Player Info</a>
+                <a href="docs.html" class="footer-link">API Reference</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>DEVELOPERS & CREDITS</h4>
+                <a href="https://wzservice.vercel.app" class="footer-link" target="_blank">wzservice.vercel.app</a>
+                <a href="https://github.com/DarkForceFREEFIRE" class="footer-link" target="_blank">DarkForceFREEFIRE (GitHub)</a>
+                <a href="https://discord.gg/fjkcdAVdS" class="footer-link" target="_blank">Join Discord Community</a>
+            </div>
+        </div>
+
+        <div class="footer-copyright font-mono text-secondary">
+            <span>&copy; 2026 Walker Regedits - Unofficial Free Fire Utilities</span>
+        </div>
+    </footer>
+
+    <div id="status-toast" class="toast hidden"></div>
+
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/lookup-controller.js"></script>
+</body>
+</html>

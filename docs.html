@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - Walker Regedits</title>
+    <link href="https://cdn.jsdelivr.net/npm/product-sans-webfont@1.0.0/GoogleSans.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dark">
+
+    <header class="app-bar animate-fade-up">
+        <div class="header-inner">
+            <div class="brand-group">
+                <span class="portal-badge">WR</span>
+                <span class="brand-text">Walker Regedits <span class="accent-dim font-mono">UTILITIES</span></span>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="lookup.html" class="nav-link">FF Info</a>
+                <a href="docs.html" class="nav-link active">API Docs</a>
+            </nav>
+
+            <div class="app-bar-actions">
+                <label class="theme-toggle-compact" id="theme-toggle" aria-checked="true" title="Toggle Theme">
+                    <div class="toggle-switch-track">
+                        <div class="toggle-switch-thumb"></div>
+                    </div>
+                    <img src="icons/App%20theme.svg" class="theme-toggle-svg" alt="Theme icon">
+                </label>
+            </div>
+        </div>
+    </header>
+
+    <main class="router-container">
+        <section id="view-docs" class="view-section animate-fade-up">
+            <div class="docs-layout">
+                <div class="docs-sidebar">
+                    <h3 class="docs-sidebar-header">API Navigation</h3>
+                    <ul class="docs-sidebar-links">
+                        <li><a href="#doc-overview" class="doc-side-link active">Overview</a></li>
+                        <li><a href="#doc-get" class="doc-side-link">GET /get (Player Info)</a></li>
+                        <li><a href="#doc-ban" class="doc-side-link">GET /check_ban (Ban Checker)</a></li>
+                        <li><a href="#doc-errors" class="doc-side-link">Error Codes</a></li>
+                    </ul>
+                </div>
+
+                <div class="docs-content">
+                    
+                    <div id="doc-overview" class="docs-card">
+                        <h2>Free Fire Public Information API</h2>
+                        <span class="pill-badge active">v1.0 (Stable)</span>
+                        <p style="margin-top:14px;" class="text-secondary">Welcome to Walker's public API network for Garena Free Fire. This service enables developers to query player states, anti-cheat status, and guild parameters.</p>
+                        
+                        <div class="info-alert-box" style="margin-top:16px;">
+                            <strong>Rate Limiting Policy:</strong> Rate limited to 60 transactions per minute per originating IP addresses to guarantee responsive performance.
+                        </div>
+                        
+                        <h4 style="margin-top:20px; margin-bottom:8px;">Base API URL</h4>
+                        <div class="code-box">
+                            <span class="font-mono select-all">https://wzapiinfo.vercel.app</span>
+                            <button class="fluent-btn mini-copy-btn" data-copy="https://wzapiinfo.vercel.app">Copy</button>
+                        </div>
+                    </div>
+
+                    <div id="doc-get" class="docs-card" style="margin-top:20px;">
+                        <div class="endpoint-header">
+                            <span class="badge method-get">GET</span>
+                            <span class="endpoint-path">/get</span>
+                        </div>
+                        <p class="text-secondary" style="margin-top:8px;">Retrieve detailed game attributes, active inventory equipment, rank thresholds, and clan metadata of the specified target.</p>
+                        
+                        <h4 style="margin-top:16px; margin-bottom:8px;">Required Parameters</h4>
+                        <table class="params-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Data Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code class="font-mono">uid</code></td>
+                                    <td>String</td>
+                                    <td><span class="accent-text">Yes</span></td>
+                                    <td>Numeric client player UID. Example: <code class="font-mono">10597688191</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code class="font-mono">region</code></td>
+                                    <td>String</td>
+                                    <td>No</td>
+                                    <td>Target zone (e.g. <code class="font-mono">SG</code>, <code class="font-mono">BR</code>, <code class="font-mono">IND</code>). Defaults to automated searches.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 style="margin-top:20px; margin-bottom:8px;">Transaction Sample</h4>
+                        <div class="code-box multi-line">
+                            <pre><code class="font-mono select-all">curl -X GET "https://wzapiinfo.vercel.app/get?uid=10597688191"</code></pre>
+                            <button class="fluent-btn mini-copy-btn" data-copy="curl -X GET 'https://wzapiinfo.vercel.app/get?uid=10597688191'">Copy</button>
+                        </div>
+                    </div>
+
+                    <div id="doc-ban" class="docs-card" style="margin-top:20px;">
+                        <div class="endpoint-header">
+                            <span class="badge method-get">GET</span>
+                            <span class="endpoint-path">/check_ban</span>
+                        </div>
+                        <p class="text-secondary" style="margin-top:8px;">Inspect whether the targeted player UID is currently blacklisted or flagged as suspended by Garena anti-cheat systems.</p>
+                        
+                        <h4 style="margin-top:16px; margin-bottom:8px;">Required Parameters</h4>
+                        <table class="params-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Data Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code class="font-mono">uid</code></td>
+                                    <td>String</td>
+                                    <td><span class="accent-text">Yes</span></td>
+                                    <td>Target numeric account UID.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 style="margin-top:20px; margin-bottom:8px;">Transaction Sample</h4>
+                        <div class="code-box multi-line">
+                            <pre><code class="font-mono select-all">curl -X GET "https://wzapiinfo.vercel.app/check_ban?uid=10597688191"</code></pre>
+                            <button class="fluent-btn mini-copy-btn" data-copy="curl -X GET 'https://wzapiinfo.vercel.app/check_ban?uid=10597688191'">Copy</button>
+                        </div>
+                    </div>
+
+                    <div id="doc-errors" class="docs-card" style="margin-top:20px;">
+                        <h2>Error Schemas</h2>
+                        <p class="text-secondary">Expected JSON response patterns returned upon unsuccessful queries.</p>
+                        
+                        <div class="code-box multi-line" style="margin-top:12px;">
+                            <pre><code class="font-mono select-all">{
+  "status": "error",
+  "msg": "T_P_WRONG_ACCOUNT"
+}</code></pre>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="portal-footer">
+        <div class="footer-bottom">
+            <div class="footer-col brand-col">
+                <div class="brand-group">
+                    <span class="portal-badge">WR</span>
+                    <span class="brand-text">Walker Regedits</span>
+                </div>
+                <p class="text-secondary text-dim font-mono" style="margin-top:10px; max-width:300px; font-size:11px; line-height:1.4;">
+                    Dedicated utility hub for player stats tracking. Real-time data retrieved directly via public API platforms. Unofficial tool.
+                </p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>TOOLS</h4>
+                <a href="lookup.html" class="footer-link">Player Info</a>
+                <a href="docs.html" class="footer-link">API Reference</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>DEVELOPERS & CREDITS</h4>
+                <a href="https://wzservice.vercel.app" class="footer-link" target="_blank">wzservice.vercel.app</a>
+                <a href="https://github.com/DarkForceFREEFIRE" class="footer-link" target="_blank">DarkForceFREEFIRE (GitHub)</a>
+                <a href="https://discord.gg/fjkcdAVdS" class="footer-link" target="_blank">Join Discord Community</a>
+            </div>
+        </div>
+
+        <div class="footer-copyright font-mono text-secondary">
+            <span>&copy; 2026 Walker Regedits - Unofficial Free Fire Utilities</span>
+        </div>
+    </footer>
+
+    <div id="status-toast" class="toast hidden"></div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
