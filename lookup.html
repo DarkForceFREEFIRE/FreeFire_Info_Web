@@ -59,7 +59,7 @@
                     <div class="visualizer-container">
                         <div class="placeholder-text">
                             <img src="icons/Cloud%20Search.svg" alt="Search network" style="width: 48px; height: 48px; opacity: 0.35; margin-bottom: 16px;">
-                            <p>Provide a Free Fire player UID on the options panel to retrieve and visual profile metrics.</p>
+                            <p>Provide a Free Fire player UID on the options panel to retrieve and visualize profile metrics.</p>
                         </div>
                     </div>
                 </div>
@@ -75,6 +75,7 @@
                     
                     <div class="dashboard-column">
                         <div class="fluent-card banner-hero">
+                            <img id="hero-pin-badge" class="hero-pin-img hidden" alt="Pin Badge">
                             <div class="banner-hero-content">
                                 <div class="avatar-container">
                                     <img id="hero-avatar" class="avatar-img" src="" alt="Player Avatar" onerror="this.src='https://raw.githubusercontent.com/ashqking/FF-Items/refs/heads/main/ICONS/101000018.png'">
@@ -83,10 +84,7 @@
                                 <div class="banner-hero-meta">
                                     <div class="banner-hero-header">
                                         <h2 id="hero-nickname" class="nickname-display">--</h2>
-                                        <div class="ban-badge-wrapper">
-                                            <img id="hero-ban-icon" src="icons/NotBanned.svg" alt="Ban status icon" class="ban-icon active">
-                                            <span id="hero-ban-badge" class="ban-status-badge">Active</span>
-                                        </div>
+                                        <span id="hero-vip-badge" class="ban-status-badge active hidden" style="font-size: 9px; padding: 2px 8px; margin-left: 8px;">PRIME</span>
                                     </div>
                                     <div class="tags-row">
                                         <div class="tag copyable-uid" id="copy-uid-trigger" title="Click to copy UID">
@@ -95,8 +93,17 @@
                                         </div>
                                         <span class="tag" id="hero-region">--</span>
                                         <span class="tag secondary" id="hero-version">--</span>
+                                        <div class="tag" id="hero-device" style="display: inline-flex; align-items: center; gap: 4px;">
+                                            <img id="hero-device-icon" src="icons/Mobile.svg" class="inline-copy-icon" alt="Device Icon" style="width: 12px; height: 12px;">
+                                            <span id="hero-device-text">Mobile</span>
+                                        </div>
+                                    </div>
+                                    <div class="ban-badge-wrapper">
+                                        <img id="hero-ban-icon" src="icons/NotBanned.svg" alt="Ban status icon" class="ban-icon active">
+                                        <span id="hero-ban-badge" class="ban-status-badge">Active</span>
                                     </div>
                                     <p id="hero-signature" class="signature-quote">"--"</p>
+                                
                                 </div>
                             </div>
                         </div>
@@ -113,6 +120,11 @@
                                     <span id="guild-id-val" class="font-mono">--</span>
                                     <img src="icons/Copy.svg" class="guild-copy-btn" alt="Copy icon">
                                 </div>
+                                <div class="guild-info-id-strip" id="guild-leader-strip" style="margin-top: 6px;">
+                                    <span class="text-secondary">LEADER UID</span>
+                                    <span id="guild-leader-val" class="font-mono">--</span>
+                                    <img src="icons/Copy.svg" class="guild-copy-btn" id="guild-leader-copy" alt="Copy icon">
+                                </div>
                                 <div class="guild-metrics-row">
                                     <div>
                                         <span class="badge-label text-secondary">GUILD LV.</span>
@@ -126,34 +138,43 @@
                             </div>
                         </div>
 
-                        <div class="fluent-card board-card">
-                            <div class="board-card-header">
-                                <img src="icons/Creditscore.svg" alt="Honor standing logo">
-                                <h4>Honor Score</h4>
+                        <div class="fluent-card detail-subcard" id="team-roles-card">
+                            <h3 class="subcard-title">
+                                <img src="icons/Trophy-star.svg" alt="Roles Icon"> Active Playstyle Roles
+                            </h3>
+                            <div id="team-roles-container" style="display: flex; flex-direction: column; gap: 8px;">
+                                <p class="text-secondary" style="font-size: 11px; text-align: center; padding: 8px 0;">No roles mapped.</p>
                             </div>
-                            <div class="board-card-body">
-                                <div class="credit-display">
-                                    <span id="val-credit-score" class="huge-metric-val">100</span>
-                                    <div class="fluent-progress-track">
-                                        <div id="credit-progress-fill" class="fluent-progress-fill" style="width: 100%;"></div>
-                                    </div>
-                                    <span class="text-secondary" style="font-size: 11px; text-align: center; margin-bottom: 14px;" id="credit-status-text">Perfect Honor Integrity</span>
-                                    
-                                    <div class="honor-permissions">
-                                        <div class="perm-header">MODE ELIGIBILITY</div>
-                                        <div class="permission-item" id="perm-br">
-                                            <span class="perm-status-dot"></span>
-                                            <span class="perm-text">BR Ranked Match</span>
-                                        </div>
-                                        <div class="permission-item" id="perm-cs">
-                                            <span class="perm-status-dot"></span>
-                                            <span class="perm-text">CS Ranked Match</span>
-                                        </div>
-                                        <div class="permission-item" id="perm-casual">
-                                            <span class="perm-status-dot"></span>
-                                            <span class="perm-text">Casual Matchmaking</span>
-                                        </div>
-                                    </div>
+                        </div>
+
+                        <div class="fluent-card captain-card">
+                            <h3 class="subcard-title" style="margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="icons/Guild%20owner.svg" alt="Captain Icon" style="width:18px; height:18px;">
+                                    Guild Captain: <span id="captain-name" class="accent-text" style="font-weight:700;">--</span>
+                                </div>
+                                <span id="captain-vip-badge" class="ban-status-badge active hidden" style="font-size: 9px; padding: 1px 6px;">VIP</span>
+                            </h3>
+                            <div id="captain-role-indicator" class="tag hidden" style="margin-bottom: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 11px;">
+                                <img id="captain-role-icon" src="" alt="Role" class="inline-copy-icon" style="width: 12px; height: 12px;">
+                                <span>Preferred Role: <strong id="captain-role-text">--</strong></span>
+                            </div>
+                            <div class="captain-metrics-grid">
+                                <div class="metric-tile">
+                                    <span class="metric-title">Captain Level</span>
+                                    <span class="metric-value" id="capt-val-lvl">--</span>
+                                </div>
+                                <div class="metric-tile">
+                                    <span class="metric-title">Likes Received</span>
+                                    <span class="metric-value" id="capt-val-likes">--</span>
+                                </div>
+                                <div class="metric-tile" style="grid-column: span 2;">
+                                    <span class="metric-title">BR Placement</span>
+                                    <span class="metric-value" id="capt-val-br">--</span>
+                                </div>
+                                <div class="metric-tile" style="grid-column: span 2;">
+                                    <span class="metric-title">CS Placement</span>
+                                    <span class="metric-value" id="capt-val-cs">--</span>
                                 </div>
                             </div>
                         </div>
@@ -194,38 +215,97 @@
                             </div>
                         </div>
 
-                        <div class="fluent-card captain-card">
-                            <h3 class="subcard-title">
-                                <img src="icons/Guild%20owner.svg" alt="Captain Icon" style="width:18px; height:18px;">
-                                Guild Captain: <span id="captain-name" class="accent-text" style="font-weight:700;">--</span>
-                            </h3>
-                            <div class="captain-metrics-grid">
-                                <div class="metric-tile">
-                                    <span class="metric-title">Captain Level</span>
-                                    <span class="metric-value" id="capt-val-lvl">--</span>
+                        <div class="fluent-card board-card honor-score-glowing-card">
+                            <div class="board-card-header">
+                                <img src="icons/Creditscore.svg" alt="Honor standing logo">
+                                <h4>Honor Score</h4>
+                            </div>
+                            <div class="board-card-body honor-score-layout">
+                                <div class="honor-score-row">
+                                    <div class="progress-ring-container">
+                                        <svg class="progress-ring" width="130" height="130">
+                                            <circle class="progress-ring-circle-bg" stroke="var(--control-stroke)" stroke-width="8" fill="transparent" r="50" cx="65" cy="65"/>
+                                            <circle id="credit-progress-ring-fill" class="progress-ring-circle-fill" stroke="var(--text-success)" stroke-width="8" fill="transparent" r="50" cx="65" cy="65" stroke-dasharray="314.16" stroke-dashoffset="0"/>
+                                        </svg>
+                                        <div class="progress-ring-inner-text">
+                                            <span id="val-credit-score" class="huge-metric-val">100</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="honor-simple-eligibility">
+                                        <div class="simple-perm-item" id="perm-br">
+                                            <span class="perm-status-dot"></span>
+                                            <span class="perm-text">BR Ranked matchmaking</span>
+                                        </div>
+                                        <div class="simple-perm-item" id="perm-cs">
+                                            <span class="perm-status-dot"></span>
+                                            <span class="perm-text">CS Ranked matchmaking</span>
+                                        </div>
+                                        <div class="simple-perm-item" id="perm-casual">
+                                            <span class="perm-status-dot"></span>
+                                            <span class="perm-text">Casual matchmaking</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="metric-tile">
-                                    <span class="metric-title">Likes Received</span>
-                                    <span class="metric-value" id="capt-val-likes">--</span>
-                                </div>
-                                <div class="metric-tile" style="grid-column: span 2;">
-                                    <span class="metric-title">BR Placement</span>
-                                    <span class="metric-value" id="capt-val-br">--</span>
-                                </div>
-                                <div class="metric-tile" style="grid-column: span 2;">
-                                    <span class="metric-title">CS Placement</span>
-                                    <span class="metric-value" id="capt-val-cs">--</span>
+
+                                <div class="honor-footer-text">
+                                    Based on player’s ingame behaviours, <span id="credit-eligibility-dynamic">the player has the eligibility to play the above match modes</span>.
                                 </div>
                             </div>
                         </div>
+
+                        <div class="fluent-card detail-subcard" id="profile-title-card" style="display: none;">
+                            <h3 class="subcard-title">
+                                <img src="icons/Trophy-star.svg" alt="Title Icon"> Equipped Profile Title
+                            </h3>
+                            <div id="player-title-box" class="title-glow-box">
+                                <div class="title-main-row">
+                                    <span id="player-title-name" class="title-badge-name">--</span>
+                                </div>
+                                <p id="player-title-desc" class="title-badge-desc">--</p>
+                            </div>
+                        </div>
+
+                        <div class="fluent-card board-card" id="pet-showcase-card">
+                            <div class="board-card-header">
+                                <img src="icons/Heart.svg" alt="Heart Icon">
+                                <h4>Pet Companion</h4>
+                            </div>
+                            <div class="board-card-body" style="gap: 16px;">
+                                <div class="pet-badge-display" style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; border-radius:50%; background: var(--control-fill); flex-shrink: 0;">
+                                    <img id="pet-img" style="max-width:100%; max-height:100%; object-fit:contain;" src="" onerror="this.style.display='none';">
+                                    <div class="wardrobe-slot-tooltip" id="pet-tooltip">
+                                        <div class="tooltip-name">No Pet Info</div>
+                                        <div class="tooltip-id">ID: --</div>
+                                    </div>
+                                </div>
+                                <div class="pet-meta" style="display:flex; flex-direction:column; gap:2px;">
+                                    <span class="pet-name" id="pet-name" style="font-weight:700; font-size:14px;">No Pet Equipped</span>
+                                    <span class="pet-info-text" id="pet-info-text" style="font-size:11px; color: var(--text-secondary);">--</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        
                     </div>
 
                     <div class="dashboard-column">
                         <div class="fluent-card detail-subcard">
                             <h3 class="subcard-title"><img src="icons/Outfits.svg" alt="Outfit Icon"> Equipped Outfit</h3>
-                            <div class="wardrobe-visualizer">
-                                <div class="wardrobe-grid" id="outfit-slots">
-                                </div>
+                            <div class="wardrobe-visualizer" style="min-height: 180px;">
+                                <div class="wardrobe-grid" id="outfit-slots"></div>
+                            </div>
+                            <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--card-border);">
+                                <h4 class="subcard-title" style="border-bottom: none; font-size: 11px; margin-bottom: 8px; padding-bottom: 0;">
+                                    <img src="icons/Verified%20user.svg" alt="Skills Icon" style="width: 14px; height: 14px;"> Equipped Skills
+                                </h4>
+                                <div id="character-skills-slots" style="display: flex; gap: 10px; justify-content: center; width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="fluent-card detail-subcard" id="weapon-showcase-card">
+                            <h3 class="subcard-title"><img src="icons/Weapon.svg" alt="Weapon Icon"> Showcased Weapons</h3>
+                            <div id="weapon-slots" class="weapon-list-layout" style="width: 100%; display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
                             </div>
                         </div>
 
