@@ -18,7 +18,8 @@
             
             <nav class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="lookup.html" class="nav-link active">FF Info</a>
+                <a href="lookup.html" class="nav-link">FF Info</a>
+                <a href="token.html" class="nav-link">Token Gen</a>
                 <a href="docs.html" class="nav-link">API Docs</a>
             </nav>
 
@@ -397,5 +398,27 @@
 
     <script type="module" src="js/app.js"></script>
     <script type="module" src="js/lookup-controller.js"></script>
+    <script>
+    // Automatically synchronizes dynamic rank image URLs into CSS variables
+    const badgeObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.attributeName === 'src') {
+                const img = mutation.target;
+                const parent = img.parentElement;
+                if (parent && img.src) {
+                    parent.style.setProperty('--badge-url', `url("${img.src}")`);
+                }
+            }
+        });
+    });
+
+    document.querySelectorAll('.rank-badge-img').forEach((img) => {
+        badgeObserver.observe(img, { attributes: true });
+        if (img.src) {
+            img.parentElement.style.setProperty('--badge-url', `url("${img.src}")`);
+        }
+    });
+</script>
 </body>
 </html>
+

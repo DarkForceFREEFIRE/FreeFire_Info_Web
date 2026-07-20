@@ -3,6 +3,7 @@ import { RankMapper } from './mapper.js';
 
 let itemsLibrary = new Map();
 let currentProfileData = null;
+// Example placement in your profile display logic
 
 document.addEventListener("DOMContentLoaded", () => {
     const api = new FreeFireAPI();
@@ -71,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const captValLikes = document.getElementById("capt-val-likes");
     const captValBr = document.getElementById("capt-val-br");
     const captValCs = document.getElementById("capt-val-cs");
+
 
     async function loadItemLibrary() {
         if (window.location.protocol === 'file:') {
@@ -238,14 +240,21 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
 
+        // REPLACE THAT SECTION IN renderDashboard WITH THIS:
         const heroVipBadge = document.getElementById("hero-vip-badge");
         if (heroVipBadge) {
             const basicPrime = basic.primePrivilegeDetail || {};
             if (basicPrime.primeLevel) {
                 heroVipBadge.innerText = `PRIME LVL ${basicPrime.primeLevel}`;
                 heroVipBadge.classList.remove("hidden");
+                
+                // Add the golden shining effect class to the nickname
+                heroNickname.classList.add("prime-user");
             } else {
                 heroVipBadge.classList.add("hidden");
+                
+                // Remove the golden shining effect class
+                heroNickname.classList.remove("prime-user");
             }
         }
 

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Generator - Walker Regedits</title>
+    <link href="https://cdn.jsdelivr.net/npm/product-sans-webfont@1.0.0/GoogleSans.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .token-split-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+            align-items: start;
+        }
+        .tutorial-img {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--card-border);
+            margin-top: 14px;
+            display: block;
+        }
+        .step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 14px;
+        }
+        .step-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .step-badge {
+            background: var(--accent);
+            color: var(--accent-text);
+            font-family: monospace;
+            font-weight: 700;
+            font-size: 12px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .step-text {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        @media (max-width: 900px) {
+            .token-split-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <header class="app-bar animate-fade-up">
+        <div class="header-inner">
+            <div class="brand-group">
+                <span class="portal-badge">WR</span>
+                <span class="brand-text">Walker Regedits <span class="accent-dim font-mono">UTILITIES</span></span>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="lookup.html" class="nav-link">FF Info</a>
+                <a href="token.html" class="nav-link active">Token Gen</a>
+                <a href="docs.html" class="nav-link">API Docs</a>
+            </nav>
+            <div class="app-bar-actions">
+                <label class="theme-toggle-compact" id="theme-toggle" aria-checked="true" title="Toggle Theme">
+                    <div class="toggle-switch-track">
+                        <div class="toggle-switch-thumb"></div>
+                    </div>
+                    <img src="icons/App%20theme.svg" class="theme-toggle-svg" alt="Theme icon">
+                </label>
+            </div>
+        </div>
+    </header>
+    <main class="router-container">
+        <section id="view-token-gen" class="view-section animate-fade-up">
+            <div class="app-content">
+                <div class="token-split-layout">
+                    <div class="dashboard-column">
+                        <div class="fluent-card">
+                            <h3 class="subcard-title">
+                                <img src="icons/Verified%20user.svg" alt="Key icon"> Access Token Generator
+                            </h3>
+                            <p class="text-secondary" style="font-size: 13px; margin-bottom: 20px; line-height: 1.5;">
+                                Input your active Free Fire OTP below to exchange it for a temporary OpenID and Access Token payload.
+                            </p>
+                            <div class="command-group" style="margin-bottom: 16px;">
+                                <label class="compact-label" for="otp-input-field">One-Time Password (OTP)</label>
+                                <div class="search-box">
+                                    <input type="text" id="otp-input-field" class="fluent-input" style="padding-left: 14px;" placeholder="Enter game OTP (e.g., 123456)">
+                                </div>
+                            </div>
+                            <button id="generate-btn" class="fluent-btn primary" style="width: 100%;">
+                                Exchange OTP for Token
+                            </button>
+                            <div id="loader" class="loader-content hidden" style="margin-top: 24px;">
+                                <div class="spinner-win11"></div>
+                                <p class="text-secondary" style="font-size: 12px;">Querying token generation endpoint...</p>
+                            </div>
+                            <div id="token-output-block" class="hidden" style="margin-top: 24px; border-top: 1px solid var(--card-border); padding-top: 20px;">
+                                <h4 class="compact-label" style="margin-bottom: 10px; color: var(--text-success);">Success Payload</h4>
+                                <div class="command-group" style="margin-bottom: 14px;">
+                                    <label class="compact-label">OpenID</label>
+                                    <div class="code-box">
+                                        <code id="output-openid" class="font-mono">--</code>
+                                        <button class="fluent-btn mini-copy-btn" id="copy-openid-btn">Copy</button>
+                                    </div>
+                                </div>
+                                <div class="command-group">
+                                    <label class="compact-label">Access Token</label>
+                                    <div class="code-box multi-line">
+                                        <pre><code id="output-token" class="font-mono" style="word-break: break-all; white-space: pre-wrap;">--</code></pre>
+                                        <button class="fluent-btn mini-copy-btn" id="copy-token-btn">Copy Token</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-column">
+                        <div class="fluent-card">
+                            <h3 class="subcard-title">
+                                <img src="icons/Cloud%20search.svg" alt="Info icon"> How to get the OTP?
+                            </h3>
+                            <p class="text-secondary" style="font-size: 13px; line-height: 1.5;">
+                                Follow the instructions below to enable local client debug configs and capture the game session token identifier.
+                            </p>
+                            <div class="step-list">
+                                <div class="step-item">
+                                    <div class="step-badge">1</div>
+                                    <div class="step-text">
+                                        <strong>Download Configuration:</strong><br>
+                                        Obtain the custom configuration file 
+                                        <a href="https://github.com/DarkForceFREEFIRE/FreeFire_Info_Web/blob/main/localconfig.json" target="_blank" class="accent-text" style="text-decoration: underline;">localconfig.json</a>.
+                                    </div>
+                                </div>
+                                <div class="step-item">
+                                    <div class="step-badge">2</div>
+                                    <div class="step-text">
+                                        <strong>Move File to Android Storage:</strong><br>
+                                        Open your file explorer application and copy the downloaded file into your target path:<br>
+                                        <code class="font-mono" style="display: inline-block; background: var(--control-fill); padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-top: 4px; word-break: break-all;">
+                                            Android\data\com.dts.freefireth\files
+                                        </code> 
+                                        <span class="text-secondary" style="font-size: 11px;">or</span> 
+                                        <code class="font-mono" style="display: inline-block; background: var(--control-fill); padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-top: 4px; word-break: break-all;">
+                                            Android\data\com.dts.freefiremax\files
+                                        </code>
+                                    </div>
+                                </div>
+                                <div class="step-item">
+                                    <div class="step-badge">3</div>
+                                    <div class="step-text">
+                                        <strong>Launch Free Fire:</strong><br>
+                                        Open Garena Free Fire on your emulator or mobile device normally.
+                                    </div>
+                                </div>
+                                <div class="step-item">
+                                    <div class="step-badge">4</div>
+                                    <div class="step-text">
+                                        <strong>Record OTP:</strong><br>
+                                        On the main loading/login portal screen, inspect the newly generated numerical debug code shown directly in-game:
+                                        <img src="./assets/otp_screenshot.png" class="tutorial-img" alt="OTP Login Screen Demonstration">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="portal-footer">
+        <div class="footer-bottom">
+            <div class="footer-col brand-col">
+                <div class="brand-group">
+                    <span class="portal-badge">WR</span>
+                    <span class="brand-text">Walker Regedits</span>
+                </div>
+                <p class="text-secondary text-dim font-mono" style="margin-top:10px; max-width:300px; font-size:11px; line-height:1.4;">
+                    Dedicated utility hub for player stats tracking. Real-time data retrieved directly via public API platforms. Unofficial tool.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>TOOLS</h4>
+                <a href="lookup.html" class="footer-link">Player Info</a>
+                <a href="token.html" class="footer-link">Token Gen</a>
+                <a href="docs.html" class="footer-link">API Reference</a>
+            </div>
+            <div class="footer-col">
+                <h4>DEVELOPERS & CREDITS</h4>
+                <a href="https://wzservice.vercel.app" class="footer-link" target="_blank">wzservice.vercel.app</a>
+                <a href="https://github.com/DarkForceFREEFIRE" class="footer-link" target="_blank">DarkForceFREEFIRE (GitHub)</a>
+                <a href="https://discord.gg/fjkcdAVdS" class="footer-link" target="_blank">Join Discord Community</a>
+            </div>
+        </div>
+        <div class="footer-copyright font-mono text-secondary">
+            <span>&copy; 2026 Walker Regedits - Unofficial Free Fire Utilities</span>
+        </div>
+    </footer>
+    <div id="status-toast" class="toast hidden"></div>
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/token-controller.js"></script>
+</body>
+</html>

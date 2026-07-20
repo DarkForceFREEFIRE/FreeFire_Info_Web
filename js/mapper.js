@@ -60,7 +60,12 @@ export const RankMapper = {
         
         if (stars <= 99) return { name: "Master", file: "M.png" };
         if (stars <= 199) return { name: "Elite Master", file: "EM.png" };
-        return { name: "Grandmaster", file: "CSGM3.png" };
+        if (stars <= 299) return { name: "Grandmaster I", file: "CSGM1.png" };
+        if (stars <= 399) return { name: "Grandmaster II", file: "CSGM2.png" };
+        if (stars <= 499) return { name: "Grandmaster III", file: "CSGM3.png" };
+        if (stars <= 699) return { name: "Grandmaster IV", file: "CSGM4.png" };
+        if (stars <= 799) return { name: "Grandmaster V", file: "CSGM5.png" };
+        return { name: "Grandmaster VI", file: "CSGM6.png" };
     },
     /**
      * @param {number|string} id 
