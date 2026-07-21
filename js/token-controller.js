@@ -110,7 +110,9 @@ async function handleJwtConversion() {
 
     try {
         const url = `https://wzjwt.vercel.app/api/process?mode=access_token&data=${encodeURIComponent(accessToken)}`;
-        const response = await fetch(url);
+        
+        // Added mode: 'cors' explicitly for cross-origin fetches
+        const response = await fetch(url, { method: 'GET', mode: 'cors' });
 
         if (!response.ok) {
             let errorMsg = `Server error (${response.status})`;
@@ -118,7 +120,7 @@ async function handleJwtConversion() {
                 const errorData = await response.json();
                 errorMsg = errorData.message || errorData.msg || errorMsg;
             } catch (_) {
-                // Non-JSON response
+                // Keep default status message if body isn't JSON
             }
             showToast(errorMsg);
             return;
@@ -126,12 +128,9 @@ async function handleJwtConversion() {
 
         const payload = await response.json();
 
-        // Check for success status or direct presence of the jwt property
         if (payload && (payload.status === 'success' || payload.jwt)) {
-            // Handle both open_id and openid keys safely
-            const openIdValue = payload.open_id || payload.openid || '--';
-            
-            if (jwtOpenid) jwtOpenid.textContent = openIdValue;
+            // Handle both field variations (open_id or openid)
+            if (jwtOpenid) jwtOpenid.textContent = payload.open_id || payload.openid || '--';
             if (jwtOutput) jwtOutput.textContent = payload.jwt || '--';
             if (jwtOutputBlock) jwtOutputBlock.classList.remove('hidden');
 
@@ -140,12 +139,14 @@ async function handleJwtConversion() {
             showToast(payload.message || payload.msg || 'The server rejected the access token payload.');
         }
     } catch (err) {
-        console.error(err);
-        showToast('Failed to connect to the JWT service.');
+        // Detailed console logging to debug exact fetch failure cause
+        console.error('Fetch error context:', err);
+        showToast('Failed to connect to the JWT service. Check CORS or network settings.');
     } finally {
         if (jwtLoader) jwtLoader.classList.add('hidden');
     }
 }
+
 // Global Event Listener (Handles dynamic routing and module loading race conditions)
 document.addEventListener('click', (event) => {
     const target = event.target.closest('button, a');
