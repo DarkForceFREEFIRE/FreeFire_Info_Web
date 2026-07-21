@@ -116,9 +116,9 @@ async function handleJwtConversion() {
             let errorMsg = `Server error (${response.status})`;
             try {
                 const errorData = await response.json();
-                errorMsg = errorData.message || errorMsg;
+                errorMsg = errorData.message || errorData.msg || errorMsg;
             } catch (_) {
-                // If response is not JSON, retain standard status message
+                // Non-JSON response
             }
             showToast(errorMsg);
             return;
@@ -126,13 +126,18 @@ async function handleJwtConversion() {
 
         const payload = await response.json();
 
-        if (payload && payload.status === 'success') {
-            if (jwtOpenid) jwtOpenid.textContent = payload.open_id || '--';
+        // Check for success status or direct presence of the jwt property
+        if (payload && (payload.status === 'success' || payload.jwt)) {
+            // Handle both open_id and openid keys safely
+            const openIdValue = payload.open_id || payload.openid || '--';
+            
+            if (jwtOpenid) jwtOpenid.textContent = openIdValue;
             if (jwtOutput) jwtOutput.textContent = payload.jwt || '--';
             if (jwtOutputBlock) jwtOutputBlock.classList.remove('hidden');
+
             showToast('JWT processed successfully!');
         } else {
-            showToast(payload.message || 'The server rejected the access token payload.');
+            showToast(payload.message || payload.msg || 'The server rejected the access token payload.');
         }
     } catch (err) {
         console.error(err);
@@ -141,7 +146,6 @@ async function handleJwtConversion() {
         if (jwtLoader) jwtLoader.classList.add('hidden');
     }
 }
-
 // Global Event Listener (Handles dynamic routing and module loading race conditions)
 document.addEventListener('click', (event) => {
     const target = event.target.closest('button, a');
