@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tokenOutputBlock.classList.add('hidden');
 
             try {
-                const response = await fetch(`https://wzapiinfo.vercel.app/get_token?otp=${encodeURIComponent(otpValue)}`);
+                const response = await fetch(`https://wzaccesstoken.vercel.app/get_token?otp=${encodeURIComponent(otpValue)}`);
                 const payload = await response.json();
 
                 if (payload && payload.access_token) {
