@@ -40,11 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
             outputBlock.classList.add('hidden');
 
             try {
-                let url = `https://wzlongsign.vercel.app/updatebio?token=${encodeURIComponent(token)}&bio=${encodeURIComponent(bioText)}`;
+                let url = `/api/update-bio?token=${encodeURIComponent(token)}&bio=${encodeURIComponent(bioText)}`;
                 if (region) {
                     url += `&region=${encodeURIComponent(region)}`;
                 }
-
+                
                 const response = await fetch(url);
                 const data = await response.json();
 
