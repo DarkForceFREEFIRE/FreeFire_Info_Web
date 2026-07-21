@@ -109,27 +109,21 @@ async function handleJwtConversion() {
     if (jwtOutputBlock) jwtOutputBlock.classList.add('hidden');
 
     try {
-        const url = `https://wzjwt.vercel.app/api/process?mode=access_token&data=${encodeURIComponent(accessToken)}`;
+        const targetUrl = `https://wzjwt.vercel.app/api/process?mode=access_token&data=${encodeURIComponent(accessToken)}`;
         
-        // Added mode: 'cors' explicitly for cross-origin fetches
-        const response = await fetch(url, { method: 'GET', mode: 'cors' });
+        // Using corsproxy.io to bypass browser CORS origin restrictions
+        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+        
+        const response = await fetch(proxyUrl);
 
         if (!response.ok) {
-            let errorMsg = `Server error (${response.status})`;
-            try {
-                const errorData = await response.json();
-                errorMsg = errorData.message || errorData.msg || errorMsg;
-            } catch (_) {
-                // Keep default status message if body isn't JSON
-            }
-            showToast(errorMsg);
+            showToast(`Server error (${response.status})`);
             return;
         }
 
         const payload = await response.json();
 
         if (payload && (payload.status === 'success' || payload.jwt)) {
-            // Handle both field variations (open_id or openid)
             if (jwtOpenid) jwtOpenid.textContent = payload.open_id || payload.openid || '--';
             if (jwtOutput) jwtOutput.textContent = payload.jwt || '--';
             if (jwtOutputBlock) jwtOutputBlock.classList.remove('hidden');
@@ -139,9 +133,8 @@ async function handleJwtConversion() {
             showToast(payload.message || payload.msg || 'The server rejected the access token payload.');
         }
     } catch (err) {
-        // Detailed console logging to debug exact fetch failure cause
-        console.error('Fetch error context:', err);
-        showToast('Failed to connect to the JWT service. Check CORS or network settings.');
+        console.error('Conversion failed:', err);
+        showToast('Failed to connect to the JWT service.');
     } finally {
         if (jwtLoader) jwtLoader.classList.add('hidden');
     }
