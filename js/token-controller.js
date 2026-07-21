@@ -109,12 +109,8 @@ async function handleJwtConversion() {
     if (jwtOutputBlock) jwtOutputBlock.classList.add('hidden');
 
     try {
-        const targetUrl = `https://wzjwt.vercel.app/api/process?mode=access_token&data=${encodeURIComponent(accessToken)}`;
-        
-        // Using corsproxy.io to bypass browser CORS origin restrictions
-        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
-        
-        const response = await fetch(proxyUrl);
+        // Call your own local serverless proxy instead of wzjwt.vercel.app directly
+        const response = await fetch(`/api/jwt?token=${encodeURIComponent(accessToken)}`);
 
         if (!response.ok) {
             showToast(`Server error (${response.status})`);
@@ -133,7 +129,7 @@ async function handleJwtConversion() {
             showToast(payload.message || payload.msg || 'The server rejected the access token payload.');
         }
     } catch (err) {
-        console.error('Conversion failed:', err);
+        console.error(err);
         showToast('Failed to connect to the JWT service.');
     } finally {
         if (jwtLoader) jwtLoader.classList.add('hidden');
