@@ -15,11 +15,12 @@
                 <span class="portal-badge">WR</span>
                 <span class="brand-text">Walker Regedits <span class="accent-dim font-mono">UTILITIES</span></span>
             </div>
-            
+
             <nav class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="lookup.html" class="nav-link">FF Info</a>
                 <a href="token.html" class="nav-link">Token Gen</a>
+                <a href="signature.html" class="nav-link">Signature</a>
                 <a href="docs.html" class="nav-link">API Docs</a>
             </nav>
 
@@ -28,7 +29,6 @@
                     <div class="toggle-switch-track">
                         <div class="toggle-switch-thumb"></div>
                     </div>
-                    <img src="icons/App%20theme.svg" class="theme-toggle-svg" alt="Theme icon">
                 </label>
             </div>
         </div>
@@ -37,7 +37,7 @@
     <main class="router-container">
         <section id="view-lookup" class="view-section animate-fade-up">
             <div class="app-content">
-                
+
                 <div class="search-command-deck">
                     <div class="command-group">
                         <label class="compact-label" for="uid-input-field">Player UID</label>
@@ -47,7 +47,7 @@
                         </div>
                         <span id="uid-error-field" class="error-text hidden">Enter a valid numeric UID</span>
                     </div>
-                    
+
                     <input type="hidden" id="api-source-field" value="api">
 
                     <button id="search-btn-field" class="fluent-btn primary query-submit-btn">
@@ -73,7 +73,7 @@
                 </div>
 
                 <div id="results-workspace" class="dashboard-unified-layout hidden">
-                    
+
                     <div class="dashboard-column">
                         <div class="fluent-card banner-hero">
                             <img id="hero-pin-badge" class="hero-pin-img hidden" alt="Pin Badge">
@@ -104,7 +104,7 @@
                                         <span id="hero-ban-badge" class="ban-status-badge">Active</span>
                                     </div>
                                     <p id="hero-signature" class="signature-quote">"--"</p>
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -287,7 +287,6 @@
                             </div>
                         </div>
 
-                        
                     </div>
 
                     <div class="dashboard-column">
@@ -374,7 +373,7 @@
                     Dedicated utility hub for player stats tracking. Real-time data retrieved directly via public API platforms. Unofficial tool.
                 </p>
             </div>
-            
+
             <div class="footer-col">
                 <h4>TOOLS</h4>
                 <a href="lookup.html" class="footer-link">Player Info</a>
@@ -399,7 +398,7 @@
     <script type="module" src="js/app.js"></script>
     <script type="module" src="js/lookup-controller.js"></script>
     <script>
-    // Automatically synchronizes dynamic rank image URLs into CSS variables
+
     const badgeObserver = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
             if (mutation.attributeName === 'src') {
@@ -421,4 +420,3 @@
 </script>
 </body>
 </html>
-

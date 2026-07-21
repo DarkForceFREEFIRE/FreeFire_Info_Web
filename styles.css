@@ -1806,6 +1806,99 @@ h4 {
 .rank-badge-display.glow-badge-grandmaster {
     animation: gm-lavender-fire 2.2s ease-in-out infinite !important;
 }
+
+.docs-code-container {
+    background-color: #0d1117 !important; 
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin: 16px 0 24px 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.docs-code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #161b22; 
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.docs-code-lang {
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: lowercase;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+}
+
+.docs-code-copy-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--duration-fast);
+}
+
+.docs-code-copy-btn:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.docs-code-copy-icon {
+    width: 14px;
+    height: 14px;
+    filter: var(--svg-filter); 
+    opacity: 0.75;
+    transition: opacity var(--duration-fast);
+}
+
+.docs-code-copy-btn:hover .docs-code-copy-icon {
+    opacity: 1;
+}
+
+.docs-code-content {
+    padding: 16px;
+    margin: 0;
+    overflow-x: auto;
+}
+
+.docs-code-content code {
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.55;
+    white-space: pre;
+    color: #e2e8f0; 
+}
+
+.code-keyword { color: #ff7b72 !important; font-weight: 600; }  
+.code-cmd { color: #79c0ff !important; font-weight: 600; }      
+.code-param { color: #ffab70 !important; }                       
+.code-string { color: #a5d6ff !important; }                      
+.code-variable { color: #ffa657 !important; }                    
+.code-comment { color: #8b949e !important; font-style: italic; } 
+.code-punctuation { color: #c9d1d9 !important; }                 
+
+.docs-code-copy-btn img {
+    transition: transform var(--duration-fast) var(--easing), filter var(--duration-fast) var(--easing);
+}
+
+.docs-code-copy-btn.copied {
+    background-color: rgba(16, 185, 129, 0.12) !important; 
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+.docs-code-copy-btn.copied img {
+
+    filter: invert(64%) sepia(85%) saturate(347%) hue-rotate(107deg) brightness(97%) contrast(93%) !important;
+    transform: scale(1.15); 
+}
+
 @keyframes rank-png-sweep-masked {
     0% {
         background-position: 150% 0;
@@ -1877,56 +1970,116 @@ h4 {
         justify-content: center;
     }
 }
+
 @media (max-width: 768px) {
-    h1 {
-        font-size: 38px;
+    .header-inner {
+        display: grid !important;
+        grid-template-columns: 1fr auto !important;
+        grid-template-areas: 
+            "brand actions"
+            "nav nav" !important;
+        gap: 10px 16px !important;
+        padding: 12px 16px !important;
+        flex-direction: row !important; 
     }
-    .search-command-deck {
-        grid-template-columns: 1fr;
+
+    .brand-group {
+        grid-area: brand;
+        align-self: center;
     }
-    .dashboard-unified-layout {
-        grid-template-columns: 1fr;
+
+    .app-bar-actions {
+        grid-area: actions;
+        width: auto !important;
+        justify-content: flex-end !important;
+        align-self: center;
     }
-    .portal-stats-row {
-        grid-template-columns: repeat(2, 1fr);
+
+    .nav-links {
+        grid-area: nav;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: flex-start !important;
+        gap: 4px !important;
+
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+
+        scrollbar-width: none; 
     }
-    .tools-grid {
-        grid-template-columns: 1fr;
+
+    .nav-links::-webkit-scrollbar {
+        display: none; 
     }
-    .steps-grid {
-        grid-template-columns: 1fr;
+
+    .nav-link {
+        white-space: nowrap !important; 
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+        flex-shrink: 0 !important;
     }
-    .docs-layout {
-        grid-template-columns: 1fr;
+
+        .docs-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 24px !important;
+        width: 100% !important;
+        overflow-x: hidden !important;
     }
+
     .docs-sidebar {
-        position: relative;
-        top: 0;
-        border-right: none;
-        border-bottom: 1px solid var(--card-border);
-        padding-right: 0;
-        padding-bottom: 20px;
+        width: 100% !important;
+        border-bottom: 1px solid var(--card-border) !important;
+        padding-bottom: 16px !important;
+        margin-bottom: 16px !important;
+        position: relative !important;
+        top: 0 !important;
+    }
+
+    .docs-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        overflow: hidden !important; 
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+
+    .docs-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 20px !important; 
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+    }
+
+    .docs-code-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+    }
+
+    .docs-code-content {
+        width: 100% !important;
+        overflow-x: auto !important; 
+        -webkit-overflow-scrolling: touch;
+        box-sizing: border-box !important;
+    }
+
+    .docs-code-content code {
+        font-size: 11px !important; 
+        display: inline-block !important; 
     }
 }
+
 @media (max-width: 480px) {
     .header-inner {
-        padding: 12px 16px;
-        flex-direction: column;
-        gap: 12px;
-    }
-    .app-bar-actions {
-        width: 100%;
-        justify-content: space-between;
-    }
-    .nav-links {
-        width: 100%;
-        justify-content: center;
-    }
-    .portal-stats-row {
-        grid-template-columns: 1fr;
-    }
-    .footer-bottom {
-        grid-template-columns: 1fr;
-        padding: 36px 16px;
+
+        flex-direction: row !important;
+        gap: 10px 16px !important;
     }
 }

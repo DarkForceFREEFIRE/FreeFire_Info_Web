@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Signature - Walker Regedits</title>
+    <link href="https://cdn.jsdelivr.net/npm/product-sans-webfont@1.0.0/GoogleSans.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dark">
+    <header class="app-bar animate-fade-up">
+        <div class="header-inner">
+            <div class="brand-group">
+                <span class="portal-badge">WR</span>
+                <span class="brand-text">Walker Regedits <span class="accent-dim font-mono">UTILITIES</span></span>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="lookup.html" class="nav-link">FF Info</a>
+                <a href="token.html" class="nav-link">Token Gen</a>
+                <a href="signature.html" class="nav-link">Signature</a>
+                <a href="docs.html" class="nav-link">API Docs</a>
+            </nav>
+            <div class="app-bar-actions">
+                <label class="theme-toggle-compact" id="theme-toggle" aria-checked="true" title="Toggle Theme">
+                    <div class="toggle-switch-track">
+                        <div class="toggle-switch-thumb"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </header>
+    <main class="router-container">
+        <section id="view-signature" class="view-section animate-fade-up">
+            <div class="app-content" style="max-width: 600px; margin: 0 auto;">
+                <div class="fluent-card">
+                    <h3 class="subcard-title">
+                        <img src="icons/Person.svg" alt="Signature icon"> Change Social Signature
+                    </h3>
+                    <p class="text-secondary" style="font-size: 13px; margin-bottom: 20px; line-height: 1.5;">
+                        Update your public Garena profile bio metadata immediately by supplying your acquired authorization token.
+                    </p>
+                    <div class="command-group" style="margin-bottom: 16px;">
+                        <label class="compact-label" for="sig-jwt-field">JWT Authorization Token</label>
+                        <div class="search-box">
+                            <input type="text" id="sig-jwt-field" class="fluent-input" style="padding-left: 14px;" placeholder="Paste your JWT token here">
+                        </div>
+                    </div>
+                    <div class="command-group" style="margin-bottom: 16px;">
+                        <label class="compact-label" for="sig-text-field">New Bio Text</label>
+                        <div class="search-box">
+                            <input type="text" id="sig-text-field" class="fluent-input" style="padding-left: 14px;" placeholder="e.g., Hello World (Max 256 characters)">
+                        </div>
+                    </div>
+                    <div class="command-group" style="margin-bottom: 20px;">
+                        <label class="compact-label" for="sig-region-field">Region Code (Optional)</label>
+                        <div class="search-box">
+                            <input type="text" id="sig-region-field" class="fluent-input" style="padding-left: 14px;" placeholder="e.g., IND, BR, US (Leave blank for default)">
+                        </div>
+                    </div>
+                    <button id="update-sig-btn" class="fluent-btn primary" style="width: 100%;">
+                        Update Signature
+                    </button>
+                    <div id="sig-loader" class="loader-content hidden" style="margin-top: 24px;">
+                        <div class="spinner-win11"></div>
+                        <p class="text-secondary" style="font-size: 12px;">Querying profile configuration endpoint...</p>
+                    </div>
+                    <div id="sig-output-block" class="hidden" style="margin-top: 24px; border-top: 1px solid var(--card-border); padding-top: 20px;">
+                        <div id="sig-status-card" class="info-alert-box" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.25);">
+                            <strong id="sig-status-title">Success</strong>
+                            <p id="sig-status-msg" style="margin-top: 6px; color: var(--text-secondary); font-size: 12px;"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="portal-footer">
+        <div class="footer-bottom">
+            <div class="footer-col brand-col">
+                <div class="brand-group">
+                    <span class="portal-badge">WR</span>
+                    <span class="brand-text">Walker Regedits</span>
+                </div>
+                <p class="text-secondary text-dim font-mono" style="margin-top:10px; max-width:300px; font-size:11px; line-height:1.4;">
+                    Dedicated utility hub for player stats tracking. Real-time data retrieved directly via public API platforms. Unofficial tool.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>TOOLS</h4>
+                <a href="lookup.html" class="footer-link">Player Info</a>
+                <a href="token.html" class="footer-link">Token Gen</a>
+                <a href="signature.html" class="footer-link">Signature</a>
+                <a href="docs.html" class="footer-link">API Reference</a>
+            </div>
+            <div class="footer-col">
+                <h4>DEVELOPERS & CREDITS</h4>
+                <a href="https://wzservice.vercel.app" class="footer-link" target="_blank">wzservice.vercel.app</a>
+                <a href="https://github.com/DarkForceFREEFIRE" class="footer-link" target="_blank">DarkForceFREEFIRE (GitHub)</a>
+                <a href="https://discord.gg/fjkcdAVdS" class="footer-link" target="_blank">Join Discord Community</a>
+            </div>
+        </div>
+        <div class="footer-copyright font-mono text-secondary">
+            <span>&copy; 2026 Walker Regedits - Unofficial Free Fire Utilities</span>
+        </div>
+    </footer>
+    <div id="status-toast" class="toast hidden"></div>
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/signature-controller.js"></script>
+</body>
+</html>

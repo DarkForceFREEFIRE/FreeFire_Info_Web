@@ -3,7 +3,6 @@ import { RankMapper } from './mapper.js';
 
 let itemsLibrary = new Map();
 let currentProfileData = null;
-// Example placement in your profile display logic
 
 document.addEventListener("DOMContentLoaded", () => {
     const api = new FreeFireAPI();
@@ -62,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const valCreditScore = document.getElementById("val-credit-score");
     const creditProgressFill = document.getElementById("credit-progress-ring-fill");
     const creditStatusText = document.getElementById("credit-status-text");
-    
+
     const permBr = document.getElementById("perm-br");
     const permCs = document.getElementById("perm-cs");
     const permCasual = document.getElementById("perm-casual");
@@ -72,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const captValLikes = document.getElementById("capt-val-likes");
     const captValBr = document.getElementById("capt-val-br");
     const captValCs = document.getElementById("capt-val-cs");
-
 
     async function loadItemLibrary() {
         if (window.location.protocol === 'file:') {
@@ -240,20 +238,17 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
 
-        // REPLACE THAT SECTION IN renderDashboard WITH THIS:
         const heroVipBadge = document.getElementById("hero-vip-badge");
         if (heroVipBadge) {
             const basicPrime = basic.primePrivilegeDetail || {};
             if (basicPrime.primeLevel) {
                 heroVipBadge.innerText = `PRIME LVL ${basicPrime.primeLevel}`;
                 heroVipBadge.classList.remove("hidden");
-                
-                // Add the golden shining effect class to the nickname
+
                 heroNickname.classList.add("prime-user");
             } else {
                 heroVipBadge.classList.add("hidden");
-                
-                // Remove the golden shining effect class
+
                 heroNickname.classList.remove("prime-user");
             }
         }
@@ -377,7 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const item = itemsLibrary.get(strId);
                 const slot = document.createElement("div");
                 slot.className = "wardrobe-slot";
-                
+
                 const primaryUrl = `https://raw.githubusercontent.com/ShahGCreator/icon/main/PNG/${id}.png`;
                 const fallbackUrl = RankMapper.getClothesUrl(id);
 
@@ -416,10 +411,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 weaponSkins.forEach(id => {
                     const strId = String(id);
                     const item = itemsLibrary.get(strId);
-                    
+
                     const row = document.createElement("div");
                     row.className = "weapon-list-row";
-                    
+
                     const primaryUrl = `https://raw.githubusercontent.com/ShahGCreator/icon/main/PNG/${id}.png`;
                     const fallbackUrl = `https://raw.githubusercontent.com/ashqking/FF-Items/refs/heads/main/ICONS/${id}.png`;
 
@@ -451,9 +446,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (titleCard && playerTitleBox && playerTitleName && playerTitleDesc) {
             if (basic.title) {
                 const titleDetails = getItemDetails(basic.title);
-                
+
                 playerTitleBox.className = "title-glow-box";
-                
+
                 const tierGlowClass = getTitleTierClass(titleDetails.rare);
                 playerTitleBox.classList.add(tierGlowClass);
 
@@ -518,7 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
             brRankCard.classList.remove(...glowClasses);
             brRankCard.classList.add(getRankGlowClass(br.name));
         }
-        
+
         const brBadgeDisplay = brBadgeImg.parentElement;
         if (brBadgeDisplay) {
             brBadgeDisplay.classList.remove(...badgeGlowClasses);
@@ -554,7 +549,7 @@ document.addEventListener("DOMContentLoaded", () => {
             guildIdVal.innerText = clan.clanId;
             guildValLvl.innerText = clan.clanLevel || "1";
             guildValMembers.innerText = `${clan.memberNum || 0} / ${clan.capacity || 0}`;
-            
+
             guildCopyBtn.style.display = "inline-block";
             guildCopyBtn.onclick = () => {
                 navigator.clipboard.writeText(clan.clanId).then(() => {
@@ -587,7 +582,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const creditVal = credit.creditScore ?? 100;
         valCreditScore.innerText = creditVal;
-        
+
         if (creditProgressFill) {
             const circumference = 314.16;
             const offset = circumference - (creditVal / 100) * circumference;
