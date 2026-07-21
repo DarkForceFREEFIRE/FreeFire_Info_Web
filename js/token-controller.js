@@ -107,35 +107,49 @@ if (generateBtn) {
     });
 }
 
-    if (convertBtn) {
-        convertBtn.addEventListener('click', async () => {
-            const accessToken = tokenInput.value.trim();
-            if (!accessToken) {
-                showToast('Please supply an active access token.');
+if (convertBtn) {
+    convertBtn.addEventListener('click', async () => {
+        const accessToken = tokenInput.value.trim();
+        if (!accessToken) {
+            showToast('Please supply an active access token.');
+            return;
+        }
+
+        jwtLoader.classList.remove('hidden');
+        jwtOutputBlock.classList.add('hidden');
+
+        try {
+            const url = `https://wzjwt.vercel.app/api/process?mode=access_token&data=${encodeURIComponent(accessToken)}`;
+            const response = await fetch(url);
+
+            // Handle HTTP errors
+            if (!response.ok) {
+                let errorMsg = `Server error (${response.status})`;
+                try {
+                    const errorData = await response.json();
+                    errorMsg = errorData.message || errorMsg;
+                } catch (_) {
+                    // If response is not JSON, keep the default message
+                }
+                showToast(errorMsg);
                 return;
             }
 
-            jwtLoader.classList.remove('hidden');
-            jwtOutputBlock.classList.add('hidden');
+            const payload = await response.json();
 
-            try {
-                const response = await fetch(`https://wzjwt.vercel.app/api/process?mode=access_token&data=${encodeURIComponent(accessToken)}`);
-                const payload = await response.json();
-
-                if (payload && payload.status === 'success') {
-                    jwtOpenid.textContent = payload.open_id || '--';
-                    jwtOutput.textContent = payload.jwt || '--';
-                    jwtOutputBlock.classList.remove('hidden');
-                    showToast('JWT processed successfully!');
-                } else {
-                    showToast(payload.message || 'The server rejected the access token payload.');
-                }
-            } catch (err) {
-                console.error(err);
-                showToast('Service endpoint encountered connectivity issues.');
-            } finally {
-                jwtLoader.classList.add('hidden');
+            if (payload && payload.status === 'success') {
+                jwtOpenid.textContent = payload.open_id || '--';
+                jwtOutput.textContent = payload.jwt || '--';
+                jwtOutputBlock.classList.remove('hidden');
+                showToast('JWT processed successfully!');
+            } else {
+                showToast(payload.message || 'The server rejected the access token payload.');
             }
-        });
-    }
-});
+        } catch (err) {
+            console.error(err);
+            showToast('Failed to connect to the JWT service.');
+        } finally {
+            jwtLoader.classList.add('hidden');
+        }
+    });
+}
