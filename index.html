@@ -6,6 +6,30 @@
     <title>Walker Regedits - Free Fire Utilities</title>
     <link href="https://cdn.jsdelivr.net/npm/product-sans-webfont@1.0.0/GoogleSans.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .tools-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 24px;
+        }
+        @media (max-width: 768px) {
+            .tools-grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+        .showcase-row-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--control-fill);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            font-size: 11px;
+        }
+    </style>
 </head>
 <body data-theme="dark">
 
@@ -17,7 +41,7 @@
             </div>
             
             <nav class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html" class="nav-link active">Home</a>
                 <a href="lookup.html" class="nav-link">FF Info</a>
                 <a href="token.html" class="nav-link">Token Gen</a>
                 <a href="signature.html" class="nav-link">Signature</a>
@@ -39,50 +63,66 @@
             
             <div class="home-split-hero">
                 <div class="hero-content-block">
-                    <span class="pill-label">Free Fire Player Lookup</span>
-                    <h1>Look up any player, <br><em>in seconds.</em></h1>
+                    <span class="pill-label" style="background: rgba(80, 200, 255, 0.08); border-color: rgba(80, 200, 255, 0.2);">Advanced Game Utilities</span>
+                    <h1>All your profile <br><em>tools, united.</em></h1>
                     <p class="hero-paragraph text-secondary">
-                        Provide any player UID to instantly view complete profile aesthetics, active equipment layouts, battle standings, and account status metrics.
+                        Inspect real-time Garena standings, track player equipment visualizers, build automated login tokens, and format beautiful customized social biographies in seconds.
                     </p>
                     
                     <div class="hero-actions">
                         <a href="lookup.html" class="fluent-btn primary">
                             <img src="icons/Person.svg" class="btn-svg inverted" alt="Identity icon">
-                            Player Info Lookup
+                            Explore Player Info
                         </a>
-                        <a href="docs.html" class="fluent-btn standard">
-                            <img src="icons/Cloud%20search.svg" class="btn-svg" alt="Docs icon">
-                            API Reference &rarr;
+                        <a href="signature.html" class="fluent-btn standard">
+                            <img src="icons/Verified%20user.svg" class="btn-svg" alt="Bio icon">
+                            Try Signature Editor &rarr;
                         </a>
                     </div>
                 </div>
 
-                <div class="hero-showcase-visual">
+                <div class="hero-showcase-visual" style="padding: 24px;">
                     <div class="showcase-header">
-                        <div class="showcase-avatar-mock"></div>
+                        <div class="showcase-avatar-mock" style="width: 44px; height: 44px; border: 2px solid var(--accent); background: url('https://raw.githubusercontent.com/ashqking/FF-Items/refs/heads/main/ICONS/101000018.png') no-repeat center; background-size: cover;"></div>
                         <div style="flex-grow: 1;">
-                            <div class="showcase-stat-line accent"></div>
-                            <div class="showcase-stat-line" style="width: 40%;"></div>
+                            <div class="showcase-stat-line accent" style="width: 60%; height: 7px;"></div>
+                            <div class="showcase-stat-line" style="width: 35%; height: 5px; margin-top: 4px;"></div>
                         </div>
+                        <span class="portal-badge" style="box-shadow: none; font-size: 8px;">SG REGION</span>
                     </div>
-                    <div class="showcase-stat-line" style="width: 90%;"></div>
-                    <div class="showcase-stat-line" style="width: 80%;"></div>
-                    <div class="showcase-stat-line" style="width: 50%;"></div>
+                    
+                    <div class="showcase-row-item">
+                        <span style="color: var(--text-secondary); font-family: monospace;">openid payload</span>
+                        <span class="accent-text font-mono" style="font-weight: bold;">42ac3a8...</span>
+                    </div>
+
+                    <div class="showcase-row-item" style="border-style: dashed;">
+                        <span style="color: var(--text-secondary); font-family: monospace;">formatted bio</span>
+                        <span style="font-weight: 800; letter-spacing: 0.5px;">
+                            <span style="color: #FF4D4D;">Walker</span> <span style="color: #4DFF4D;">Regedits</span>
+                        </span>
+                    </div>
+
+                    <div style="display: flex; gap: 8px; margin-top: 12px;">
+                        <div class="showcase-stat-line" style="width: 30%; height: 6px;"></div>
+                        <div class="showcase-stat-line" style="width: 45%; height: 6px;"></div>
+                        <div class="showcase-stat-line" style="width: 25%; height: 6px;"></div>
+                    </div>
                 </div>
             </div>
 
             <div class="portal-stats-row">
                 <div class="stat-counter-card">
                     <span class="counter-num accent-text">03</span>
-                    <span class="counter-label text-secondary">ACTIVE TOOL</span>
+                    <span class="counter-label text-secondary">ACTIVE TOOL MODULES</span>
                 </div>
                 <div class="stat-counter-card">
-                    <span class="counter-num">5</span>
-                    <span class="counter-label text-secondary">REGIONS SUPPORTED</span>
+                    <span class="counter-num">OB54</span>
+                    <span class="counter-label text-secondary">COMPATIBLE CORE</span>
                 </div>
                 <div class="stat-counter-card">
-                    <span class="counter-num">03</span>
-                    <span class="counter-label text-secondary">PUBLIC APIS</span>
+                    <span class="counter-num">100%</span>
+                    <span class="counter-label text-secondary">REAL-TIME DATA</span>
                 </div>
                 <div class="stat-counter-card">
                     <span class="counter-num text-success">Free</span>
@@ -93,32 +133,64 @@
             <div class="status-warning-bar">
                 <div class="warning-left">
                     <span class="warning-ping"></span>
-                    <p class="warning-text"><strong>Real-time API integrations:</strong> Input your target's account identifier to fetch full player metrics safely and quickly.</p>
+                    <p class="warning-text"><strong>Real-time API integrations:</strong> Input your target's account identifier or credentials to dynamically fetch profiles and commit live adjustments securely.</p>
                 </div>
-                <a href="lookup.html" class="fluent-btn primary warning-btn">Try it now</a>
+                <a href="lookup.html" class="fluent-btn primary warning-btn">Get Started</a>
             </div>
 
             <div class="tools-portfolio-section">
                 <div class="portfolio-header">
                     <h2>Available Utilities</h2>
-                    <span class="portfolio-count text-secondary">1 Active Module, 1 API Developer Reference</span>
+                    <span class="portfolio-count text-secondary">3 Live Modules, 1 Developer Web API Reference</span>
                 </div>
 
-                <div class="tools-grid">
+                <div class="tools-grid-4">
+                    
                     <div class="tool-card active-card">
                         <div class="tool-gradient-banner gradient-blue">
                             <h3>Info</h3>
                         </div>
                         <div class="tool-card-body">
                             <h4>Player Info Lookup</h4>
-                            <p class="text-secondary">Explore extensive profile details, nickname decorations, levels, cumulative experience points, ranking thresholds, and current guild associations.</p>
-                            <div class="tool-badge-row">
-                                <span class="badge">Aesthetics</span>
+                            <p class="text-secondary">Explore real-time profile metrics including aesthetic details, active roles, pet companion statistics, wardrobe slots, and clan card records.</p>
+                            <div class="tool-badge-row" style="margin-bottom: 24px;">
                                 <span class="badge">Outfit Slots</span>
-                                <span class="badge">Tiers</span>
-                                <span class="badge">Guild Card</span>
+                                <span class="badge">Stats Card</span>
+                                <span class="badge">Competitive Tiers</span>
                             </div>
-                            <a href="lookup.html" class="fluent-btn primary card-cta-btn">View Player Info &rarr;</a>
+                            <a href="lookup.html" class="fluent-btn primary card-cta-btn" style="width: 100%;">View Player Info &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="tool-card active-card">
+                        <div class="tool-gradient-banner" style="background: linear-gradient(135deg, #7c3aed, #a78bfa, #5b21b6);">
+                            <h3 style="color: #ffffff;">Tokens</h3>
+                        </div>
+                        <div class="tool-card-body">
+                            <h4>Session Token Generator</h4>
+                            <p class="text-secondary">Exchange local client configurations and login OTPs for raw standard Garena session parameters and sign JWT authorizations.</p>
+                            <div class="tool-badge-row" style="margin-bottom: 24px;">
+                                <span class="badge">OTP Exchange</span>
+                                <span class="badge">JSON Web Token</span>
+                                <span class="badge">Session Auth</span>
+                            </div>
+                            <a href="token.html" class="fluent-btn primary card-cta-btn" style="width: 100%;">Generate Tokens &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="tool-card active-card">
+                        <div class="tool-gradient-banner" style="background: linear-gradient(135deg, #db2777, #f472b6, #9d174d);">
+                            <h3 style="color: #ffffff;">Bio</h3>
+                        </div>
+                        <div class="tool-card-body">
+                            <h4>Social Signature Editor</h4>
+                            <p class="text-secondary">Build customized bio layouts using dynamic formatting tools including preset color boards, native hex pickers, bold tags, and linebreaks.</p>
+                            <div class="tool-badge-row" style="margin-bottom: 24px;">
+                                <span class="badge">WYSIWYG</span>
+                                <span class="badge">Color Picker</span>
+                                <span class="badge">Garena BBCode</span>
+                            </div>
+                            <a href="signature.html" class="fluent-btn primary card-cta-btn" style="width: 100%;">Customize Signature &rarr;</a>
                         </div>
                     </div>
 
@@ -127,38 +199,39 @@
                             <h3>API</h3>
                         </div>
                         <div class="tool-card-body">
-                            <h4>Developer Web API</h4>
-                            <p class="text-secondary">Integrate live anti-cheat verification or client profile retrievals directly into your own tools using the public endpoint specifications.</p>
-                            <div class="tool-badge-row">
-                                <span class="badge">Vercel API</span>
-                                <span class="badge">Anti-Cheat</span>
-                                <span class="badge">JSON Payload</span>
+                            <h4>Developer Web API Reference</h4>
+                            <p class="text-secondary">Integrate active profile lookup modules, credential signatures, or verification protocols directly into your software projects.</p>
+                            <div class="tool-badge-row" style="margin-bottom: 24px;">
+                                <span class="badge">Serverless API</span>
+                                <span class="badge">JSON Schema</span>
+                                <span class="badge">Auth Proxy</span>
                             </div>
-                            <a href="docs.html" class="fluent-btn standard card-cta-btn">Read API Manual &rarr;</a>
+                            <a href="docs.html" class="fluent-btn standard card-cta-btn" style="width: 100%;">Read API Manual &rarr;</a>
                         </div>
                     </div>
+
                 </div>
             </div>
 
             <div class="how-it-works-section">
                 <h2>How it works</h2>
-                <p class="subtitle text-secondary">Three simple steps to inspect Garena profiles</p>
+                <p class="subtitle text-secondary">Three simple steps to coordinate with the utilities hub</p>
                 
                 <div class="steps-grid">
                     <div class="step-card">
                         <div class="step-num font-mono">01</div>
-                        <h3>Provide UID</h3>
-                        <p class="text-secondary">Input any active Free Fire numeric identifier into the search interface.</p>
+                        <h3>Authenticate & Fetch</h3>
+                        <p class="text-secondary">Input any active numeric Player UID to fetch records, or deploy local debug files to capture OTP credentials.</p>
                     </div>
                     <div class="step-card">
                         <div class="step-num font-mono">02</div>
-                        <h3>Retrieve Records</h3>
-                        <p class="text-secondary">The system routes querying requests directly to live API networks to isolate account payloads.</p>
+                        <h3>Visualize & Format</h3>
+                        <p class="text-secondary">Examine active equipment layouts, or craft rich custom text layouts in our live rendering workspace.</p>
                     </div>
                     <div class="step-card">
                         <div class="step-num font-mono">03</div>
-                        <h3>Examine Stats</h3>
-                        <p class="text-secondary">The parsed output yields visual equipment galleries, guild placements, and anti-cheat indicators.</p>
+                        <h3>Deploy & Integrate</h3>
+                        <p class="text-secondary">Commit modifications directly to the network server, or export payloads using clean JSON API schemas.</p>
                     </div>
                 </div>
             </div>
@@ -180,6 +253,8 @@
             <div class="footer-col">
                 <h4>TOOLS</h4>
                 <a href="lookup.html" class="footer-link">Player Info</a>
+                <a href="token.html" class="footer-link">Token Gen</a>
+                <a href="signature.html" class="footer-link">Signature</a>
                 <a href="docs.html" class="footer-link">API Reference</a>
             </div>
 

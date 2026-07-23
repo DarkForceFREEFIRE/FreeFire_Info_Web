@@ -1,4 +1,3 @@
-// js/token-controller.js
 
 function showToast(message) {
     const toast = document.getElementById('status-toast');
@@ -11,13 +10,21 @@ function showToast(message) {
     }
 }
 
-function handleCopy(dataElementId) {
+function handleCopy(dataElementId, buttonElement) {
     const element = document.getElementById(dataElementId);
     if (element) {
         const text = element.textContent.trim();
         if (text && text !== '--') {
             navigator.clipboard.writeText(text)
-                .then(() => showToast('Copied to clipboard!'))
+                .then(() => {
+                    showToast('Copied to clipboard!');
+                    if (buttonElement) {
+                        buttonElement.classList.add('copied');
+                        setTimeout(() => {
+                            buttonElement.classList.remove('copied');
+                        }, 2000);
+                    }
+                })
                 .catch(() => showToast('Unable to copy text.'));
         }
     }
@@ -78,6 +85,17 @@ async function handleTokenGeneration() {
             if (tokenInput) {
                 tokenInput.value = payload.token;
             }
+            
+            const step2Badge = document.getElementById('step-2-badge');
+            const step2Pipeline = document.getElementById('step-2-pipeline');
+            if (step2Badge) {
+                step2Badge.style.background = 'var(--accent)';
+                step2Badge.style.color = 'var(--accent-text)';
+            }
+            if (step2Pipeline) {
+                step2Pipeline.style.borderColor = 'var(--accent)';
+            }
+
             showToast('Token retrieved successfully!');
         } else {
             showToast(payload.msg || 'Retrieval failed. Unexpected response format.');
@@ -109,7 +127,6 @@ async function handleJwtConversion() {
     if (jwtOutputBlock) jwtOutputBlock.classList.add('hidden');
 
     try {
-        // Call your own local serverless proxy instead of wzjwt.vercel.app directly
         const response = await fetch(`/api/jwt?token=${encodeURIComponent(accessToken)}`);
 
         if (!response.ok) {
@@ -136,26 +153,22 @@ async function handleJwtConversion() {
     }
 }
 
-// Global Event Listener (Handles dynamic routing and module loading race conditions)
 document.addEventListener('click', (event) => {
     const target = event.target.closest('button, a');
     if (!target) return;
 
-    // Generate Token
     if (target.id === 'generate-btn') {
         event.preventDefault();
         handleTokenGeneration();
     }
 
-    // Convert JWT
     if (target.id === 'convert-jwt-btn') {
         event.preventDefault();
         handleJwtConversion();
     }
 
-    // Copy Handlers
-    if (target.id === 'copy-openid-btn') handleCopy('output-openid');
-    if (target.id === 'copy-token-btn') handleCopy('output-token');
-    if (target.id === 'copy-jwt-openid-btn') handleCopy('output-jwt-openid');
-    if (target.id === 'copy-jwt-btn') handleCopy('output-jwt');
+    if (target.id === 'copy-openid-btn') handleCopy('output-openid', target);
+    if (target.id === 'copy-token-btn') handleCopy('output-token', target);
+    if (target.id === 'copy-jwt-openid-btn') handleCopy('output-jwt-openid', target);
+    if (target.id === 'copy-jwt-btn') handleCopy('output-jwt', target);
 });

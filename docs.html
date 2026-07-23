@@ -233,16 +233,6 @@
                             <pre class="docs-code-content"><code><span class="code-cmd">curl</span> <span class="code-param">-X</span> <span class="code-variable">GET</span> <span class="code-string">"https://wzjwt.vercel.app/api/process?mode=access_token&amp;data=YOUR_ACCESS_TOKEN"</span></code></pre>
                         </div>
 
-                        <h4 style="margin-top:20px; margin-bottom:8px;">ID / Password Request Example</h4>
-                        <div class="docs-code-container">
-                            <div class="docs-code-header">
-                                <span class="docs-code-lang">bash</span>
-                                <button class="docs-code-copy-btn" data-copy="python test_jwt.py id_pass --uid 5610166373 --password &quot;3d3970441850e280e655e04b36c47e6cc99c326041b10965cca3c277cc930c8a&quot;" title="Copy code">
-                                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
-                                </button>
-                            </div>
-                            <pre class="docs-code-content"><code><span class="code-cmd">python</span> test_jwt.py id_pass <span class="code-param">--uid</span> <span class="code-variable">5610166373</span> <span class="code-param">--password</span> <span class="code-string">"3d3970441850e280e655e04b36c47e6cc99c326041b10965cca3c277cc930c8a"</span></code></pre>
-                        </div>
                     </div>
 
                     <div id="doc-bio" class="docs-card">
@@ -264,7 +254,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><code class="font-mono">token</code></td>
+                                    <td><code class="font-mono">JWT token</code></td>
                                     <td>String</td>
                                     <td><span class="accent-text">Yes</span></td>
                                     <td>Verified JWT authentication credential string.</td>
@@ -288,11 +278,11 @@
                         <div class="docs-code-container">
                             <div class="docs-code-header">
                                 <span class="docs-code-lang">bash</span>
-                                <button class="docs-code-copy-btn" data-copy="curl -X GET &quot;https://wzlongsign.vercel.app/updatebio?token=YOUR_TOKEN&amp;bio=Hello+World&amp;region=BR&quot;" title="Copy code">
+                                <button class="docs-code-copy-btn" data-copy="curl -X GET &quot;https://wzlongsign.vercel.app/updatebio?token=YOUR_JWT_TOKEN&amp;bio=Hello+World&amp;region=BR&quot;" title="Copy code">
                                     <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
                                 </button>
                             </div>
-                            <pre class="docs-code-content"><code><span class="code-cmd">curl</span> <span class="code-param">-X</span> <span class="code-variable">GET</span> <span class="code-string">"https://wzlongsign.vercel.app/updatebio?token=YOUR_TOKEN&amp;bio=Hello+World&amp;region=BR"</span></code></pre>
+                            <pre class="docs-code-content"><code><span class="code-cmd">curl</span> <span class="code-param">-X</span> <span class="code-variable">GET</span> <span class="code-string">"https://wzlongsign.vercel.app/updatebio?token=YOUR_JWT_TOKEN&amp;bio=Hello+World&amp;region=BR"</span></code></pre>
                         </div>
                     </div>
                         <div id="doc-errors" class="docs-card">

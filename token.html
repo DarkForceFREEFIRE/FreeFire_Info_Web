@@ -86,85 +86,132 @@
         <section id="view-token-gen" class="view-section animate-fade-up">
             <div class="app-content">
                 <div class="token-split-layout">
+                    
                     <div class="dashboard-column">
                         <div class="fluent-card">
                             <h3 class="subcard-title">
-                                <img src="icons/Verified%20user.svg" alt="Key icon"> Access Token Generator
+                                <img src="icons/Verified%20user.svg" alt="Key icon"> Session Provisioner
                             </h3>
-                            <p class="text-secondary" style="font-size: 13px; margin-bottom: 20px; line-height: 1.5;">
-                                Input your active Free Fire OTP below to exchange it for a temporary OpenID and Access Token payload.
+                            <p class="text-secondary" style="font-size: 13px; margin-bottom: 24px; line-height: 1.5;">
+                                Complete the sequential steps below to generate, parse, and sign your Garena Free Fire session identifiers.
                             </p>
-                            <div class="command-group" style="margin-bottom: 16px;">
-                                <label class="compact-label" for="otp-input-field">One-Time Password (OTP)</label>
-                                <div class="search-box">
-                                    <input type="text" id="otp-input-field" class="fluent-input" style="padding-left: 14px;" placeholder="Enter game OTP (e.g., 123456)">
-                                </div>
-                            </div>
-                            <button id="generate-btn" class="fluent-btn primary" style="width: 100%;">
-                                Exchange OTP for Token
-                            </button>
-                            <div id="loader" class="loader-content hidden" style="margin-top: 24px;">
-                                <div class="spinner-win11"></div>
-                                <p class="text-secondary" style="font-size: 12px;">Querying token generation endpoint...</p>
-                            </div>
-                            <div id="token-output-block" class="hidden" style="margin-top: 24px; border-top: 1px solid var(--card-border); padding-top: 20px;">
-                                <h4 class="compact-label" style="margin-bottom: 10px; color: var(--text-success);">Success Payload</h4>
-                                <div class="command-group" style="margin-bottom: 14px;">
-                                    <label class="compact-label">OpenID</label>
-                                    <div class="code-box">
-                                        <code id="output-openid" class="font-mono">--</code>
-                                        <button class="fluent-btn mini-copy-btn" id="copy-openid-btn">Copy</button>
-                                    </div>
-                                </div>
-                                <div class="command-group">
-                                    <label class="compact-label">Access Token</label>
-                                    <div class="code-box multi-line">
-                                        <pre><code id="output-token" class="font-mono" style="word-break: break-all; white-space: pre-wrap;">--</code></pre>
-                                        <button class="fluent-btn mini-copy-btn" id="copy-token-btn">Copy Token</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="fluent-card" style="margin-top: 24px;">
-                            <h3 class="subcard-title">
-                                <img src="icons/Verified%20user.svg" alt="Key icon"> Convert Token to JWT
-                            </h3>
-                            <p class="text-secondary" style="font-size: 13px; margin-bottom: 20px; line-height: 1.5;">
-                                Provide your Free Fire Access Token below to acquire its corresponding secure JWT authorization token.
-                            </p>
-                            <div class="command-group" style="margin-bottom: 16px;">
-                                <label class="compact-label" for="access-token-input">Access Token</label>
-                                <div class="search-box">
-                                    <input type="text" id="access-token-input" class="fluent-input" style="padding-left: 14px;" placeholder="Enter Access Token (e.g., 42ac3a8...)">
-                                </div>
-                            </div>
-                            <button id="convert-jwt-btn" class="fluent-btn primary" style="width: 100%;">
-                                Convert to JWT
-                            </button>
-                            <div id="jwt-loader" class="loader-content hidden" style="margin-top: 24px;">
-                                <div class="spinner-win11"></div>
-                                <p class="text-secondary" style="font-size: 12px;">Querying JWT generation endpoint...</p>
-                            </div>
-                            <div id="jwt-output-block" class="hidden" style="margin-top: 24px; border-top: 1px solid var(--card-border); padding-top: 20px;">
-                                <h4 class="compact-label" style="margin-bottom: 10px; color: var(--text-success);">JWT Payload</h4>
-                                <div class="command-group" style="margin-bottom: 14px;">
-                                    <label class="compact-label">OpenID</label>
-                                    <div class="code-box">
-                                        <code id="output-jwt-openid" class="font-mono">--</code>
-                                        <button class="fluent-btn mini-copy-btn" id="copy-jwt-openid-btn">Copy</button>
+                            <div class="workflow-step" style="border-left: 2px solid var(--accent); padding-left: 20px; margin-left: 8px; margin-bottom: 24px; position: relative;">
+                                <div style="position: absolute; left: -9px; top: 0; background: var(--accent); color: var(--accent-text); font-family: monospace; font-size: 10px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">1</div>
+                                
+                                <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--text-primary);">Generate Session Token</h4>
+                                <p class="text-secondary" style="font-size: 12px; margin-bottom: 14px;">Exchange your retrieved debug OTP for raw Garena network session payloads.</p>
+                                
+                                <div class="command-group" style="margin-bottom: 12px;">
+                                    <label class="compact-label" for="otp-input-field">One-Time Password (OTP)</label>
+                                    <div class="search-box">
+                                        <input type="text" id="otp-input-field" class="fluent-input" style="padding-left: 14px;" placeholder="Enter game OTP (e.g., 123456)">
                                     </div>
                                 </div>
-                                <div class="command-group">
-                                    <label class="compact-label">JWT Token</label>
-                                    <div class="code-box multi-line">
-                                        <pre><code id="output-jwt" class="font-mono" style="word-break: break-all; white-space: pre-wrap;">--</code></pre>
-                                        <button class="fluent-btn mini-copy-btn" id="copy-jwt-btn">Copy JWT</button>
+                                <button id="generate-btn" class="fluent-btn primary" style="width: 100%;">
+                                    Exchange OTP for Token
+                                </button>
+                                
+                                <div id="loader" class="loader-content hidden" style="margin-top: 16px;">
+                                    <div class="spinner-win11"></div>
+                                    <p class="text-secondary" style="font-size: 11px;">Querying token generation endpoint...</p>
+                                </div>
+                                
+                                <div id="token-output-block" class="hidden" style="margin-top: 16px;">
+                                    <div class="command-group" style="margin-bottom: 12px;">
+                                        <label class="compact-label" style="font-size: 9px;">OpenID</label>
+                                        <div class="docs-code-container" style="margin: 4px 0 0 0;">
+                                            <div class="docs-code-header">
+                                                <span class="docs-code-lang">openid payload</span>
+                                                <button class="docs-code-copy-btn" id="copy-openid-btn" title="Copy OpenID">
+                                                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
+                                                </button>
+                                            </div>
+                                            <div class="docs-code-content">
+                                                <code id="output-openid" class="font-mono" style="color: var(--accent); font-size: 12px;">--</code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="command-group">
+                                        <label class="compact-label" style="font-size: 9px;">Access Token</label>
+                                        <div class="docs-code-container" style="margin: 4px 0 0 0;">
+                                            <div class="docs-code-header">
+                                                <span class="docs-code-lang">session access token</span>
+                                                <button class="docs-code-copy-btn" id="copy-token-btn" title="Copy Token">
+                                                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
+                                                </button>
+                                            </div>
+                                            <div class="docs-code-content" style="max-height: 120px; overflow-y: auto;">
+                                                <code id="output-token" class="font-mono" style="word-break: break-all; white-space: pre-wrap; color: var(--accent); font-size: 12px;">--</code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; justify-content: center; margin: 8px 0 16px 0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="accent-text" style="opacity: 0.45; animation: pulse 1.6s infinite;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
+                                </svg>
+                            </div>
+
+                            <div id="step-2-pipeline" class="workflow-step" style="border-left: 2px solid var(--control-stroke); padding-left: 20px; margin-left: 8px; position: relative; transition: border-color 0.3s ease;">
+                                <div id="step-2-badge" style="position: absolute; left: -9px; top: 0; background: var(--control-stroke); color: var(--text-secondary); font-family: monospace; font-size: 10px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease, color 0.3s ease;">2</div>
+                                
+                                <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--text-primary);">Convert Session to Secure JWT</h4>
+                                <p class="text-secondary" style="font-size: 12px; margin-bottom: 14px;">Sign your standard Access Token into a cryptographically valid security JWT payload.</p>
+                                
+                                <div class="command-group" style="margin-bottom: 12px;">
+                                    <label class="compact-label" for="access-token-input">Access Token</label>
+                                    <div class="search-box">
+                                        <input type="text" id="access-token-input" class="fluent-input" style="padding-left: 14px;" placeholder="Pasted automatically from Step 1 or specify manually">
+                                    </div>
+                                </div>
+                                <button id="convert-jwt-btn" class="fluent-btn primary" style="width: 100%;">
+                                    Convert to JWT
+                                </button>
+                                
+                                <div id="jwt-loader" class="loader-content hidden" style="margin-top: 16px;">
+                                    <div class="spinner-win11"></div>
+                                    <p class="text-secondary" style="font-size: 11px;">Querying JWT generation endpoint...</p>
+                                </div>
+                                
+                                <div id="jwt-output-block" class="hidden" style="margin-top: 16px;">
+                                    <div class="command-group" style="margin-bottom: 12px;">
+                                        <label class="compact-label" style="font-size: 9px;">OpenID</label>
+                                        <div class="docs-code-container" style="margin: 4px 0 0 0;">
+                                            <div class="docs-code-header">
+                                                <span class="docs-code-lang">openid signature</span>
+                                                <button class="docs-code-copy-btn" id="copy-jwt-openid-btn" title="Copy OpenID">
+                                                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
+                                                </button>
+                                            </div>
+                                            <div class="docs-code-content">
+                                                <code id="output-jwt-openid" class="font-mono" style="color: var(--accent); font-size: 12px;">--</code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="command-group">
+                                        <label class="compact-label" style="font-size: 9px;">JWT Token</label>
+                                        <div class="docs-code-container" style="margin: 4px 0 0 0;">
+                                            <div class="docs-code-header">
+                                                <span class="docs-code-lang">secure signature jwt</span>
+                                                <button class="docs-code-copy-btn" id="copy-jwt-btn" title="Copy JWT">
+                                                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
+                                                </button>
+                                            </div>
+                                            <div class="docs-code-content" style="max-height: 120px; overflow-y: auto;">
+                                                <code id="output-jwt" class="font-mono" style="word-break: break-all; white-space: pre-wrap; color: var(--accent); font-size: 12px;">--</code>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="dashboard-column">
                         <div class="fluent-card">
                             <h3 class="subcard-title">
@@ -218,6 +265,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </section>

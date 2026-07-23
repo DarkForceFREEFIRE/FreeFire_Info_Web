@@ -6,6 +6,19 @@
     <title>Change Signature - Walker Regedits</title>
     <link href="https://cdn.jsdelivr.net/npm/product-sans-webfont@1.0.0/GoogleSans.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .signature-split-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+            align-items: start;
+        }
+        @media (max-width: 900px) {
+            .signature-split-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body data-theme="dark">
     <header class="app-bar animate-fade-up">
@@ -18,7 +31,7 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="lookup.html" class="nav-link">FF Info</a>
                 <a href="token.html" class="nav-link">Token Gen</a>
-                <a href="signature.html" class="nav-link">Signature</a>
+                <a href="signature.html" class="nav-link active">Signature</a>
                 <a href="docs.html" class="nav-link">API Docs</a>
             </nav>
             <div class="app-bar-actions">
@@ -32,45 +45,137 @@
     </header>
     <main class="router-container">
         <section id="view-signature" class="view-section animate-fade-up">
-            <div class="app-content" style="max-width: 600px; margin: 0 auto;">
-                <div class="fluent-card">
-                    <h3 class="subcard-title">
-                        <img src="icons/Person.svg" alt="Signature icon"> Change Social Signature
-                    </h3>
-                    <p class="text-secondary" style="font-size: 13px; margin-bottom: 20px; line-height: 1.5;">
-                        Update your public Garena profile bio metadata immediately by supplying your acquired authorization token.
-                    </p>
-                    <div class="command-group" style="margin-bottom: 16px;">
-                        <label class="compact-label" for="sig-jwt-field">JWT Authorization Token</label>
-                        <div class="search-box">
-                            <input type="text" id="sig-jwt-field" class="fluent-input" style="padding-left: 14px;" placeholder="Paste your JWT token here">
+            <div class="app-content">
+                <div class="signature-split-layout">
+                    
+                    <div class="dashboard-column">
+                        <div class="fluent-card">
+                            <h3 class="subcard-title">
+                                <img src="icons/Edit.svg" alt="Signature icon"> Signature Editor
+                            </h3>
+                            <p class="text-secondary" style="font-size: 13px; margin-bottom: 20px; line-height: 1.5;">
+                                Write and customize your biography below. Use the formatting toolbar to quickly apply Garena client tags.
+                            </p>
+                            
+                            <div class="command-group" style="margin-bottom: 0;">
+                                <label class="compact-label" for="sig-text-field" style="margin-bottom: 6px;">New Bio Text</label>
+                                
+                                <div class="format-toolbar" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; background: var(--control-fill); padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--control-stroke); align-items: center;">
+                                    <button type="button" class="fluent-btn standard format-tool-btn" data-tag="b" style="padding: 4px 10px; min-height: 28px; font-weight: bold; font-size: 11px; flex-shrink: 0;" title="Bold Style">[b]</button>
+                                    <button type="button" class="fluent-btn standard format-tool-btn" data-tag="i" style="padding: 4px 10px; min-height: 28px; font-style: italic; font-size: 11px; flex-shrink: 0;" title="Italic Style">[i]</button>
+                                    <button type="button" class="fluent-btn standard format-tool-btn" data-tag="u" style="padding: 4px 10px; min-height: 28px; text-decoration: underline; font-size: 11px; flex-shrink: 0;" title="Underline Style">[u]</button>
+                                    <button type="button" class="fluent-btn standard format-tool-btn" data-tag="s" style="padding: 4px 10px; min-height: 28px; text-decoration: line-through; font-size: 11px; flex-shrink: 0;" title="Strikethrough Style">[s]</button>
+                                    <button type="button" class="fluent-btn standard format-tool-btn" data-tag="c" style="padding: 4px 10px; min-height: 28px; font-size: 11px; flex-shrink: 0;" title="Clear Styles">[c]</button>
+                                    
+                                    <div style="width: 1px; height: 16px; background: var(--card-border); margin: 0 4px;"></div>
+                                    
+                                    <div class="quick-colors" style="display: flex; gap: 6px; align-items: center;">
+                                        <span class="color-swatch" data-hex="FF0000" style="background: #FF0000; width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 1px solid rgba(255,255,255,0.3); display: inline-block;" title="Red"></span>
+                                        <span class="color-swatch" data-hex="00FF00" style="background: #00FF00; width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 1px solid rgba(255,255,255,0.3); display: inline-block;" title="Green"></span>
+                                        <span class="color-swatch" data-hex="0000FF" style="background: #0000FF; width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 1px solid rgba(255,255,255,0.3); display: inline-block;" title="Blue"></span>
+                                        <span class="color-swatch" data-hex="FFFF00" style="background: #FFFF00; width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 1px solid rgba(255,255,255,0.3); display: inline-block;" title="Yellow"></span>
+                                        <span class="color-swatch" data-hex="00FFFF" style="background: #00FFFF; width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 1px solid rgba(255,255,255,0.3); display: inline-block;" title="Cyan"></span>
+                                        <span class="color-swatch" data-hex="FF00FF" style="background: #FF00FF; width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 1px solid rgba(255,255,255,0.3); display: inline-block;" title="Magenta"></span>
+                                        <span class="color-swatch" data-hex="FFA500" style="background: #FFA500; width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 1px solid rgba(255,255,255,0.3); display: inline-block;" title="Orange"></span>
+                                    </div>
+                                    
+                                    <div style="width: 1px; height: 16px; background: var(--card-border); margin: 0 4px;"></div>
+                                    
+                                    <div style="display: flex; align-items: center; gap: 6px;">
+                                        <label for="custom-color-picker" style="font-size: 11px; cursor: pointer; color: var(--text-secondary);" title="Custom Color Picker">Picker</label>
+                                        <input type="color" id="custom-color-picker" style="border: 1px solid var(--control-stroke); border-radius: 5px; background: #ffffff42; cursor: pointer; width: 22px; height: 22px; padding: 0;" title="Select Custom Hex Color" value="#FF0000">
+                                    </div>
+                                </div>
+
+                                <div class="search-box">
+                                    <textarea id="sig-text-field" class="fluent-input" style="padding: 10px 14px; height: auto; min-height: 120px; resize: vertical; line-height: 1.45;" placeholder="e.g., [b][FF0000]Hello [00FF00]World&#13;&#10;[i]This is a support line... (Max 256 characters)"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fluent-card">
+                            <h3 class="subcard-title">
+                                <img src="icons/Verified%20user.svg" alt="Preview icon"> Formatted Live Preview
+                            </h3>
+                            <div style="background: var(--control-fill); border: 1px dashed var(--card-border); border-radius: var(--radius-sm); padding: 18px; min-height: 80px; word-break: break-all;">
+                                <p id="sig-preview" class="signature-quote" style="margin: 0; font-size: 14px; line-height: 1.6;">"No Profile Signature Set"</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="command-group" style="margin-bottom: 16px;">
-                        <label class="compact-label" for="sig-text-field">New Bio Text</label>
-                        <div class="search-box">
-                            <input type="text" id="sig-text-field" class="fluent-input" style="padding-left: 14px;" placeholder="e.g., Hello World (Max 256 characters)">
+                    
+                    <div class="dashboard-column">
+                        <div class="fluent-card">
+                            <h3 class="subcard-title">
+                                <img src="icons/Settings.svg" alt="Auth icon"> Authorization & Settings
+                            </h3>
+                            <p class="text-secondary" style="font-size: 13px; margin-bottom: 20px; line-height: 1.5;">
+                                Authenticate via JWT token to push updates to the active session server.
+                            </p>
+                            
+                            <div class="command-group" style="margin-bottom: 16px;">
+                                <label class="compact-label" for="sig-jwt-field">JWT Authorization Token</label>
+                                <div class="search-box">
+                                    <input type="text" id="sig-jwt-field" class="fluent-input" style="padding-left: 14px;" placeholder="Paste your JWT token here">
+                                </div>
+                            </div>
+
+                            <div class="command-group" style="margin-bottom: 24px;">
+                                <label class="compact-label" for="sig-region-field">Region Code (Optional)</label>
+                                <div class="search-box">
+                                    <input type="text" id="sig-region-field" class="fluent-input" style="padding-left: 14px;" placeholder="e.g., IND, BR, US (Leave blank for default)">
+                                </div>
+                            </div>
+
+                            <button id="update-sig-btn" class="fluent-btn primary" style="width: 100%;">
+                                Update Signature
+                            </button>
+
+                            <div id="sig-loader" class="loader-content hidden" style="margin-top: 24px;">
+                                <div class="spinner-win11"></div>
+                                <p class="text-secondary" style="font-size: 12px;">Querying profile configuration endpoint...</p>
+                            </div>
+
+                            <div id="sig-output-block" class="hidden" style="margin-top: 24px; border-top: 1px solid var(--card-border); padding-top: 20px;">
+                                <div id="sig-status-card" class="info-alert-box" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.25);">
+                                    <strong id="sig-status-title">Success</strong>
+                                    <p id="sig-status-msg" style="margin-top: 6px; color: var(--text-secondary); font-size: 12px;"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fluent-card">
+                            <h3 class="subcard-title">
+                                <img src="icons/Format.svg" alt="Docs icon"> Formatting Cheat Sheet
+                            </h3>
+                            <div style="font-size: 12px; line-height: 1.6; color: var(--text-secondary); display: flex; flex-direction: column; gap: 8px;">
+                                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--card-border); padding-bottom: 6px;">
+                                    <span><code>[b]</code> Bold styling</span>
+                                    <span style="font-weight: bold;">Sample Text</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--card-border); padding-bottom: 6px;">
+                                    <span><code>[i]</code> Italicized text</span>
+                                    <span style="font-style: italic;">Sample Text</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--card-border); padding-bottom: 6px;">
+                                    <span><code>[u]</code> Underlined structure</span>
+                                    <span style="text-decoration: underline;">Sample Text</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--card-border); padding-bottom: 6px;">
+                                    <span><code>[s]</code> Strikethrough style</span>
+                                    <span style="text-decoration: line-through;">Sample Text</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--card-border); padding-bottom: 6px;">
+                                    <span><code>[FF0000]</code> Hex coloring (Red)</span>
+                                    <span style="color: #FF0000;">Sample Text</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding-bottom: 2px;">
+                                    <span><code>[c]</code> Clear formatting rules</span>
+                                    <span>Default Text</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="command-group" style="margin-bottom: 20px;">
-                        <label class="compact-label" for="sig-region-field">Region Code (Optional)</label>
-                        <div class="search-box">
-                            <input type="text" id="sig-region-field" class="fluent-input" style="padding-left: 14px;" placeholder="e.g., IND, BR, US (Leave blank for default)">
-                        </div>
-                    </div>
-                    <button id="update-sig-btn" class="fluent-btn primary" style="width: 100%;">
-                        Update Signature
-                    </button>
-                    <div id="sig-loader" class="loader-content hidden" style="margin-top: 24px;">
-                        <div class="spinner-win11"></div>
-                        <p class="text-secondary" style="font-size: 12px;">Querying profile configuration endpoint...</p>
-                    </div>
-                    <div id="sig-output-block" class="hidden" style="margin-top: 24px; border-top: 1px solid var(--card-border); padding-top: 20px;">
-                        <div id="sig-status-card" class="info-alert-box" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.25);">
-                            <strong id="sig-status-title">Success</strong>
-                            <p id="sig-status-msg" style="margin-top: 6px; color: var(--text-secondary); font-size: 12px;"></p>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </section>
