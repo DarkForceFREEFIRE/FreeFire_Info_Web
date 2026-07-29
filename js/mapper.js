@@ -36,31 +36,37 @@ export const RankMapper = {
     getCSRank(stars) {
         const s = Number(stars) || 0;
 
-        if (s <= 2) return { name: "Bronze 1", file: "B1.png", rankStars: s, totalStars: s };
-        if (s <= 5) return { name: "Bronze 2", file: "B2.png", rankStars: s, totalStars: s };
-        if (s <= 8) return { name: "Bronze 3", file: "B3.png", rankStars: s, totalStars: s };
+        // Bronze Tier (3 stars per sub-tier)
+        if (s <= 3) return { name: "Bronze 1", file: "B1.png", rankStars: Math.max(0, s), totalStars: s, subTierMax: 3 };
+        if (s <= 6) return { name: "Bronze 2", file: "B2.png", rankStars: s - 3, totalStars: s, subTierMax: 3 };
+        if (s <= 9) return { name: "Bronze 3", file: "B3.png", rankStars: s - 6, totalStars: s, subTierMax: 3 };
 
-        if (s <= 11) return { name: "Silver 1", file: "S1.png", rankStars: s, totalStars: s };
-        if (s <= 14) return { name: "Silver 2", file: "S2.png", rankStars: s, totalStars: s };
-        if (s <= 17) return { name: "Silver 3", file: "S3.png", rankStars: s, totalStars: s };
+        // Silver Tier (4 stars per sub-tier)
+        if (s <= 13) return { name: "Silver 1", file: "S1.png", rankStars: s - 9, totalStars: s, subTierMax: 4 };
+        if (s <= 17) return { name: "Silver 2", file: "S2.png", rankStars: s - 13, totalStars: s, subTierMax: 4 };
+        if (s <= 21) return { name: "Silver 3", file: "S3.png", rankStars: s - 17, totalStars: s, subTierMax: 4 };
 
-        if (s <= 21) return { name: "Gold 1", file: "G1.png", rankStars: s, totalStars: s };
-        if (s <= 25) return { name: "Gold 2", file: "G2.png", rankStars: s, totalStars: s };
-        if (s <= 29) return { name: "Gold 3", file: "G3.png", rankStars: s, totalStars: s };
-        if (s <= 33) return { name: "Gold 4", file: "G4.png", rankStars: s, totalStars: s };
+        // Gold Tier (4 stars per sub-tier)
+        if (s <= 25) return { name: "Gold 1", file: "G1.png", rankStars: s - 21, totalStars: s, subTierMax: 4 };
+        if (s <= 29) return { name: "Gold 2", file: "G2.png", rankStars: s - 25, totalStars: s, subTierMax: 4 };
+        if (s <= 33) return { name: "Gold 3", file: "G3.png", rankStars: s - 29, totalStars: s, subTierMax: 4 };
+        if (s <= 37) return { name: "Gold 4", file: "G4.png", rankStars: s - 33, totalStars: s, subTierMax: 4 };
 
-        if (s <= 38) return { name: "Platinum 1", file: "P1.png", rankStars: s, totalStars: s };
-        if (s <= 43) return { name: "Platinum 2", file: "P2.png", rankStars: s, totalStars: s };
-        if (s <= 48) return { name: "Platinum 3", file: "P3.png", rankStars: s, totalStars: s };
-        if (s <= 53) return { name: "Platinum 4", file: "P4.png", rankStars: s, totalStars: s };
-        if (s <= 58) return { name: "Platinum 5", file: "P5.png", rankStars: s, totalStars: s };
+        // Platinum Tier (5 stars per sub-tier)
+        if (s <= 42) return { name: "Platinum 1", file: "P1.png", rankStars: s - 37, totalStars: s, subTierMax: 5 };
+        if (s <= 47) return { name: "Platinum 2", file: "P2.png", rankStars: s - 42, totalStars: s, subTierMax: 5 };
+        if (s <= 52) return { name: "Platinum 3", file: "P3.png", rankStars: s - 47, totalStars: s, subTierMax: 5 };
+        if (s <= 57) return { name: "Platinum 4", file: "P4.png", rankStars: s - 52, totalStars: s, subTierMax: 5 };
+        if (s <= 62) return { name: "Platinum 5", file: "P5.png", rankStars: s - 57, totalStars: s, subTierMax: 5 };
 
-        if (s <= 63) return { name: "Diamond 1", file: "D1.png", rankStars: s, totalStars: s };
-        if (s <= 68) return { name: "Diamond 2", file: "D2.png", rankStars: s, totalStars: s };
-        if (s <= 73) return { name: "Diamond 3", file: "D3.png", rankStars: s, totalStars: s };
-        if (s <= 79) return { name: "Diamond 4", file: "D5.png", rankStars: s, totalStars: s };
-        if (s <= 87) return { name: "Diamond 5", file: "D5.png", rankStars: s, totalStars: s };
+        // Diamond Tier (5 stars per sub-tier)
+        if (s <= 67) return { name: "Diamond 1", file: "D1.png", rankStars: s - 62, totalStars: s, subTierMax: 5 };
+        if (s <= 72) return { name: "Diamond 2", file: "D2.png", rankStars: s - 67, totalStars: s, subTierMax: 5 };
+        if (s <= 77) return { name: "Diamond 3", file: "D3.png", rankStars: s - 72, totalStars: s, subTierMax: 5 };
+        if (s <= 82) return { name: "Diamond 4", file: "D4.png", rankStars: s - 77, totalStars: s, subTierMax: 5 };
+        if (s <= 87) return { name: "Diamond 5", file: "D5.png", rankStars: s - 82, totalStars: s, subTierMax: 5 };
 
+        // Heroic & Above (Calculated past 87 threshold)
         const heroicStars = s - 87;
 
         if (s <= 112) return { name: "Heroic", file: "CS-H1.png", rankStars: heroicStars, totalStars: s };
@@ -75,6 +81,9 @@ export const RankMapper = {
         if (s <= 786) return { name: "Grandmaster V", file: "CSGM5.png", rankStars: heroicStars, totalStars: s };
         return { name: "Grandmaster VI", file: "CSGM6.png", rankStars: heroicStars, totalStars: s };
     },
+
+    // Reference: Google Gemini AI used to calculate the CS ranking system.
+    // Reference: Garena Free Fire ranking guide for the BR ranking system.
 
     getClothesUrl(id) {
         return `https://raw.githubusercontent.com/ShahGCreator/icon/main/PNG/${id}.png`;
