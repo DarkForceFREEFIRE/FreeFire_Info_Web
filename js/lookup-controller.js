@@ -819,43 +819,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const weaponSkins = basic.weapon_skin_shows || basic.weaponSkinShows || [];
 
     if (weaponSlots) {
-      weaponSlots.innerHTML = "";
-      if (weaponSkins.length === 0) {
-        weaponSlots.innerHTML = `<p class="text-secondary" style="text-align: center; font-size: 11px; padding: 12px;">No showcased weapons set.</p>`;
-      } else {
+    weaponSlots.innerHTML = "";
+    if (weaponSkins.length === 0) {
+        weaponSlots.innerHTML = `<p class="text-secondary" style="grid-column: span 3; text-align: center; font-size: 11px; padding: 12px;">No showcased items set.</p>`;
+    } else {
         weaponSkins.forEach((id) => {
-          const strId = String(id);
-          const item = itemsLibrary.get(strId);
+        const strId = String(id);
+        const item = itemsLibrary.get(strId);
+        const slot = document.createElement("div");
+        slot.className = "wardrobe-slot";
 
-          const row = document.createElement("div");
-          row.className = "weapon-list-row";
+        const primaryUrl = `https://raw.githubusercontent.com/ShahGCreator/icon/main/PNG/${id}.png`;
+        const fallbackUrl = `https://raw.githubusercontent.com/ashqking/FF-Items/refs/heads/main/ICONS/${id}.png`;
 
-          const primaryUrl = `https://raw.githubusercontent.com/ShahGCreator/icon/main/PNG/${id}.png`;
-          const fallbackUrl = `https://raw.githubusercontent.com/ashqking/FF-Items/refs/heads/main/ICONS/${id}.png`;
-
-          const name = item ? item.name : "Weapon Skin";
-          const rarity = item ? item.rare : "COMMON";
-
-          const rareClass = item
-            ? `rare-${item.rare.toLowerCase()}`
-            : "rare-common";
-          const rareTextClass = item
-            ? `rare-text-${item.rare.toLowerCase()}`
-            : "rare-text-common";
-
-          row.innerHTML = `
-<div class="wardrobe-slot ${rareClass}" style="flex-shrink: 0; width: 80px; height: 80px;">
-  <img src="${primaryUrl}" alt="${name}" onerror="this.onerror=null; this.src='${fallbackUrl}'; this.onerror=()=>this.src='https://raw.githubusercontent.com/DarkForceFREEFIRE/Server-Updates/refs/heads/main/logo.png';">
-</div>
-<div class="weapon-list-details">
-  <span class="weapon-row-name">${name}</span>
-  <span class="weapon-row-rarity ${rareTextClass}">${rarity}</span>
-</div>
-`;
-          weaponSlots.appendChild(row);
+        if (item) {
+            slot.classList.add(`rare-${item.rare.toLowerCase()}`);
+            slot.innerHTML = `
+            <img src="${primaryUrl}" alt="${item.name}" onerror="this.onerror=null; this.src='${fallbackUrl}'; this.onerror=()=>this.src='https://raw.githubusercontent.com/DarkForceFREEFIRE/Server-Updates/refs/heads/main/logo.png';">
+            <div class="wardrobe-slot-tooltip">
+                <span class="tooltip-rare-badge rare-bg-${item.rare.toLowerCase()}">${item.rare}</span>
+                <div class="tooltip-name">${item.name}</div>
+                <div class="tooltip-desc">${item.description}</div>
+                <div class="tooltip-id">ID: ${id}</div>
+            </div>
+            `;
+        } else {
+            slot.innerHTML = `
+            <img src="${primaryUrl}" alt="Item" onerror="this.onerror=null; this.src='${fallbackUrl}'; this.onerror=()=>this.src='https://raw.githubusercontent.com/DarkForceFREEFIRE/Server-Updates/refs/heads/main/logo.png';">
+            <div class="wardrobe-slot-tooltip">
+                <div class="tooltip-name">Showcased Item</div>
+                <div class="tooltip-id">ID: ${id}</div>
+            </div>
+            `;
+        }
+        weaponSlots.appendChild(slot);
         });
-      }
     }
+    }    
 
     const titleCard = document.getElementById("profile-title-card");
     const playerTitleBox = document.getElementById("player-title-box");
