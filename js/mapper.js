@@ -34,42 +34,48 @@ export const RankMapper = {
     },
 
     getCSRank(stars) {
-        if (stars <= 1) return { name: "Bronze 1", file: "B1.png" };
-        if (stars === 2) return { name: "Bronze 2", file: "B2.png" };
-        if (stars === 3) return { name: "Bronze 3", file: "B3.png" };
-        if (stars <= 4) return { name: "Silver 1", file: "S1.png" };
-        if (stars === 5) return { name: "Silver 2", file: "S2.png" };
-        if (stars === 6) return { name: "Silver 3", file: "S3.png" };
-        if (stars <= 7) return { name: "Gold 1", file: "G1.png" };
-        if (stars === 8) return { name: "Gold 2", file: "G2.png" };
-        if (stars === 9) return { name: "Gold 3", file: "G3.png" };
-        if (stars === 10) return { name: "Gold 4", file: "G4.png" };
-        if (stars <= 11) return { name: "Platinum 1", file: "P1.png" };
-        if (stars === 12) return { name: "Platinum 2", file: "P2.png" };
-        if (stars === 13) return { name: "Platinum 3", file: "P3.png" };
-        if (stars === 14) return { name: "Platinum 4", file: "P4.png" };
-        if (stars === 15) return { name: "Platinum 5", file: "P5.png" };
-        if (stars <= 16) return { name: "Diamond 1", file: "D1.png" };
-        if (stars === 17) return { name: "Diamond 2", file: "D2.png" };
-        if (stars === 18) return { name: "Diamond 3", file: "D3.png" };
-        if (stars === 19) return { name: "Diamond 4", file: "D5.png" };
-        if (stars === 20) return { name: "Diamond 5", file: "D5.png" };
-        
-        if (stars <= 24) return { name: "Heroic", file: "CS-H1.png" };
-        if (stars <= 49) return { name: "Elite Heroic", file: "CS-H2.png" };
-        
-        if (stars <= 99) return { name: "Master", file: "M.png" };
-        if (stars <= 199) return { name: "Elite Master", file: "EM.png" };
-        if (stars <= 299) return { name: "Grandmaster I", file: "CSGM1.png" };
-        if (stars <= 399) return { name: "Grandmaster II", file: "CSGM2.png" };
-        if (stars <= 499) return { name: "Grandmaster III", file: "CSGM3.png" };
-        if (stars <= 699) return { name: "Grandmaster IV", file: "CSGM4.png" };
-        if (stars <= 799) return { name: "Grandmaster V", file: "CSGM5.png" };
-        return { name: "Grandmaster VI", file: "CSGM6.png" };
+        const s = Number(stars) || 0;
+
+        if (s <= 2) return { name: "Bronze 1", file: "B1.png", rankStars: s, totalStars: s };
+        if (s <= 5) return { name: "Bronze 2", file: "B2.png", rankStars: s, totalStars: s };
+        if (s <= 8) return { name: "Bronze 3", file: "B3.png", rankStars: s, totalStars: s };
+
+        if (s <= 11) return { name: "Silver 1", file: "S1.png", rankStars: s, totalStars: s };
+        if (s <= 14) return { name: "Silver 2", file: "S2.png", rankStars: s, totalStars: s };
+        if (s <= 17) return { name: "Silver 3", file: "S3.png", rankStars: s, totalStars: s };
+
+        if (s <= 21) return { name: "Gold 1", file: "G1.png", rankStars: s, totalStars: s };
+        if (s <= 25) return { name: "Gold 2", file: "G2.png", rankStars: s, totalStars: s };
+        if (s <= 29) return { name: "Gold 3", file: "G3.png", rankStars: s, totalStars: s };
+        if (s <= 33) return { name: "Gold 4", file: "G4.png", rankStars: s, totalStars: s };
+
+        if (s <= 38) return { name: "Platinum 1", file: "P1.png", rankStars: s, totalStars: s };
+        if (s <= 43) return { name: "Platinum 2", file: "P2.png", rankStars: s, totalStars: s };
+        if (s <= 48) return { name: "Platinum 3", file: "P3.png", rankStars: s, totalStars: s };
+        if (s <= 53) return { name: "Platinum 4", file: "P4.png", rankStars: s, totalStars: s };
+        if (s <= 58) return { name: "Platinum 5", file: "P5.png", rankStars: s, totalStars: s };
+
+        if (s <= 63) return { name: "Diamond 1", file: "D1.png", rankStars: s, totalStars: s };
+        if (s <= 68) return { name: "Diamond 2", file: "D2.png", rankStars: s, totalStars: s };
+        if (s <= 73) return { name: "Diamond 3", file: "D3.png", rankStars: s, totalStars: s };
+        if (s <= 79) return { name: "Diamond 4", file: "D5.png", rankStars: s, totalStars: s };
+        if (s <= 87) return { name: "Diamond 5", file: "D5.png", rankStars: s, totalStars: s };
+
+        const heroicStars = s - 87;
+
+        if (s <= 112) return { name: "Heroic", file: "CS-H1.png", rankStars: heroicStars, totalStars: s };
+        if (s <= 136) return { name: "Elite Heroic", file: "CS-H2.png", rankStars: heroicStars, totalStars: s };
+        if (s <= 186) return { name: "Master", file: "M.png", rankStars: heroicStars, totalStars: s };
+        if (s <= 286) return { name: "Elite Master", file: "EM.png", rankStars: heroicStars, totalStars: s };
+
+        if (s <= 386) return { name: "Grandmaster I", file: "CSGM1.png", rankStars: heroicStars, totalStars: s };
+        if (s <= 486) return { name: "Grandmaster II", file: "CSGM2.png", rankStars: heroicStars, totalStars: s };
+        if (s <= 586) return { name: "Grandmaster III", file: "CSGM3.png", rankStars: heroicStars, totalStars: s };
+        if (s <= 686) return { name: "Grandmaster IV", file: "CSGM4.png", rankStars: heroicStars, totalStars: s };
+        if (s <= 786) return { name: "Grandmaster V", file: "CSGM5.png", rankStars: heroicStars, totalStars: s };
+        return { name: "Grandmaster VI", file: "CSGM6.png", rankStars: heroicStars, totalStars: s };
     },
-    /**
-     * @param {number|string} id 
-     */
+
     getClothesUrl(id) {
         return `https://raw.githubusercontent.com/ShahGCreator/icon/main/PNG/${id}.png`;
     }

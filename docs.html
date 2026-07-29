@@ -1,350 +1,353 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Documentation - Walker Regedits</title>
     <link href="https://cdn.jsdelivr.net/npm/product-sans-webfont@1.0.0/GoogleSans.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-</head>
-<body data-theme="dark">
+  </head>
+
+  <body data-theme="dark">
 
     <header class="app-bar animate-fade-up">
-        <div class="header-inner">
-            <div class="brand-group">
-                <span class="portal-badge">WR</span>
-                <span class="brand-text">Walker Regedits <span class="accent-dim font-mono">UTILITIES</span></span>
-            </div>
-            
-            <nav class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="lookup.html" class="nav-link">FF Info</a>
-                <a href="token.html" class="nav-link">Token Gen</a>
-                <a href="signature.html" class="nav-link">Signature</a>
-                <a href="docs.html" class="nav-link active">API Docs</a>
-            </nav>
-
-            <div class="app-bar-actions">
-                <label class="theme-toggle-compact" id="theme-toggle" aria-checked="true" title="Toggle Theme">
-                    <div class="toggle-switch-track">
-                        <div class="toggle-switch-thumb"></div>
-                    </div>
-                </label>
-            </div>
+      <div class="header-inner">
+        <div class="brand-group">
+          <span class="portal-badge">WR</span>
+          <span class="brand-text">Walker Regedits <span class="accent-dim font-mono">UTILITIES</span></span>
         </div>
+
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="lookup.html" class="nav-link">FF Info</a>
+          <a href="token.html" class="nav-link">Token Gen</a>
+          <a href="signature.html" class="nav-link">Signature</a>
+          <a href="docs.html" class="nav-link active">API Docs</a>
+        </nav>
+
+        <div class="app-bar-actions">
+          <label class="theme-toggle-compact" id="theme-toggle" aria-checked="true" title="Toggle Theme">
+            <div class="toggle-switch-track">
+              <div class="toggle-switch-thumb"></div>
+            </div>
+          </label>
+        </div>
+      </div>
     </header>
 
     <main class="router-container">
-        <section id="view-docs" class="view-section animate-fade-up">
-            <div class="docs-layout">
-                <div class="docs-sidebar">
-                    <h3 class="docs-sidebar-header">API Navigation</h3>
-                    <ul class="docs-sidebar-links">
-                        <li><a href="#doc-overview" class="doc-side-link active">Overview</a></li>
-                        <li><a href="#doc-get" class="doc-side-link">GET /get (Player Info)</a></li>
-                        <li><a href="#doc-ban" class="doc-side-link">GET /check_ban (Ban Checker)</a></li>
-                        <li><a href="#doc-jwt" class="doc-side-link">GET /api/process (JWT Converter)</a></li>
-                        <li><a href="#doc-bio" class="doc-side-link">GET /updatebio (Update Bio)</a></li>
-                        <li><a href="#doc-errors" class="doc-side-link">Error Codes</a></li>
-                    </ul>
+      <section id="view-docs" class="view-section animate-fade-up">
+        <div class="docs-layout">
+          <div class="docs-sidebar">
+            <h3 class="docs-sidebar-header">API Navigation</h3>
+            <ul class="docs-sidebar-links">
+              <li><a href="#doc-overview" class="doc-side-link active">Overview</a></li>
+              <li><a href="#doc-get" class="doc-side-link">GET /get (Player Info)</a></li>
+              <li><a href="#doc-ban" class="doc-side-link">GET /check_ban (Ban Checker)</a></li>
+              <li><a href="#doc-jwt" class="doc-side-link">GET /api/process (JWT Converter)</a></li>
+              <li><a href="#doc-bio" class="doc-side-link">GET /updatebio (Update Bio)</a></li>
+              <li><a href="#doc-errors" class="doc-side-link">Error Codes</a></li>
+            </ul>
+          </div>
+
+          <div class="docs-content">
+
+            <div id="doc-overview" class="docs-card">
+              <h2>Free Fire Public Information API</h2>
+              <span class="pill-badge active">v1.0 (Stable)</span>
+              <p style="margin-top:14px;" class="text-secondary">Welcome to Walker's public API network for Garena Free Fire. This service enables developers to query player telemetry, status flags, JWT conversions, and profile bio signatures.</p>
+
+              <div class="info-alert-box" style="margin-top:16px;">
+                <strong>Rate Limiting:</strong> Standard public pathways are governed by a limit of 60 transactions per minute per origin IP address to ensure reliability.
+              </div>
+
+              <h4 style="margin-top:24px; margin-bottom:8px;">Core Host Endpoint Directory</h4>
+
+              <div class="docs-code-container">
+                <div class="docs-code-header">
+                  <span class="docs-code-lang">player info host</span>
+                  <button class="docs-code-copy-btn" data-copy="https://wzapiinfo.vercel.app" title="Copy endpoint">
+                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
+                  </button>
                 </div>
+                <pre class="docs-code-content"><code><span class="code-string">"https://wzapiinfo.vercel.app"</span></code></pre>
+              </div>
 
-                <div class="docs-content">
-                    
-                    <div id="doc-overview" class="docs-card">
-                        <h2>Free Fire Public Information API</h2>
-                        <span class="pill-badge active">v1.0 (Stable)</span>
-                        <p style="margin-top:14px;" class="text-secondary">Welcome to Walker's public API network for Garena Free Fire. This service enables developers to query player telemetry, status flags, JWT conversions, and profile bio signatures.</p>
-                        
-                        <div class="info-alert-box" style="margin-top:16px;">
-                            <strong>Rate Limiting:</strong> Standard public pathways are governed by a limit of 60 transactions per minute per origin IP address to ensure reliability.
-                        </div>
-                        
-                        <h4 style="margin-top:24px; margin-bottom:8px;">Core Host Endpoint Directory</h4>
-                        
-                        <div class="docs-code-container">
-                            <div class="docs-code-header">
-                                <span class="docs-code-lang">player info host</span>
-                                <button class="docs-code-copy-btn" data-copy="https://wzapiinfo.vercel.app" title="Copy endpoint">
-                                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
-                                </button>
-                            </div>
-                            <pre class="docs-code-content"><code><span class="code-string">"https://wzapiinfo.vercel.app"</span></code></pre>
-                        </div>
+              <div class="docs-code-container">
+                <div class="docs-code-header">
+                  <span class="docs-code-lang">jwt converter host</span>
+                  <button class="docs-code-copy-btn" data-copy="https://wzjwt.vercel.app" title="Copy endpoint">
+                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
+                  </button>
+                </div>
+                <pre class="docs-code-content"><code><span class="code-string">"https://wzjwt.vercel.app"</span></code></pre>
+              </div>
 
-                        <div class="docs-code-container">
-                            <div class="docs-code-header">
-                                <span class="docs-code-lang">jwt converter host</span>
-                                <button class="docs-code-copy-btn" data-copy="https://wzjwt.vercel.app" title="Copy endpoint">
-                                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
-                                </button>
-                            </div>
-                            <pre class="docs-code-content"><code><span class="code-string">"https://wzjwt.vercel.app"</span></code></pre>
-                        </div>
+              <div class="docs-code-container">
+                <div class="docs-code-header">
+                  <span class="docs-code-lang">signature update host</span>
+                  <button class="docs-code-copy-btn" data-copy="https://wzlongsign.vercel.app" title="Copy endpoint">
+                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
+                  </button>
+                </div>
+                <pre class="docs-code-content"><code><span class="code-string">"https://wzlongsign.vercel.app"</span></code></pre>
+              </div>
+            </div>
 
-                        <div class="docs-code-container">
-                            <div class="docs-code-header">
-                                <span class="docs-code-lang">signature update host</span>
-                                <button class="docs-code-copy-btn" data-copy="https://wzlongsign.vercel.app" title="Copy endpoint">
-                                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
-                                </button>
-                            </div>
-                            <pre class="docs-code-content"><code><span class="code-string">"https://wzlongsign.vercel.app"</span></code></pre>
-                        </div>
-                    </div>
+            <div id="doc-get" class="docs-card">
+              <div class="endpoint-header">
+                <span class="badge method-get">GET</span>
+                <span class="endpoint-path">/get</span>
+              </div>
+              <p class="text-secondary" style="margin-top:8px;">Retrieve detailed game attributes, active inventory equipment, rank thresholds, and clan metadata of the specified target.</p>
 
-                    <div id="doc-get" class="docs-card">
-                        <div class="endpoint-header">
-                            <span class="badge method-get">GET</span>
-                            <span class="endpoint-path">/get</span>
-                        </div>
-                        <p class="text-secondary" style="margin-top:8px;">Retrieve detailed game attributes, active inventory equipment, rank thresholds, and clan metadata of the specified target.</p>
-                        
-                        <h4 style="margin-top:16px; margin-bottom:8px;">Query Parameters</h4>
-                        <table class="params-table">
-                            <thead>
-                                <tr>
-                                    <th>Parameter</th>
-                                    <th>Data Type</th>
-                                    <th>Required</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code class="font-mono">uid</code></td>
-                                    <td>String</td>
-                                    <td><span class="accent-text">Yes</span></td>
-                                    <td>Numeric player UID. Example: <code class="font-mono">10597688191</code></td>
-                                </tr>
-                                <tr>
-                                    <td><code class="font-mono">region</code></td>
-                                    <td>String</td>
-                                    <td>No</td>
-                                    <td>Target geographical cluster zone (e.g., <code class="font-mono">SG</code>, <code class="font-mono">BR</code>, <code class="font-mono">IND</code>). Defaults to automatic global routing.</td>
-                                </tr>
-                            </tbody>
-                        </table>
+              <h4 style="margin-top:16px; margin-bottom:8px;">Query Parameters</h4>
+              <table class="params-table">
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Data Type</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="font-mono">uid</code></td>
+                    <td>String</td>
+                    <td><span class="accent-text">Yes</span></td>
+                    <td>Numeric player UID. Example: <code class="font-mono">10597688191</code></td>
+                  </tr>
+                  <tr>
+                    <td><code class="font-mono">region</code></td>
+                    <td>String</td>
+                    <td>No</td>
+                    <td>Target geographical cluster zone (e.g., <code class="font-mono">SG</code>, <code class="font-mono">BR</code>, <code class="font-mono">IND</code>). Defaults to automatic global routing.</td>
+                  </tr>
+                </tbody>
+              </table>
 
-                        <h4 style="margin-top:20px; margin-bottom:8px;">Request Example</h4>
-                        <div class="docs-code-container">
-                            <div class="docs-code-header">
-                                <span class="docs-code-lang">bash</span>
-                                <button class="docs-code-copy-btn" data-copy="curl -X GET &quot;https://wzapiinfo.vercel.app/get?uid=10597688191&quot;" title="Copy code">
-                                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
-                                </button>
-                            </div>
-                            <pre class="docs-code-content"><code><span class="code-cmd">curl</span> <span class="code-param">-X</span> <span class="code-variable">GET</span> <span class="code-string">"https://wzapiinfo.vercel.app/get?uid=10597688191"</span></code></pre>
-                        </div>
-                    </div>
+              <h4 style="margin-top:20px; margin-bottom:8px;">Request Example</h4>
+              <div class="docs-code-container">
+                <div class="docs-code-header">
+                  <span class="docs-code-lang">bash</span>
+                  <button class="docs-code-copy-btn" data-copy="curl -X GET &quot;https://wzapiinfo.vercel.app/get?uid=10597688191&quot;" title="Copy code">
+                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
+                  </button>
+                </div>
+                <pre class="docs-code-content"><code><span class="code-cmd">curl</span> <span class="code-param">-X</span> <span class="code-variable">GET</span> <span class="code-string">"https://wzapiinfo.vercel.app/get?uid=10597688191"</span></code></pre>
+              </div>
+            </div>
 
-                    <div id="doc-ban" class="docs-card">
-                        <div class="endpoint-header">
-                            <span class="badge method-get">GET</span>
-                            <span class="endpoint-path">/check_ban</span>
-                        </div>
-                        <p class="text-secondary" style="margin-top:8px;">Inspect whether the targeted player UID is currently blacklisted or flagged as suspended by Garena anti-cheat systems.</p>
-                        
-                        <h4 style="margin-top:16px; margin-bottom:8px;">Query Parameters</h4>
-                        <table class="params-table">
-                            <thead>
-                                <tr>
-                                    <th>Parameter</th>
-                                    <th>Data Type</th>
-                                    <th>Required</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code class="font-mono">uid</code></td>
-                                    <td>String</td>
-                                    <td><span class="accent-text">Yes</span></td>
-                                    <td>Target numeric account UID.</td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div id="doc-ban" class="docs-card">
+              <div class="endpoint-header">
+                <span class="badge method-get">GET</span>
+                <span class="endpoint-path">/check_ban</span>
+              </div>
+              <p class="text-secondary" style="margin-top:8px;">Inspect whether the targeted player UID is currently blacklisted or flagged as suspended by Garena anti-cheat systems.</p>
 
-                        <h4 style="margin-top:20px; margin-bottom:8px;">Request Example</h4>
-                        <div class="docs-code-container">
-                            <div class="docs-code-header">
-                                <span class="docs-code-lang">bash</span>
-                                <button class="docs-code-copy-btn" data-copy="curl -X GET &quot;https://wzapiinfo.vercel.app/check_ban?uid=10597688191&quot;" title="Copy code">
-                                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
-                                </button>
-                            </div>
-                            <pre class="docs-code-content"><code><span class="code-cmd">curl</span> <span class="code-param">-X</span> <span class="code-variable">GET</span> <span class="code-string">"https://wzapiinfo.vercel.app/check_ban?uid=10597688191"</span></code></pre>
-                        </div>
-                    </div>
+              <h4 style="margin-top:16px; margin-bottom:8px;">Query Parameters</h4>
+              <table class="params-table">
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Data Type</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="font-mono">uid</code></td>
+                    <td>String</td>
+                    <td><span class="accent-text">Yes</span></td>
+                    <td>Target numeric account UID.</td>
+                  </tr>
+                </tbody>
+              </table>
 
-                    <div id="doc-jwt" class="docs-card">
-                        <div class="endpoint-header">
-                            <span class="badge method-get">GET</span>
-                            <span class="endpoint-path">/api/process</span>
-                        </div>
-                        <p class="text-secondary" style="margin-top:8px;">Convert active game client tokens, numeric credentials, or EAT URLs into standard JSON Web Token (JWT) payloads.</p>
-                        
-                        <h4 style="margin-top:16px; margin-bottom:8px;">Query Parameters</h4>
-                        <table class="params-table">
-                            <thead>
-                                <tr>
-                                    <th>Parameter</th>
-                                    <th>Data Type</th>
-                                    <th>Required</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code class="font-mono">mode</code></td>
-                                    <td>String</td>
-                                    <td><span class="accent-text">Yes</span></td>
-                                    <td>Conversion method. Accepted configurations: <code class="font-mono">access_token</code>, <code class="font-mono">id_pass</code>, or <code class="font-mono">eat_url</code>.</td>
-                                </tr>
-                                <tr>
-                                    <td><code class="font-mono">data</code></td>
-                                    <td>String</td>
-                                    <td>Conditional</td>
-                                    <td>Raw Access Token or target authorization string. Required if utilizing <code class="font-mono">access_token</code> or <code class="font-mono">eat_url</code> modes.</td>
-                                </tr>
-                                <tr>
-                                    <td><code class="font-mono">uid</code></td>
-                                    <td>String</td>
-                                    <td>Conditional</td>
-                                    <td>Numeric credential account UID. Required when utilizing <code class="font-mono">id_pass</code> mode.</td>
-                                </tr>
-                                <tr>
-                                    <td><code class="font-mono">password</code></td>
-                                    <td>String</td>
-                                    <td>Conditional</td>
-                                    <td>Direct password string. Required when utilizing <code class="font-mono">id_pass</code> mode.</td>
-                                </tr>
-                            </tbody>
-                        </table>
+              <h4 style="margin-top:20px; margin-bottom:8px;">Request Example</h4>
+              <div class="docs-code-container">
+                <div class="docs-code-header">
+                  <span class="docs-code-lang">bash</span>
+                  <button class="docs-code-copy-btn" data-copy="curl -X GET &quot;https://wzapiinfo.vercel.app/check_ban?uid=10597688191&quot;" title="Copy code">
+                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
+                  </button>
+                </div>
+                <pre class="docs-code-content"><code><span class="code-cmd">curl</span> <span class="code-param">-X</span> <span class="code-variable">GET</span> <span class="code-string">"https://wzapiinfo.vercel.app/check_ban?uid=10597688191"</span></code></pre>
+              </div>
+            </div>
 
-                        <h4 style="margin-top:20px; margin-bottom:8px;">Request Example</h4>
-                        <div class="docs-code-container">
-                            <div class="docs-code-header">
-                                <span class="docs-code-lang">bash</span>
-                                <button class="docs-code-copy-btn" data-copy="curl -X GET &quot;https://wzjwt.vercel.app/api/process?mode=access_token&amp;data=YOUR_ACCESS_TOKEN&quot;" title="Copy code">
-                                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
-                                </button>
-                            </div>
-                            <pre class="docs-code-content"><code><span class="code-cmd">curl</span> <span class="code-param">-X</span> <span class="code-variable">GET</span> <span class="code-string">"https://wzjwt.vercel.app/api/process?mode=access_token&amp;data=YOUR_ACCESS_TOKEN"</span></code></pre>
-                        </div>
+            <div id="doc-jwt" class="docs-card">
+              <div class="endpoint-header">
+                <span class="badge method-get">GET</span>
+                <span class="endpoint-path">/api/process</span>
+              </div>
+              <p class="text-secondary" style="margin-top:8px;">Convert active game client tokens, numeric credentials, or EAT URLs into standard JSON Web Token (JWT) payloads.</p>
 
-                    </div>
+              <h4 style="margin-top:16px; margin-bottom:8px;">Query Parameters</h4>
+              <table class="params-table">
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Data Type</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="font-mono">mode</code></td>
+                    <td>String</td>
+                    <td><span class="accent-text">Yes</span></td>
+                    <td>Conversion method. Accepted configurations: <code class="font-mono">access_token</code>, <code class="font-mono">id_pass</code>, or <code class="font-mono">eat_url</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code class="font-mono">data</code></td>
+                    <td>String</td>
+                    <td>Conditional</td>
+                    <td>Raw Access Token or target authorization string. Required if utilizing <code class="font-mono">access_token</code> or <code class="font-mono">eat_url</code> modes.</td>
+                  </tr>
+                  <tr>
+                    <td><code class="font-mono">uid</code></td>
+                    <td>String</td>
+                    <td>Conditional</td>
+                    <td>Numeric credential account UID. Required when utilizing <code class="font-mono">id_pass</code> mode.</td>
+                  </tr>
+                  <tr>
+                    <td><code class="font-mono">password</code></td>
+                    <td>String</td>
+                    <td>Conditional</td>
+                    <td>Direct password string. Required when utilizing <code class="font-mono">id_pass</code> mode.</td>
+                  </tr>
+                </tbody>
+              </table>
 
-                    <div id="doc-bio" class="docs-card">
-                        <div class="endpoint-header">
-                            <span class="badge method-get">GET</span>
-                            <span class="endpoint-path">/updatebio</span>
-                        </div>
-                        <p class="text-secondary" style="margin-top:8px;">Programmatically rewrite the targeted account's in-game social signature profile text using active JWT authentication.</p>
-                        
-                        <h4 style="margin-top:16px; margin-bottom:8px;">Query Parameters</h4>
-                        <table class="params-table">
-                            <thead>
-                                <tr>
-                                    <th>Parameter</th>
-                                    <th>Data Type</th>
-                                    <th>Required</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code class="font-mono">JWT token</code></td>
-                                    <td>String</td>
-                                    <td><span class="accent-text">Yes</span></td>
-                                    <td>Verified JWT authentication credential string.</td>
-                                </tr>
-                                <tr>
-                                    <td><code class="font-mono">bio</code></td>
-                                    <td>String</td>
-                                    <td><span class="accent-text">Yes</span></td>
-                                    <td>String body content for the updated profile bio (Max 256 characters limit).</td>
-                                </tr>
-                                <tr>
-                                    <td><code class="font-mono">region</code></td>
-                                    <td>String</td>
-                                    <td>No</td>
-                                    <td>Target zone (e.g., <code class="font-mono">IND</code>, <code class="font-mono">BR</code>, <code class="font-mono">US</code>, <code class="font-mono">SAC</code>, <code class="font-mono">NA</code>). Uses dynamic routing if omitted.</td>
-                                </tr>
-                            </tbody>
-                        </table>
+              <h4 style="margin-top:20px; margin-bottom:8px;">Request Example</h4>
+              <div class="docs-code-container">
+                <div class="docs-code-header">
+                  <span class="docs-code-lang">bash</span>
+                  <button class="docs-code-copy-btn" data-copy="curl -X GET &quot;https://wzjwt.vercel.app/api/process?mode=access_token&amp;data=YOUR_ACCESS_TOKEN&quot;" title="Copy code">
+                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
+                  </button>
+                </div>
+                <pre class="docs-code-content"><code><span class="code-cmd">curl</span> <span class="code-param">-X</span> <span class="code-variable">GET</span> <span class="code-string">"https://wzjwt.vercel.app/api/process?mode=access_token&amp;data=YOUR_ACCESS_TOKEN"</span></code></pre>
+              </div>
 
-                        <h4 style="margin-top:20px; margin-bottom:8px;">Request Example</h4>
-                        <div class="docs-code-container">
-                            <div class="docs-code-header">
-                                <span class="docs-code-lang">bash</span>
-                                <button class="docs-code-copy-btn" data-copy="curl -X GET &quot;https://wzlongsign.vercel.app/updatebio?token=YOUR_JWT_TOKEN&amp;bio=Hello+World&amp;region=BR&quot;" title="Copy code">
-                                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
-                                </button>
-                            </div>
-                            <pre class="docs-code-content"><code><span class="code-cmd">curl</span> <span class="code-param">-X</span> <span class="code-variable">GET</span> <span class="code-string">"https://wzlongsign.vercel.app/updatebio?token=YOUR_JWT_TOKEN&amp;bio=Hello+World&amp;region=BR"</span></code></pre>
-                        </div>
-                    </div>
-                        <div id="doc-errors" class="docs-card">
-                            <h2>Error Schemas</h2>
-                            <p class="text-secondary">Expected JSON structures returned when queries are missing required inputs or encounter parsing exceptions.</p>
-                            
-                            <div class="docs-code-container">
-                                <div class="docs-code-header">
-                                    <span class="docs-code-lang">json</span>
-                                    <button class="docs-code-copy-btn" data-copy="{&#10;    &quot;status&quot;: &quot;error&quot;,&#10;    &quot;msg&quot;: &quot;T_P_WRONG_ACCOUNT&quot;&#10;}" title="Copy payload">
-                                        <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
-                                    </button>
-                                </div>
-                                <pre class="docs-code-content"><code><span class="code-punctuation">{</span>
+            </div>
+
+            <div id="doc-bio" class="docs-card">
+              <div class="endpoint-header">
+                <span class="badge method-get">GET</span>
+                <span class="endpoint-path">/updatebio</span>
+              </div>
+              <p class="text-secondary" style="margin-top:8px;">Programmatically rewrite the targeted account's in-game social signature profile text using active JWT authentication.</p>
+
+              <h4 style="margin-top:16px; margin-bottom:8px;">Query Parameters</h4>
+              <table class="params-table">
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Data Type</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="font-mono">JWT token</code></td>
+                    <td>String</td>
+                    <td><span class="accent-text">Yes</span></td>
+                    <td>Verified JWT authentication credential string.</td>
+                  </tr>
+                  <tr>
+                    <td><code class="font-mono">bio</code></td>
+                    <td>String</td>
+                    <td><span class="accent-text">Yes</span></td>
+                    <td>String body content for the updated profile bio (Max 256 characters limit).</td>
+                  </tr>
+                  <tr>
+                    <td><code class="font-mono">region</code></td>
+                    <td>String</td>
+                    <td>No</td>
+                    <td>Target zone (e.g., <code class="font-mono">IND</code>, <code class="font-mono">BR</code>, <code class="font-mono">US</code>, <code class="font-mono">SAC</code>, <code class="font-mono">NA</code>). Uses dynamic routing if omitted.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h4 style="margin-top:20px; margin-bottom:8px;">Request Example</h4>
+              <div class="docs-code-container">
+                <div class="docs-code-header">
+                  <span class="docs-code-lang">bash</span>
+                  <button class="docs-code-copy-btn" data-copy="curl -X GET &quot;https://wzlongsign.vercel.app/updatebio?token=YOUR_JWT_TOKEN&amp;bio=Hello+World&amp;region=BR&quot;" title="Copy code">
+                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
+                  </button>
+                </div>
+                <pre class="docs-code-content"><code><span class="code-cmd">curl</span> <span class="code-param">-X</span> <span class="code-variable">GET</span> <span class="code-string">"https://wzlongsign.vercel.app/updatebio?token=YOUR_JWT_TOKEN&amp;bio=Hello+World&amp;region=BR"</span></code></pre>
+              </div>
+            </div>
+            <div id="doc-errors" class="docs-card">
+              <h2>Error Schemas</h2>
+              <p class="text-secondary">Expected JSON structures returned when queries are missing required inputs or encounter parsing exceptions.</p>
+
+              <div class="docs-code-container">
+                <div class="docs-code-header">
+                  <span class="docs-code-lang">json</span>
+                  <button class="docs-code-copy-btn" data-copy="{&#10;    &quot;status&quot;: &quot;error&quot;,&#10;    &quot;msg&quot;: &quot;T_P_WRONG_ACCOUNT&quot;&#10;}" title="Copy payload">
+                    <img src="icons/Copy.svg" class="docs-code-copy-icon" alt="Copy">
+                  </button>
+                </div>
+                <pre class="docs-code-content"><code><span class="code-punctuation">{</span>
                             <span class="code-keyword">"status"</span><span class="code-punctuation">:</span> <span class="code-string">"error"</span><span class="code-punctuation">,</span>
                             <span class="code-keyword">"msg"</span><span class="code-punctuation">:</span> <span class="code-string">"T_P_WRONG_ACCOUNT"</span>
                         <span class="code-punctuation">}</span></code></pre>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+              </div>
             </div>
-        </section>
+          </div>
+
+        </div>
+        </div>
+      </section>
     </main>
 
     <footer class="portal-footer">
-        <div class="footer-bottom">
-            <div class="footer-col brand-col">
-                <div class="brand-group">
-                    <span class="portal-badge">WR</span>
-                    <span class="brand-text">Walker Regedits</span>
-                </div>
-                <p class="text-secondary text-dim font-mono" style="margin-top:10px; max-width:300px; font-size:11px; line-height:1.4;">
-                    Dedicated utility hub for player stats tracking. Real-time data retrieved directly via public API platforms. Unofficial tool.
-                </p>
-            </div>
-            
-            <div class="footer-col">
-                <h4>TOOLS</h4>
-                <a href="lookup.html" class="footer-link">Player Info</a>
-                <a href="token.html" class="footer-link">Token Gen</a>
-                <a href="signature.html" class="footer-link">Signature</a>
-                <a href="docs.html" class="footer-link">API Reference</a>
-            </div>
-
-            <div class="footer-col">
-                <h4>DEVELOPERS & CREDITS</h4>
-                <a href="https://wzservice.vercel.app" class="footer-link" target="_blank">wzservice.vercel.app</a>
-                <a href="https://github.com/DarkForceFREEFIRE" class="footer-link" target="_blank">DarkForceFREEFIRE (GitHub)</a>
-                <a href="https://discord.gg/fjkcdAVdS" class="footer-link" target="_blank">Join Discord Community</a>
-            </div>
+      <div class="footer-bottom">
+        <div class="footer-col brand-col">
+          <div class="brand-group">
+            <span class="portal-badge">WR</span>
+            <span class="brand-text">Walker Regedits</span>
+          </div>
+          <p class="text-secondary text-dim font-mono" style="margin-top:10px; max-width:300px; font-size:11px; line-height:1.4;">
+            Dedicated utility hub for player stats tracking. Real-time data retrieved directly via public API platforms. Unofficial tool.
+          </p>
         </div>
 
-        <div class="footer-copyright font-mono text-secondary">
-            <span>&copy; 2026 Walker Regedits - Unofficial Free Fire Utilities</span>
+        <div class="footer-col">
+          <h4>TOOLS</h4>
+          <a href="lookup.html" class="footer-link">Player Info</a>
+          <a href="token.html" class="footer-link">Token Gen</a>
+          <a href="signature.html" class="footer-link">Signature</a>
+          <a href="docs.html" class="footer-link">API Reference</a>
         </div>
+
+        <div class="footer-col">
+          <h4>DEVELOPERS & CREDITS</h4>
+          <a href="https://wzservice.vercel.app" class="footer-link" target="_blank">wzservice.vercel.app</a>
+          <a href="https://github.com/DarkForceFREEFIRE" class="footer-link" target="_blank">DarkForceFREEFIRE (GitHub)</a>
+          <a href="https://discord.gg/fjkcdAVdS" class="footer-link" target="_blank">Join Discord Community</a>
+        </div>
+      </div>
+
+      <div class="footer-copyright font-mono text-secondary">
+        <span>&copy; 2026 Walker Regedits - Unofficial Free Fire Utilities</span>
+      </div>
     </footer>
 
     <div id="status-toast" class="toast hidden"></div>
 
     <script type="module" src="js/app.js"></script>
     <script type="module" src="js/docs-controller.js"></script>
-</body>
+  </body>
+
 </html>
