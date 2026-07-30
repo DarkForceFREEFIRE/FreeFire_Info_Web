@@ -1691,88 +1691,104 @@ select.fluent-input option {
   border-color: rgb(80, 200, 255) !important;
   box-shadow: 0 4px 14px rgba(80, 200, 255, 0.25) !important;
 }
-.rare-purple,
-.rare-epic {
+/* ===========================
+   RARITY BORDER GLOW (common)
+   =========================== */
+.rare-common,
+.rare-white {
+  border-color: rgba(163, 163, 163, 0.25) !important;
+}
+.rare-common:hover,
+.rare-white:hover {
+  border-color: #a3a3a3 !important;
+  box-shadow: 0 4px 14px rgba(163, 163, 163, 0.2) !important;
+}
+
+.rare-uncommon,
+.rare-green {
+  border-color: rgba(74, 222, 128, 0.3) !important;
+}
+.rare-uncommon:hover,
+.rare-green:hover {
+  border-color: #4ade80 !important;
+  box-shadow: 0 4px 14px rgba(74, 222, 128, 0.25) !important;
+}
+
+.rare-rare,
+.rare-blue {
+  border-color: rgba(96, 165, 250, 0.3) !important;
+}
+.rare-rare:hover,
+.rare-blue:hover {
+  border-color: #60a5fa !important;
+  box-shadow: 0 4px 14px rgba(96, 165, 250, 0.25) !important;
+}
+
+/* ----- Epic (Purple) ----- */
+.rare-epic,
+.rare-purple {
   border-color: rgba(168, 85, 247, 0.3) !important;
 }
-.rare-purple:hover,
-.rare-epic:hover {
+.rare-epic:hover,
+.rare-purple:hover {
   border-color: #a855f7 !important;
   box-shadow: 0 4px 14px rgba(168, 85, 247, 0.25) !important;
 }
-.rare-purple_plus,
-.rare-epic_plus {
+
+/* ----- Epic+ (Magenta) ----- */
+.rare-epic_plus,
+.rare-purple_plus {
   border-color: rgba(217, 70, 239, 0.3) !important;
 }
-.rare-purple_plus:hover,
-.rare-epic_plus:hover {
+.rare-epic_plus:hover,
+.rare-purple_plus:hover {
   border-color: #d946ef !important;
   box-shadow: 0 4px 14px rgba(217, 70, 239, 0.25) !important;
 }
-.rare-orange,
-.rare-mythic {
+
+/* ----- Mythic (Orange) ----- */
+.rare-mythic,
+.rare-orange {
   border-color: rgba(249, 115, 22, 0.3) !important;
 }
-.rare-orange:hover,
-.rare-mythic:hover {
+.rare-mythic:hover,
+.rare-orange:hover {
   border-color: #f97316 !important;
   box-shadow: 0 4px 14px rgba(249, 115, 22, 0.25) !important;
 }
-.rare-orange_plus,
-.rare-mythic_plus {
+
+/* ----- Mythic+ (Red‑Orange) ----- */
+.rare-mythic_plus,
+.rare-orange_plus {
   border-color: rgba(239, 68, 68, 0.3) !important;
 }
-.rare-orange_plus:hover,
-.rare-mythic_plus:hover {
+.rare-mythic_plus:hover,
+.rare-orange_plus:hover {
   border-color: #ef4444 !important;
   box-shadow: 0 4px 14px rgba(239, 68, 68, 0.25) !important;
 }
-.rare-red,
-.rare-artifact {
+
+/* ----- Legendary (Red) / Artifact ----- */
+.rare-legendary,
+.rare-artifact,
+.rare-red {
   border-color: rgba(220, 38, 38, 0.35) !important;
 }
-.rare-red:hover,
-.rare-artifact:hover {
+.rare-legendary:hover,
+.rare-artifact:hover,
+.rare-red:hover {
   border-color: #dc2626 !important;
   box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35) !important;
 }
-.rare-bg-white,
-.rare-bg-common {
-  background-color: #64748b;
-}
-.rare-bg-green,
-.rare-bg-uncommon {
-  background-color: #10b981;
-}
-.rare-bg-blue,
-.rare-bg-rare {
-  background-color: #0087b5;
-}
-[data-theme="dark"] .rare-bg-blue,
-[data-theme="dark"] .rare-bg-rare {
-  background-color: rgb(80, 200, 255);
-  color: #090d12 !important;
-}
-.rare-bg-purple,
-.rare-bg-epic {
-  background-color: #a855f7;
-}
-.rare-bg-purple_plus,
-.rare-bg-epic_plus {
-  background-color: #d946ef;
-}
-.rare-bg-orange,
-.rare-bg-mythic {
-  background-color: #f97316;
-}
-.rare-bg-orange_plus,
-.rare-bg-mythic_plus {
-  background-color: #ef4444;
-}
-.rare-bg-red,
-.rare-bg-artifact {
-  background-color: #dc2626;
-}
+
+.rare-bg-common { background: #a3a3a3; }
+.rare-bg-uncommon { background: #4ade80; }
+.rare-bg-rare { background: #60a5fa; }
+.rare-bg-epic { background: #a855f7; }
+.rare-bg-epic_plus { background: #d946ef; }
+.rare-bg-mythic { background: #f97316; }
+.rare-bg-mythic_plus { background: #ef4444; }
+.rare-bg-legendary { background: #dc2626; }
 .banner-hero-header {
   flex-direction: row !important;
   justify-content: center;

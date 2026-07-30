@@ -93,6 +93,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const captValBr = document.getElementById("capt-val-br");
   const captValCs = document.getElementById("capt-val-cs");
 
+  const RARITY_MAP = {
+  "WHITE": "COMMON",
+  "GREEN": "UNCOMMON",
+  "BLUE": "RARE",
+  "PURPLE": "EPIC",
+  "PURPLE_PLUS": "EPIC_PLUS",
+  "ORANGE": "MYTHIC",
+  "ORANGE_PLUS": "MYTHIC_PLUS",
+  "RED": "LEGENDARY",
+  "NONE": "COMMON"
+};
+
   function parseSignatureToHTML(text) {
     if (!text) return '"No Profile Signature Set"';
     let escaped = text
@@ -181,27 +193,30 @@ document.addEventListener("DOMContentLoaded", () => {
       myWorker.postMessage(buffer, [buffer]);
 
       myWorker.onmessage = function (e) {
-        if (e.data.success) {
-          const data = e.data.data;
-          for (const item of data) {
-            if (item.itemID) {
-              const id = String(item.itemID);
-              itemsLibrary.set(id, {
-                name: item.name || `Item #${id}`,
-                description: item.description || "No description available",
-                rare: (item.Rare || "COMMON").toUpperCase(),
-              });
-            }
-          }
-          console.log(
-            `[Item Library] Loaded ${itemsLibrary.size} definitions successfully.`,
-          );
-          if (currentProfileData) {
-            renderDashboard(currentProfileData);
+      if (e.data.success) {
+        const data = e.data.data;
+        for (const item of data) {
+          if (item.itemID) {
+            const id = String(item.itemID);
+            const rawRare = (item.Rare || "NONE").toUpperCase();
+            const mappedRare = RARITY_MAP[rawRare] || "COMMON";
+
+            itemsLibrary.set(id, {
+              name: item.name || `Item #${id}`,
+              description: item.description || "No description available",
+              rare: mappedRare, 
+            });
           }
         }
-        myWorker.terminate();
-      };
+        console.log(
+          `[Item Library] Loaded ${itemsLibrary.size} definitions successfully.`
+        );
+        if (currentProfileData) {
+          renderDashboard(currentProfileData);
+        }
+      }
+      myWorker.terminate();
+    };
 
       myWorker.onerror = function (err) {
         console.error("[Item Library Loader] Worker runtime error:", err);
@@ -286,22 +301,20 @@ document.addEventListener("DOMContentLoaded", () => {
       rare: "COMMON",
     };
   }
-
+  
   function getTitleTierClass(rare) {
     const r = String(rare || "COMMON").toUpperCase();
     if (
-      r.includes("MYTHIC") ||
-      r.includes("ARTIFACT") ||
-      r.includes("RED") ||
-      r.includes("ORANGE_PLUS")
+      r === "LEGENDARY" ||
+      r === "MYTHIC" ||
+      r === "MYTHIC_PLUS" ||
+      r === "ARTIFACT"
     ) {
       return "glow-title-great";
     } else if (
-      r.includes("EPIC") ||
-      r.includes("RARE") ||
-      r.includes("PURPLE") ||
-      r.includes("BLUE") ||
-      r.includes("ORANGE")
+      r === "EPIC" ||
+      r === "EPIC_PLUS" ||
+      r === "RARE"
     ) {
       return "glow-title-usual";
     } else {
