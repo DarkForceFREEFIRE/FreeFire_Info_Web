@@ -1,0 +1,72 @@
+[
+  {
+    "uid": "5902585025",
+    "game_uid": "16690034004",
+    "nickname": "Walker\u00b3\u2079\u2075\u00b3",
+    "password": "24e8a12bfa665bbd261f44266025c7bdad9928e0acbf3f666191f85cd35d4d83",
+    "region": "IND"
+  },
+  {
+    "uid": "5902587042",
+    "game_uid": "16690035973",
+    "nickname": "Walker\u2074\u2078\u2079\u2076",
+    "password": "967d56fc8fbbbe75e3d650b141041c351b756f9ca51ae3044799b017b9eba3f6",
+    "region": "SG"
+  },
+  {
+    "uid": "5902588485",
+    "game_uid": "16690036812",
+    "nickname": "Walker\u2079\u2078\u2078\u2075",
+    "password": "8a6c31ec5355b3d59b0c7cdb50cab7581d8978f43736d62b658ea0d3d6c4f0af",
+    "region": "BR"
+  },
+  {
+    "uid": "5902590130",
+    "game_uid": "16690037568",
+    "nickname": "Walker\u00b3\u2074\u2077\u2074",
+    "password": "06d066f48061e57c23b94668fcc09d37e2cf4db7e1b56fdaf64e607c9805c7ec",
+    "region": "US"
+  },
+  {
+    "uid": "5902591995",
+    "game_uid": "16690038357",
+    "nickname": "Walker\u2077\u00b9\u2075\u2079",
+    "password": "d497f09acbc85be032ad351ea1a8b5a45fd90f185e60288fe488aef452aaa19a",
+    "region": "SAC"
+  },
+  {
+    "uid": "5902593627",
+    "game_uid": "16690039107",
+    "nickname": "Walker\u2076\u2074\u2074\u00b9",
+    "password": "c2c4e96f5d3cd01a84c733cf9843f09f2e5c6f7ec7289e1d9cbc4635eee73a4b",
+    "region": "NA"
+  },
+  {
+    "uid": "5902601255",
+    "game_uid": "16690044029",
+    "nickname": "Walker\u2077\u2070\u2074\u00b9",
+    "password": "06b613805493c695be5d5fc419f5d831cc3b026778a4d351ec3926cdbaae5b05",
+    "region": "TH"
+  },
+  {
+    "uid": "5902604048",
+    "game_uid": "16690046797",
+    "nickname": "Walker\u2078\u2070\u00b9\u00b9",
+    "password": "631e1d6e07997465864c0bdd660ece84909c23ca4a500da5b591ed80b72654f4",
+    "region": "PK"
+  },
+  {
+    "uid": "5902606768",
+    "game_uid": "16690049337",
+    "nickname": "Walker\u2077\u2074\u00b3\u2075",
+    "password": "9f2b181435fc25b8edb1c3c4f2dfd785247103b6b4d6d0d02177ae6e01795475",
+    "region": "BD"
+  },
+  {
+    "uid": "5902609423",
+    "game_uid": "16690051431",
+    "nickname": "Walker\u2077\u2076\u00b3\u2070",
+    "password": "3f86b51ef5c75d3c3acf81a7a52ae6f52452de4d6decbb1d51ecf4c28454fa25",
+    "region": "RU"
+  }
+]

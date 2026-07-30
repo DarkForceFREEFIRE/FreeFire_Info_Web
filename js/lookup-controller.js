@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const searchBtn = document.getElementById("search-btn-field");
   const uidInput = document.getElementById("uid-input-field");
+  const regionSelect = document.getElementById("region-select-field");
   const apiSourceInput = document.getElementById("api-source-field");
 
   const resultsPlaceholder = document.getElementById("results-placeholder");
@@ -67,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const csBadgeImg = document.getElementById("cs-badge-img");
   const csBadgeName = document.getElementById("cs-badge-name");
   const csBadgePoints = document.getElementById("cs-badge-points");
+  const csStarsContainer = document.getElementById("cs-stars-container");
   const csValCurrent = document.getElementById("cs-val-current");
   const csValMax = document.getElementById("cs-val-max");
 
@@ -247,11 +249,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return "glow-badge-bronze";
   }
 
-  async function runSearch() {
+   async function runSearch() {
     const uid = uidInput.value.trim();
+    const region = regionSelect ? regionSelect.value : "AUTO";
+
     if (!uid) {
-      if (window.showPortalToast)
-        window.showPortalToast("Provide a valid numeric player UID.");
+      if (window.showPortalToast) window.showPortalToast("Provide a valid numeric player UID.");
       return;
     }
 
@@ -259,10 +262,8 @@ document.addEventListener("DOMContentLoaded", () => {
     resultsWorkspace.classList.add("hidden");
     skeletonLoader.classList.remove("hidden");
 
-    const useMock = apiSourceInput ? apiSourceInput.value === "mock" : false;
-
     try {
-      const data = await api.fetchProfile(uid, useMock);
+      const data = await api.fetchProfile(uid, region);
       currentProfileData = data;
       renderDashboard(data);
       skeletonLoader.classList.add("hidden");
@@ -819,20 +820,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const weaponSkins = basic.weapon_skin_shows || basic.weaponSkinShows || [];
 
     if (weaponSlots) {
-    weaponSlots.innerHTML = "";
-    if (weaponSkins.length === 0) {
+      weaponSlots.innerHTML = "";
+      if (weaponSkins.length === 0) {
         weaponSlots.innerHTML = `<p class="text-secondary" style="grid-column: span 3; text-align: center; font-size: 11px; padding: 12px;">No showcased items set.</p>`;
-    } else {
+      } else {
         weaponSkins.forEach((id) => {
-        const strId = String(id);
-        const item = itemsLibrary.get(strId);
-        const slot = document.createElement("div");
-        slot.className = "wardrobe-slot";
+          const strId = String(id);
+          const item = itemsLibrary.get(strId);
+          const slot = document.createElement("div");
+          slot.className = "wardrobe-slot";
 
-        const primaryUrl = `https://raw.githubusercontent.com/ShahGCreator/icon/main/PNG/${id}.png`;
-        const fallbackUrl = `https://raw.githubusercontent.com/ashqking/FF-Items/refs/heads/main/ICONS/${id}.png`;
+          const primaryUrl = `https://raw.githubusercontent.com/ShahGCreator/icon/main/PNG/${id}.png`;
+          const fallbackUrl = `https://raw.githubusercontent.com/ashqking/FF-Items/refs/heads/main/ICONS/${id}.png`;
 
-        if (item) {
+          if (item) {
             slot.classList.add(`rare-${item.rare.toLowerCase()}`);
             slot.innerHTML = `
             <img src="${primaryUrl}" alt="${item.name}" onerror="this.onerror=null; this.src='${fallbackUrl}'; this.onerror=()=>this.src='https://raw.githubusercontent.com/DarkForceFREEFIRE/Server-Updates/refs/heads/main/logo.png';">
@@ -843,7 +844,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="tooltip-id">ID: ${id}</div>
             </div>
             `;
-        } else {
+          } else {
             slot.innerHTML = `
             <img src="${primaryUrl}" alt="Item" onerror="this.onerror=null; this.src='${fallbackUrl}'; this.onerror=()=>this.src='https://raw.githubusercontent.com/DarkForceFREEFIRE/Server-Updates/refs/heads/main/logo.png';">
             <div class="wardrobe-slot-tooltip">
@@ -851,11 +852,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="tooltip-id">ID: ${id}</div>
             </div>
             `;
-        }
-        weaponSlots.appendChild(slot);
+          }
+          weaponSlots.appendChild(slot);
         });
+      }
     }
-    }    
 
     const titleCard = document.getElementById("profile-title-card");
     const playerTitleBox = document.getElementById("player-title-box");
@@ -930,6 +931,29 @@ document.addEventListener("DOMContentLoaded", () => {
     brValCurrent.innerText = brRankingPoints;
     brValMax.innerText = basic.max_rank || basic.maxRank || "0";
 
+    // BR Progress Bar Logic
+    const brProgressFill = document.getElementById("br-progress-fill");
+    const brProgressText = document.getElementById("br-progress-text");
+
+    if (brProgressFill && brProgressText) {
+      if (br.maxPts && br.maxPts > br.minPts) {
+        const currentInTier = Math.max(0, brRankingPoints - br.minPts);
+        const totalInTier = br.maxPts - br.minPts;
+        const percentage = Math.min(100, Math.max(0, Math.round((currentInTier / totalInTier) * 100)));
+
+        brProgressFill.style.width = `${percentage}%`;
+        const ptsRemaining = br.maxPts - brRankingPoints;
+        if (ptsRemaining > 0 && br.nextRank) {
+          brProgressText.innerText = `${ptsRemaining} pts to ${br.nextRank} (${percentage}%)`;
+        } else {
+          brProgressText.innerText = `Max Progress (${percentage}%)`;
+        }
+      } else {
+        brProgressFill.style.width = "100%";
+        brProgressText.innerText = "Max Rank Achieved";
+      }
+    }
+
     const glowClasses = [
       "glow-bronze",
       "glow-silver",
@@ -973,10 +997,37 @@ document.addEventListener("DOMContentLoaded", () => {
     csBadgeImg.nextElementSibling.classList.add("hidden");
     csBadgeName.innerText = cs.name;
 
-    // Display the actual Rank Stars (112 stars for 199 cumulative stars)
-    csBadgePoints.innerText = `${cs.rankStars.toLocaleString()} stars`;
+    if (cs.subTierMax) {
+      csBadgePoints.innerText = `${cs.rankStars} / ${cs.subTierMax} stars`;
+    } else {
+      csBadgePoints.innerText = `${cs.rankStars.toLocaleString()} stars`;
+    }
     csValCurrent.innerText = cs.rankStars;
     csValMax.innerText = csPeakPts ? `${csPeakPts} pts` : csMaxR;
+
+    if (csStarsContainer) {
+    csStarsContainer.innerHTML = "";
+    const max = cs.subTierMax;
+    const filled = cs.rankStars;
+
+    if (max && max > 0) {
+      for (let i = 0; i < max; i++) {
+        const starEl = document.createElement("span");
+        starEl.className = i < filled ? "cs-star-icon star-filled" : "cs-star-icon star-empty";
+        csStarsContainer.appendChild(starEl);
+      }
+    } else {
+      const starEl = document.createElement("span");
+      starEl.className = "cs-star-icon star-filled";
+
+      const countSpan = document.createElement("span");
+      countSpan.className = "cs-star-count";
+      countSpan.innerText = `x${filled}`;
+
+      csStarsContainer.appendChild(starEl);
+      csStarsContainer.appendChild(countSpan);
+    }
+  }
 
     if (csRankCard) {
       csRankCard.classList.remove(...glowClasses);

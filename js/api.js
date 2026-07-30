@@ -1,61 +1,70 @@
 export class FreeFireAPI {
-    constructor(baseUrl = "https://wzapiinfo.vercel.app") {
-        this.baseUrl = baseUrl;
+  constructor(baseUrl = "https://wzapiinfo.vercel.app") {
+    this.baseUrl = baseUrl;
+  }
+
+  async fetchProfile(uid, region = "AUTO", useMock = false) {
+    if (!uid) {
+      throw new Error("Provide a valid numeric player UID.");
     }
 
-    async fetchProfile(uid, useMock = false) {
-        if (useMock) {
-            try {
-                const res = await fetch("get.json");
-                if (!res.ok) throw new Error("Local mock data (get.json) not found.");
-                const mockData = await res.json();
-                return {
-                    info: mockData,
-                    ban: {
-                        data: { is_banned: 0, period: 0 },
-                        status: "success"
-                    }
-                };
-            } catch (err) {
-                throw new Error("Could not load local mock data: " + err.message);
-            }
+    // Build API URL with region parameter if selected
+    let infoUrl = `${this.baseUrl}/get?uid=${encodeURIComponent(uid)}`;
+    if (region && region !== "AUTO") {
+      infoUrl += `&region=${encodeURIComponent(region)}`;
+    }
+
+    try {
+      // 1. Fetch Profile Data from wzapiinfo.vercel.app
+      const infoRequest = await fetch(infoUrl);
+      if (!infoRequest.ok) {
+        const errData = await infoRequest.json().catch(() => ({}));
+        throw new Error(errData.error || `API server error (${infoRequest.status})`);
+      }
+
+      const infoData = await infoRequest.json();
+
+      // Verify that profile data exists
+      const hasBasicInfo =
+        infoData && (infoData.basic_info || infoData.basicInfo || infoData.info);
+
+      if (
+        infoData.status === "error" ||
+        infoData.msg === "T_P_WRONG_ACCOUNT" ||
+        !hasBasicInfo
+      ) {
+        throw new Error(
+          infoData.msg || infoData.error || "Free Fire player profile was not found."
+        );
+      }
+
+      // 2. Fetch Anti-Cheat / Ban Status
+      let banData = null;
+      try {
+        const banRequest = await fetch(
+          `${this.baseUrl}/check_ban?uid=${encodeURIComponent(uid)}`
+        );
+        if (banRequest.ok) {
+          banData = await banRequest.json();
         }
+      } catch (e) {
+        console.warn("Anti-cheat retrieval request was unsuccessful:", e);
+      }
 
-        try {
-            const infoRequest = await fetch(`${this.baseUrl}/get?uid=${uid}`);
-            if (!infoRequest.ok) {
-                throw new Error("API server returned an error status.");
-            }
-            const infoData = await infoRequest.json();
+      // Fallback default ban data if ban endpoint fails
+      if (!banData || banData.status === "error") {
+        banData = {
+          data: { is_banned: 0, period: 0 },
+          status: "success",
+        };
+      }
 
-            const hasBasicInfo = infoData && (infoData.basic_info || infoData.basicInfo || infoData.info);
-
-            if (infoData.status === "error" || infoData.msg === "T_P_WRONG_ACCOUNT" || !hasBasicInfo) {
-                throw new Error(infoData.msg || "Free Fire player profile was not found.");
-            }
-
-            let banData = null;
-            try {
-                const banRequest = await fetch(`${this.baseUrl}/check_ban?uid=${uid}`);
-                if (banRequest.ok) {
-                    banData = await banRequest.json();
-                }
-            } catch (e) {
-                console.warn("Anti-cheat retrieval request was unsuccessful:", e);
-            }
-
-            if (!banData || banData.status === "error") {
-                banData = {
-                    data: { is_banned: 0, period: 0 },
-                    status: "success"
-                };
-            }
-
-            return {
-                info: infoData,
-                ban: banData
-            };
-        } catch (err) {
+      // Return unified structure required by renderDashboard
+      return {
+        info: infoData,
+        ban: banData,
+      };
+    } catch (err) {
             throw new Error(err.message || "Could not establish a stable connection with network servers.");
         }
     }

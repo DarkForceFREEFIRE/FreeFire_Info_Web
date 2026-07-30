@@ -116,6 +116,12 @@ Then visit `http://localhost:8080`
 5. **Convert** the Access Token to a JWT for authenticated API calls
 
 
+```bash
+# Dump data package
+
+curl -X GET "https://ff-item.netlify.app/data.msgpack.gz"
+```
+
 
 ## ⚠️ Disclaimer
 

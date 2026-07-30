@@ -41,22 +41,46 @@
         <div class="app-content">
 
           <div class="search-command-deck">
-            <div class="command-group">
-              <label class="compact-label" for="uid-input-field">Player UID</label>
-              <div class="search-box">
-                <img src="icons/Cloud%20Search.svg" class="search-icon" alt="Search icon">
-                <input type="text" id="uid-input-field" class="fluent-input" placeholder="e.g. 10597688191" value="10597688191">
-              </div>
-              <span id="uid-error-field" class="error-text hidden">Enter a valid numeric UID</span>
+          <!-- UID Input Group -->
+          <div class="command-group">
+            <label class="compact-label" for="uid-input-field">Player UID</label>
+            <div class="search-box">
+              <img src="icons/Cloud%20Search.svg" class="search-icon" alt="Search icon">
+              <input type="text" id="uid-input-field" class="fluent-input" placeholder="e.g. 10597688191" value="10597688191">
             </div>
-
-            <input type="hidden" id="api-source-field" value="api">
-
-            <button id="search-btn-field" class="fluent-btn primary query-submit-btn">
-              <img src="icons/Cloud%20Search.svg" alt="Launch icon" class="btn-svg inverted">
-              Search Player
-            </button>
+            <span id="uid-error-field" class="error-text hidden">Enter a valid numeric UID</span>
           </div>
+
+          <!-- Region Select Group -->
+          <div class="command-group">
+            <label class="compact-label" for="region-select-field">Server Region</label>
+            <div class="search-box">
+              <select id="region-select-field" class="fluent-input" style="padding-left: 14px; cursor: pointer;">
+                <option value="AUTO" selected>Auto Detect (Global)</option>
+                <option value="IND">India (IND)</option>
+                <option value="SG">Singapore (SG)</option>
+                <option value="BR">Brazil (BR)</option>
+                <option value="US">United States (US)</option>
+                <option value="SAC">South America (SAC)</option>
+                <option value="NA">North America (NA)</option>
+                <option value="ID">Indonesia (ID)</option>
+                <option value="VN">Vietnam (VN)</option>
+                <option value="TH">Thailand (TH)</option>
+                <option value="PK">Pakistan (PK)</option>
+                <option value="BD">Bangladesh (BD)</option>
+                <option value="RU">Russia (RU)</option>
+                <option value="TW">Taiwan (TW)</option>
+              </select>
+            </div>
+          </div>
+
+          <input type="hidden" id="api-source-field" value="api">
+
+          <button id="search-btn-field" class="fluent-btn primary query-submit-btn">
+            <img src="icons/Cloud%20Search.svg" alt="Launch icon" class="btn-svg inverted">
+            Search Player
+          </button>
+        </div>
 
           <div id="results-placeholder" class="fluent-card result-card">
             <div class="visualizer-container">
@@ -401,6 +425,12 @@
                   <div class="rank-meta">
                     <span class="rank-name" id="br-badge-name">--</span>
                     <span class="rank-points" id="br-badge-points">0 points</span>
+                    <div id="br-progress-container" class="br-progress-box">
+                      <div class="br-progress-track">
+                        <div id="br-progress-fill" class="br-progress-fill"></div>
+                      </div>
+                      <span id="br-progress-text" class="br-progress-text">--</span>
+                    </div>
                   </div>
                 </div>
                 <div class="rank-range-info">
@@ -425,6 +455,7 @@
                   <div class="rank-meta">
                     <span class="rank-name" id="cs-badge-name">--</span>
                     <span class="rank-points" id="cs-badge-points">0 points</span>
+                    <div id="cs-stars-container" class="cs-stars-row"></div>
                   </div>
                 </div>
                 <div class="rank-range-info">
