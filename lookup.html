@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player lookup - Walker Regedits</title>
+    <title>Player Lookup - Walker Regedits</title>
     <link href="https://cdn.jsdelivr.net/npm/product-sans-webfont@1.0.0/GoogleSans.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
@@ -20,7 +20,8 @@
 
         <nav class="nav-links">
           <a href="index.html" class="nav-link">Home</a>
-          <a href="lookup.html" class="nav-link">FF Info</a>
+          <a href="lookup.html" class="nav-link active">FF Info</a>
+          <a href="clan.html" class="nav-link">Clan Hub</a>
           <a href="token.html" class="nav-link">Token Gen</a>
           <a href="signature.html" class="nav-link">Signature</a>
           <a href="docs.html" class="nav-link">API Docs</a>
@@ -40,53 +41,58 @@
       <section id="view-lookup" class="view-section animate-fade-up">
         <div class="app-content">
 
-          <div class="search-command-deck">
-          <!-- UID Input Group -->
-          <div class="command-group">
-            <label class="compact-label" for="uid-input-field">Player UID</label>
-            <div class="search-box">
-              <img src="icons/Cloud%20Search.svg" class="search-icon" alt="Search icon">
-              <input type="text" id="uid-input-field" class="fluent-input" placeholder="e.g. 10597688191" value="10597688191">
+          <div class="search-command-deck" style="flex-direction: column; align-items: stretch;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+              <div class="search-type-switch" style="margin-bottom: 0;">
+                <button class="search-type-pill active" id="search-by-uid-btn">Search by UID</button>
+                <button class="search-type-pill" id="search-by-name-btn">Search by Name</button>
+              </div>
+              <span class="text-secondary" style="font-size: 11px;">Supports real-time global player lookups</span>
             </div>
-            <span id="uid-error-field" class="error-text hidden">Enter a valid numeric UID</span>
-          </div>
 
-          <!-- Region Select Group -->
-          <div class="command-group">
-            <label class="compact-label" for="region-select-field">Server Region</label>
-            <div class="search-box">
-              <select id="region-select-field" class="fluent-input" style="padding-left: 14px; cursor: pointer;">
-                <option value="AUTO" selected>Auto Detect (Global)</option>
-                <option value="IND">India (IND)</option>
-                <option value="SG">Singapore (SG)</option>
-                <option value="BR">Brazil (BR)</option>
-                <option value="US">United States (US)</option>
-                <option value="SAC">South America (SAC)</option>
-                <option value="NA">North America (NA)</option>
-                <option value="ID">Indonesia (ID)</option>
-                <option value="VN">Vietnam (VN)</option>
-                <option value="TH">Thailand (TH)</option>
-                <option value="PK">Pakistan (PK)</option>
-                <option value="BD">Bangladesh (BD)</option>
-                <option value="RU">Russia (RU)</option>
-                <option value="TW">Taiwan (TW)</option>
-              </select>
+            <div style="display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; margin-top: 12px;">
+              <div class="command-group" style="flex: 1; min-width: 260px;">
+                <label class="compact-label" id="search-input-label" for="uid-input-field">Player Numeric UID</label>
+                <div class="search-box">
+                  <img src="icons/Cloud Search.svg" class="search-icon" alt="Search">
+                  <input type="text" id="uid-input-field" class="fluent-input" placeholder="e.g. 10597688191" value="10597688191">
+                </div>
+              </div>
+
+              <div class="command-group" style="width: 200px;">
+                <label class="compact-label" for="region-select-field">Server Region</label>
+                <div class="search-box">
+                  <select id="region-select-field" class="fluent-input" style="padding-left: 14px; cursor: pointer;">
+                    <option value="AUTO" selected>Auto Detect (Global)</option>
+                    <option value="IND">India (IND)</option>
+                    <option value="SG">Singapore (SG)</option>
+                    <option value="BR">Brazil (BR)</option>
+                    <option value="US">United States (US)</option>
+                    <option value="SAC">South America (SAC)</option>
+                    <option value="NA">North America (NA)</option>
+                    <option value="ID">Indonesia (ID)</option>
+                    <option value="VN">Vietnam (VN)</option>
+                    <option value="TH">Thailand (TH)</option>
+                    <option value="PK">Pakistan (PK)</option>
+                    <option value="BD">Bangladesh (BD)</option>
+                    <option value="RU">Russia (RU)</option>
+                    <option value="TW">Taiwan (TW)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button id="search-btn-field" class="fluent-btn primary query-submit-btn">
+                <img src="icons/Cloud Search.svg" alt="Search" class="btn-svg inverted">
+                <span id="search-btn-text">Search Player</span>
+              </button>
             </div>
           </div>
-
-          <input type="hidden" id="api-source-field" value="api">
-
-          <button id="search-btn-field" class="fluent-btn primary query-submit-btn">
-            <img src="icons/Cloud%20Search.svg" alt="Launch icon" class="btn-svg inverted">
-            Search Player
-          </button>
-        </div>
 
           <div id="results-placeholder" class="fluent-card result-card">
             <div class="visualizer-container">
               <div class="placeholder-text">
-                <img src="icons/Cloud%20Search.svg" alt="Search network" style="width: 48px; height: 48px; opacity: 0.35; margin-bottom: 16px;">
-                <p>Provide a Free Fire player UID on the options panel to retrieve and visualize profile metrics.</p>
+                <img src="icons/Cloud Search.svg" alt="Search" style="width: 48px; height: 48px; opacity: 0.35; margin-bottom: 16px;">
+                <p>Provide a Free Fire player UID or nickname above to inspect dynamic profile stats.</p>
               </div>
             </div>
           </div>
@@ -116,21 +122,20 @@
                       <span id="hero-pass-badge" class="tag pass-active hidden" style="font-size: 9px; padding: 2px 8px; margin-left: 4px;">BOOYAH PASS</span>
                     </div>
                     <div class="tags-row">
-
                       <span class="tag" id="hero-region">--</span>
                       <span class="tag secondary" id="hero-version">--</span>
                       <div class="tag" id="hero-device" style="display: inline-flex; align-items: center; gap: 4px;">
-                        <img id="hero-device-icon" src="icons/Mobile.svg" class="inline-copy-icon" alt="Device Icon" style="width: 12px; height: 12px;">
+                        <img id="hero-device-icon" src="icons/Mobile.svg" class="inline-copy-icon" alt="Device">
                         <span id="hero-device-text">Mobile</span>
                       </div>
                       <span class="tag hidden" id="hero-creator-tag">Creator Lv.1</span>
                       <div class="tag copyable-uid" id="copy-uid-trigger" title="Click to copy UID">
                         UID: <strong id="hero-uid" class="font-mono">--</strong>
-                        <img src="icons/Copy.svg" class="inline-copy-icon" alt="Copy UID icon">
+                        <img src="icons/Copy.svg" class="inline-copy-icon" alt="Copy">
                       </div>
                     </div>
                     <div class="ban-badge-wrapper">
-                      <img id="hero-ban-icon" src="icons/NotBanned.svg" alt="Ban status icon" class="ban-icon active">
+                      <img id="hero-ban-icon" src="icons/NotBanned.svg" alt="Ban status" class="ban-icon active">
                       <span id="hero-ban-badge" class="ban-status-badge">Active</span>
                     </div>
                     <p id="hero-signature" class="signature-quote">"--"</p>
@@ -138,112 +143,8 @@
                 </div>
               </div>
 
-              <div class="fluent-card board-card" id="guild-card">
-                <div class="board-card-header">
-                  <img src="icons/Guild.svg" alt="Guild Logo">
-                  <h4>Guild Membership</h4>
-                </div>
-                <div class="board-card-body guild-card-body">
-                  <div class="guild-info-title" id="guild-name">No Guild</div>
-                  <div class="guild-info-id-strip" id="guild-id-strip">
-                    <span class="text-secondary">GUILD ID</span>
-                    <span id="guild-id-val" class="font-mono">--</span>
-                    <img src="icons/Copy.svg" class="guild-copy-btn" alt="Copy icon">
-                  </div>
-                  <div class="guild-info-id-strip" id="guild-leader-strip" style="margin-top: 6px;">
-                    <span class="text-secondary">LEADER UID</span>
-                    <span id="guild-leader-val" class="font-mono">--</span>
-                    <img src="icons/Copy.svg" class="guild-copy-btn" id="guild-leader-copy" alt="Copy icon">
-                  </div>
-                  <div class="guild-metrics-row">
-                    <div>
-                      <span class="badge-label text-secondary">GUILD LV.</span>
-                      <div class="badge-val" id="guild-val-lvl">--</div>
-                    </div>
-                    <div>
-                      <span class="badge-label text-secondary">MEMBERS</span>
-                      <div class="badge-val" id="guild-val-members">--</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="fluent-card detail-subcard" id="battle-tags-card">
-                <h3 class="subcard-title">
-                  <img src="icons/Verified%20user.svg" alt="Tags Icon"> Combat & Social Badges
-                </h3>
-                <div class="tag-pill-cloud" id="battle-tags-container">
-                  <p class="text-secondary" style="font-size: 11px; text-align: center; width: 100%; padding: 6px 0;">No personality tags selected.</p>
-                </div>
-              </div>
-
-              <div class="fluent-card detail-subcard" id="social-highlights-card">
-                <h3 class="subcard-title">
-                  <img src="icons/Trophy-star.svg" alt="Highlights Icon"> Recent Achievements & Highlights
-                </h3>
-                <div id="social-highlights-container" style="display: flex; flex-wrap: wrap; gap: 8px;">
-                  <p class="text-secondary" style="font-size: 11px; text-align: center; width: 100%; padding: 8px 0;">No active highlights.</p>
-                </div>
-              </div>
-
-              <div class="fluent-card captain-card" id="captain-card">
-                <h3 class="subcard-title" style="margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px;">
-                  <div style="display: flex; align-items: center; gap: 10px;">
-                    <img src="icons/Guild%20owner.svg" alt="Captain Icon" style="width:18px; height:18px;">
-                    Guild Captain: <span id="captain-name" class="accent-text" style="font-weight:700;">--</span>
-                  </div>
-                  <span id="captain-vip-badge" class="ban-status-badge prime hidden" style="font-size: 9px; padding: 2px 8px; margin-left: 8px;">VIP</span>
-                </h3>
-                <div id="captain-role-indicator" class="tag hidden" style="margin-bottom: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 11px;">
-                  <img id="captain-role-icon" src="" alt="Role" class="inline-copy-icon" style="width: 12px; height: 12px;">
-                  <span>Preferred Role: <strong id="captain-role-text">--</strong></span>
-                </div>
-                <div class="captain-metrics-grid">
-                  <div class="metric-tile">
-                    <span class="metric-title">Captain Level</span>
-                    <span class="metric-value" id="capt-val-lvl">--</span>
-                  </div>
-                  <div class="metric-tile">
-                    <span class="metric-title">Likes Received</span>
-                    <span class="metric-value" id="capt-val-likes">--</span>
-                  </div>
-                  <div class="metric-tile" style="grid-column: span 2;">
-                    <span class="metric-title">BR Placement</span>
-                    <span class="metric-value" id="capt-val-br">--</span>
-                  </div>
-                  <div class="metric-tile" style="grid-column: span 2;">
-                    <span class="metric-title">CS Placement</span>
-                    <span class="metric-value" id="capt-val-cs">--</span>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="fluent-card board-card" id="pet-showcase-card">
-                <div class="board-card-header">
-                  <img src="icons/Heart.svg" alt="Heart Icon">
-                  <h4>Pet Companion</h4>
-                </div>
-                <div class="board-card-body" style="gap: 16px;">
-                  <div class="pet-badge-display" style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; background: none; flex-shrink: 0;">
-                    <img id="pet-img" style="max-width:100%; max-height:100%; object-fit:contain;" src="" onerror="this.style.display='none';">
-                    <div class="wardrobe-slot-tooltip" id="pet-tooltip">
-                      <div class="tooltip-name">No Pet Info</div>
-                      <div class="tooltip-id">ID: --</div>
-                    </div>
-                  </div>
-                  <div class="pet-meta" style="display:flex; flex-direction:column; gap:2px;">
-                    <span class="pet-name" id="pet-name" style="font-weight:700; font-size:14px;">No Pet Equipped</span>
-                    <span class="pet-info-text" id="pet-info-text" style="font-size:11px; color: var(--text-secondary);">--</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="dashboard-column">
-
               <div class="fluent-card detail-subcard" id="profile-stats-card">
-                <h3 class="subcard-title"><img src="icons/Person.svg" alt="Stats Icon"> Profile Statistics</h3>
+                <h3 class="subcard-title"><img src="icons/Person.svg" alt="Stats"> Profile Statistics</h3>
                 <div class="stats-metric-grid">
                   <div class="metric-tile">
                     <span class="metric-title">Experience Points</span>
@@ -279,14 +180,14 @@
                   </div>
                 </div>
                 <div class="language-wrapper">
-                  <span class="input-label" style="margin: 0; font-size: 11px;">Gaming Schedule & Pref:</span>
+                  <span class="input-label" style="margin: 0; font-size: 11px;">Schedule & Pref:</span>
                   <span class="tag font-mono" id="val-schedule-pref">--</span>
                 </div>
               </div>
 
               <div class="fluent-card board-card" id="activity-spark-card">
                 <div class="board-card-header">
-                  <img src="icons/Shine.svg" alt="Spark Icon">
+                  <img src="icons/Shine.svg" alt="Spark">
                   <h4>Activity Spark System</h4>
                 </div>
                 <div class="spark-card-body">
@@ -304,29 +205,133 @@
                 </div>
               </div>
 
-              <div class="fluent-card detail-subcard" id="profile-title-card" style="display: none;">
-                <h3 class="subcard-title">
-                  <img src="icons/Trophy-star.svg" alt="Title Icon"> Equipped Profile Title
-                </h3>
-                <div id="player-title-box" class="title-glow-box">
-                  <div class="title-main-row">
-                    <span id="player-title-name" class="title-badge-name">--</span>
-                  </div>
-                  <p id="player-title-desc" class="title-badge-desc">--</p>
+              <div class="fluent-card detail-subcard" id="outfit-card">
+                <h3 class="subcard-title"><img src="icons/Outfits.svg" alt="Outfit"> Equipped Outfit</h3>
+                <div class="wardrobe-visualizer" style="min-height: 170px;">
+                  <div class="wardrobe-grid" id="outfit-slots"></div>
+                </div>
+                <div style="margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--card-border);">
+                  <h4 class="subcard-title" style="border-bottom: none; font-size: 12px; margin-bottom: 6px; padding-bottom: 0;">
+                    <img src="icons/Select.svg" alt="Skills" style="width: 14px; height: 14px;"> Equipped Skills
+                  </h4>
+                  <div id="character-skills-slots" style="display: flex; gap: 36px; justify-content: center; width: 100%; padding-top: 6px;"></div>
                 </div>
               </div>
-              <div class="fluent-card detail-subcard" id="team-roles-card">
+
+              <div class="fluent-card detail-subcard" id="weapon-showcase-card">
+                <h3 class="subcard-title"><img src="icons/Items.svg" alt="Weapon"> Showcased Items</h3>
+                <div class="wardrobe-grid" id="weapon-slots" style="margin-top: 8px;"></div>
+              </div>
+
+              <div class="fluent-card detail-subcard" id="bp-history-card">
                 <h3 class="subcard-title">
-                  <img src="icons/Trophy-star.svg" alt="Roles Icon"> Active Playstyle Roles
+                  <img src="icons/Trophy-star.svg" alt="Pass"> Booyah Pass Season History
                 </h3>
-                <div id="team-roles-container" style="display: flex; flex-direction: column; gap: 8px;">
-                  <p class="text-secondary" style="font-size: 11px; text-align: center; padding: 8px 0;">No roles mapped.</p>
+                <div class="ep-history-grid" id="bp-history-container">
+                  <p class="text-secondary" style="grid-column: span 4; font-size: 11px; text-align: center; padding: 8px 0;">No pass history available.</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="dashboard-column">
+
+              <div class="fluent-card board-card" id="guild-card">
+                <div class="board-card-header" style="justify-content: space-between;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="icons/Guild.svg" alt="Guild">
+                    <h4>Guild Membership</h4>
+                  </div>
+                  <a id="view-clan-hub-btn" href="clan.html" class="tag accent-text" style="cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                    <img src="icons/View.svg" class="inline-copy-icon" alt="View"> Clan Details &rarr;
+                  </a>
+                </div>
+                <div class="board-card-body guild-card-body">
+                  <div class="guild-info-title" id="guild-name">No Guild</div>
+                  <div class="guild-info-id-strip" id="guild-id-strip">
+                    <span class="text-secondary">GUILD ID</span>
+                    <span id="guild-id-val" class="font-mono">--</span>
+                    <img src="icons/Copy.svg" class="guild-copy-btn" alt="Copy">
+                  </div>
+                  <div class="guild-info-id-strip" id="guild-leader-strip">
+                    <span class="text-secondary">LEADER UID</span>
+                    <span id="guild-leader-val" class="font-mono">--</span>
+                    <img src="icons/Copy.svg" class="guild-copy-btn" id="guild-leader-copy" alt="Copy">
+                  </div>
+                  <div class="guild-metrics-row">
+                    <div>
+                      <span class="badge-label text-secondary">GUILD LV.</span>
+                      <div class="badge-val" id="guild-val-lvl">--</div>
+                    </div>
+                    <div>
+                      <span class="badge-label text-secondary">MEMBERS</span>
+                      <div class="badge-val" id="guild-val-members">--</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fluent-card captain-card" id="captain-card">
+                <h3 class="subcard-title" style="margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="icons/Guild owner.svg" alt="Captain" style="width:18px; height:18px;">
+                    Guild Captain: <span id="captain-name" class="accent-text" style="font-weight:700;">--</span>
+                  </div>
+                  <span id="captain-vip-badge" class="ban-status-badge prime hidden" style="font-size: 9px; padding: 2px 8px; margin-left: 8px;">VIP</span>
+                </h3>
+                <div id="captain-role-indicator" class="tag hidden" style="margin-bottom: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 11px;">
+                  <img id="captain-role-icon" src="icons/Support.svg" alt="Role" class="inline-copy-icon">
+                  <span>Preferred Role: <strong id="captain-role-text">--</strong></span>
+                </div>
+                <div class="captain-metrics-grid">
+                  <div class="metric-tile">
+                    <span class="metric-title">Captain Level</span>
+                    <span class="metric-value" id="capt-val-lvl">--</span>
+                  </div>
+                  <div class="metric-tile">
+                    <span class="metric-title">Likes Received</span>
+                    <span class="metric-value" id="capt-val-likes">--</span>
+                  </div>
+                  <div class="metric-tile" style="grid-column: span 2;">
+                    <span class="metric-title">BR Placement</span>
+                    <span class="metric-value" id="capt-val-br">--</span>
+                  </div>
+                  <div class="metric-tile" style="grid-column: span 2;">
+                    <span class="metric-title">CS Placement</span>
+                    <span class="metric-value" id="capt-val-cs">--</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fluent-card detail-subcard" id="social-identity-card" style="min-height: 280px;">
+                <h3 class="subcard-title">
+                  <img src="icons/Rank status.svg" alt="Identity"> Playstyle & Social Identity
+                </h3>
+
+                <div id="profile-title-card" style="margin-bottom: 10px; display: none;">
+                  <div id="player-title-box" class="title-glow-box">
+                    <span id="player-title-name" class="title-badge-name">--</span>
+                    <p id="player-title-desc" class="title-badge-desc">--</p>
+                  </div>
+                </div>
+
+                <div style="margin-top: 10px;">
+                  <span class="compact-label" style="display: block; margin-bottom: 10px;">Active Roles</span>
+                  <div id="team-roles-container" style="display: flex; flex-direction: column; gap: 6px;">
+                    <p class="text-secondary" style="font-size: 11px; text-align: center; padding: 4px 0;">No active roles.</p>
+                  </div>
+                </div>
+
+                <div style="border-top: 1px dashed var(--card-border); padding-top: 8px;">
+                  <span class="compact-label" style="display: block; margin-bottom: 6px;">Badges & Achievements</span>
+                  <div class="tag-pill-cloud" id="battle-tags-container" style="margin-bottom: 6px;"></div>
+                  <div id="social-highlights-container" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
                 </div>
               </div>
 
               <div class="fluent-card board-card honor-score-glowing-card" id="honor-score-card">
                 <div class="board-card-header">
-                  <img src="icons/Creditscore.svg" alt="Honor standing logo">
+                  <img src="icons/Creditscore.svg" alt="Honor">
                   <h4>Honor Score</h4>
                 </div>
                 <div class="board-card-body honor-score-layout">
@@ -363,64 +368,67 @@
                 </div>
               </div>
 
-            </div>
-
-            <!-- COLUMN 3: Loadout & Competitive Ranks -->
-            <div class="dashboard-column">
-              <div class="fluent-card detail-subcard" id="outfit-card">
-                <h3 class="subcard-title"><img src="icons/Outfits.svg" alt="Outfit Icon"> Equipped Outfit</h3>
-                <div class="wardrobe-visualizer" style="min-height: 180px;">
-                  <div class="wardrobe-grid" id="outfit-slots"></div>
-                </div>
-                <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--card-border);">
-                  <h4 class="subcard-title" style="border-bottom: none; font-size: 12px; margin-bottom: 8px; padding-bottom: 0;">
-                    <img src="icons/Select.svg" alt="Skills Icon" style="width: 14px; height: 14px;"> Equipped Skills
-                  </h4>
-                  <div id="character-skills-slots" style="display: flex; gap: 40px; justify-content: center; width: 100%; padding-top: 10px;"></div>
-                </div>
-              </div>
-
-              <div class="fluent-card detail-subcard" id="weapon-showcase-card">
-            <h3 class="subcard-title"><img src="icons/Items.svg" alt="Weapon Icon"> Showcased Items</h3>
-            <div class="wardrobe-grid" id="weapon-slots" style="margin-top: 10px;"></div>
-            </div>
-
-              <div class="fluent-card detail-subcard" id="bp-history-card">
+              <div class="fluent-card detail-subcard" id="career-milestones-card">
                 <h3 class="subcard-title">
-                  <img src="icons/Trophy-star.svg" alt="Pass Icon"> Booyah Pass Season History
+                  <img src="icons/Timeline.svg" alt="Milestones"> Career Combat Feats
                 </h3>
-                <div class="ep-history-grid" id="bp-history-container">
-                  <p class="text-secondary" style="grid-column: span 4; font-size: 11px; text-align: center; padding: 8px 0;">No pass history available.</p>
+                <div class="stats-metric-grid" id="career-milestones-grid">
+                  <div class="metric-tile">
+                    <span class="metric-title">Total Knockdowns</span>
+                    <span class="metric-value" id="val-feat-knockdowns">0</span>
+                  </div>
+                  <div class="metric-tile">
+                    <span class="metric-title">Allies Revived</span>
+                    <span class="metric-value" id="val-feat-revives">0</span>
+                  </div>
+                  <div class="metric-tile">
+                    <span class="metric-title">Max Single Kills</span>
+                    <span class="metric-value" id="val-feat-maxkills">0</span>
+                  </div>
+                  <div class="metric-tile">
+                    <span class="metric-title">Quad / 4-Kills</span>
+                    <span class="metric-value" id="val-feat-quads">0</span>
+                  </div>
+                  <div class="metric-tile" style="grid-column: span 2;">
+                    <span class="metric-title">Total Distance Travelled</span>
+                    <span class="metric-value font-mono" id="val-feat-distance">0 km</span>
+                  </div>
                 </div>
               </div>
 
-              <!-- Competitive Career Milestones Card
-        <div class="fluent-card detail-subcard" id="career-milestones-card">
-            <h3 class="subcard-title">
-                <img src="icons/Rank%20status.svg" alt="Milestones Icon"> Career Milestones
-            </h3>
-            <div class="career-milestone-grid">
-                <div class="metric-tile">
-                    <span class="metric-title">Times Reached Heroic</span>
-                    <span class="metric-value" id="val-career-heroic">--</span>
+              <div class="fluent-card board-card" id="pet-showcase-card">
+                <div class="board-card-header">
+                  <img src="icons/Heart.svg" alt="Pet">
+                  <h4>Pet Companion</h4>
                 </div>
-                <div class="metric-tile">
-                    <span class="metric-title">Highest Rank Score</span>
-                    <span class="metric-value" id="val-career-maxscore">--</span>
+                <div class="board-card-body" style="gap: 16px;">
+                  <div class="pet-badge-display" style="width:54px; height:54px; display:flex; align-items:center; justify-content:center; background: none; flex-shrink: 0;">
+                    <img id="pet-img" style="max-width:100%; max-height:100%; object-fit:contain;" src="" onerror="this.style.display='none';">
+                    <div class="wardrobe-slot-tooltip" id="pet-tooltip">
+                      <div class="tooltip-name">No Pet Info</div>
+                      <div class="tooltip-id">ID: --</div>
+                    </div>
+                  </div>
+                  <div class="pet-meta" style="display:flex; flex-direction:column; gap:2px;">
+                    <span class="pet-name" id="pet-name" style="font-weight:700; font-size:13px;">No Pet Equipped</span>
+                    <span class="pet-info-text" id="pet-info-text" style="font-size:11px; color: var(--text-secondary);">--</span>
+                  </div>
                 </div>
-            </div>
-        </div>  -->
+              </div>
 
-              <!-- Battle Royale Rank Card -->
+            </div>
+
+            <div class="dashboard-column">
+
               <div class="fluent-card board-card" id="br-rank-card">
                 <div class="board-card-header">
-                  <img src="icons/Rank%20status.svg" alt="BR icon">
+                  <img src="icons/Rank status.svg" alt="BR">
                   <h4>Battle Royale</h4>
                 </div>
                 <div class="board-card-body">
                   <div class="rank-badge-display">
                     <img id="br-badge-img" class="rank-badge-img" src="" alt="BR Rank" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
-                    <div class="rank-fallback-icon hidden">🏆</div>
+                    <div class="rank-fallback-icon hidden"><img src="icons/Trophy-star.svg" style="width: 24px; height: 24px;"></div>
                   </div>
                   <div class="rank-meta">
                     <span class="rank-name" id="br-badge-name">--</span>
@@ -441,16 +449,15 @@
                 </div>
               </div>
 
-              <!-- Clash Squad Rank Card -->
               <div class="fluent-card board-card" id="cs-rank-card">
                 <div class="board-card-header">
-                  <img src="icons/Rank%20status.svg" alt="CS icon">
+                  <img src="icons/Rank status.svg" alt="CS">
                   <h4>Clash Squad</h4>
                 </div>
                 <div class="board-card-body">
                   <div class="rank-badge-display">
                     <img id="cs-badge-img" class="rank-badge-img" src="" alt="CS Rank" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
-                    <div class="rank-fallback-icon hidden">🏆</div>
+                    <div class="rank-fallback-icon hidden"><img src="icons/Star Fill.svg" style="width: 24px; height: 24px;"></div>
                   </div>
                   <div class="rank-meta">
                     <span class="rank-name" id="cs-badge-name">--</span>
@@ -465,6 +472,112 @@
                   </div>
                 </div>
               </div>
+
+              <div class="fluent-card detail-subcard" id="combat-analytics-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--card-border); padding-bottom: 10px;">
+                  <h3 class="subcard-title" style="margin: 0; border: none; padding: 0;">
+                    <img src="icons/Speed High.svg" alt="Combat"> Combat Analytics
+                  </h3>
+                  <div class="mode-tab-pills" id="combat-mode-selector">
+                    <button class="mode-tab-pill active" data-mode="quad">Squad</button>
+                    <button class="mode-tab-pill" data-mode="duo">Duo</button>
+                    <button class="mode-tab-pill" data-mode="solo">Solo</button>
+                    <button class="mode-tab-pill" data-mode="cs">CS</button>
+                  </div>
+                </div>
+
+                <div class="combat-stats-grid">
+                  <div class="combat-stat-box">
+                    <div class="stat-val" id="combat-stat-kd">0.00</div>
+                    <div class="stat-lbl" id="combat-stat-kd-label">K/D Ratio</div>
+                  </div>
+                  <div class="combat-stat-box">
+                    <div class="stat-val" id="combat-stat-winrate">0.0%</div>
+                    <div class="stat-lbl">Win Rate</div>
+                  </div>
+                  <div class="combat-stat-box">
+                    <div class="stat-val" id="combat-stat-headshot">0.0%</div>
+                    <div class="stat-lbl">Headshot %</div>
+                  </div>
+                  <div class="combat-stat-box">
+                    <div class="stat-val" id="combat-stat-kills">0</div>
+                    <div class="stat-lbl">Total Kills</div>
+                  </div>
+                  <div class="combat-stat-box">
+                    <div class="stat-val" id="combat-stat-games">0</div>
+                    <div class="stat-lbl">Matches</div>
+                  </div>
+                  <div class="combat-stat-box">
+                    <div class="stat-val" id="combat-stat-avgdmg">0</div>
+                    <div class="stat-lbl">Avg Damage</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fluent-card detail-subcard" id="heroic-timeline-card">
+                <h3 class="subcard-title">
+                  <img src="icons/Timeline.svg" alt="Timeline"> Heroic Seasons Mastered
+                </h3>
+                <div>
+                  <span class="compact-label" style="display: block; margin-bottom: 6px;">Battle Royale Seasons</span>
+                  <div class="season-badges-cloud" id="br-heroic-seasons-container">
+                    <span class="text-secondary" style="font-size: 11px;">No BR Heroic recorded.</span>
+                  </div>
+                </div>
+                <div style="margin-top: 14px;">
+                  <span class="compact-label" style="display: block; margin-bottom: 6px;">Clash Squad Seasons</span>
+                  <div class="season-badges-cloud" id="cs-heroic-seasons-container">
+                    <span class="text-secondary" style="font-size: 11px;">No CS Heroic recorded.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fluent-card detail-subcard" id="weapon-glory-card">
+                <h3 class="subcard-title">
+                  <img src="icons/Weapon.svg" alt="Glory"> Weapon Glory Power (Top Weapons)
+                </h3>
+                <div class="glory-list" id="weapon-glory-container">
+                  <p class="text-secondary" style="font-size: 11px; text-align: center; padding: 12px 0;">No weapon glory records found.</p>
+                </div>
+              </div>
+
+              <div class="fluent-card detail-subcard" id="tactical-mastery-card">
+                <h3 class="subcard-title">
+                  <img src="icons/Rank status.svg" alt="Tactical"> Lifetime Role & Tactical Mastery
+                </h3>
+
+                <div class="stats-metric-grid" style="margin-bottom: 12px;">
+                  <div class="metric-tile">
+                    <span class="metric-title">Total HP Healed</span>
+                    <span class="metric-value font-mono" id="val-tactical-heal">0 HP</span>
+                  </div>
+                  <div class="metric-tile">
+                    <span class="metric-title">Throwing Kills</span>
+                    <span class="metric-value font-mono" id="val-tactical-throw">0</span>
+                  </div>
+                  <div class="metric-tile" style="grid-column: span 2;">
+                    <span class="metric-title">Enemy Targets Scanned</span>
+                    <span class="metric-value font-mono" id="val-tactical-scan">0</span>
+                  </div>
+                </div>
+
+                <div class="card-inner-section">
+                  <h4 class="inner-section-title">
+                    <img src="icons/Verified user.svg" alt="Roles"> Career Role Proficiency
+                  </h4>
+                  <div id="career-role-matrix-container" class="compact-stack-list"></div>
+                </div>
+              </div>
+
+              <div class="fluent-card detail-subcard" id="wishlist-card">
+                <h3 class="subcard-title">
+                  <img src="icons/Heart.svg" alt="Wishlist"> Player Wishlist
+                </h3>
+                <div class="wishlist-scroll-frame" id="wishlist-container">
+                  <p class="text-secondary" style="grid-column: span 3; font-size: 11px; text-align: center; padding: 24px 0;">Wishlist is empty.</p>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -472,6 +585,19 @@
         </div>
       </section>
     </main>
+
+    <div id="search-modal" class="search-modal-overlay hidden">
+      <div class="search-modal-card">
+        <div class="search-modal-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <img src="icons/Cloud Search.svg" style="width: 18px; height: 18px;" alt="Search">
+            <h3 style="font-size: 15px; margin: 0;">Search Results</h3>
+          </div>
+          <button id="close-search-modal" class="fluent-btn standard" style="min-height: 28px; padding: 2px 10px; font-size: 12px;">Close</button>
+        </div>
+        <div class="search-results-grid" id="search-results-list"></div>
+      </div>
+    </div>
 
     <footer class="portal-footer">
       <div class="footer-bottom">
@@ -488,12 +614,15 @@
         <div class="footer-col">
           <h4>TOOLS</h4>
           <a href="lookup.html" class="footer-link">Player Info</a>
+          <a href="clan.html" class="footer-link">Clan Hub</a>
+          <a href="token.html" class="footer-link">Token Gen</a>
+          <a href="signature.html" class="footer-link">Signature</a>
           <a href="docs.html" class="footer-link">API Reference</a>
         </div>
 
         <div class="footer-col">
           <h4>DEVELOPERS & CREDITS</h4>
-          <a href="https://wzservice.vercel.app" class="footer-link" target="_blank">wzservice.vercel.app</a>
+          <a href="https://wzapi.vercel.app" class="footer-link" target="_blank">wzapi.vercel.app</a>
           <a href="https://github.com/DarkForceFREEFIRE" class="footer-link" target="_blank">DarkForceFREEFIRE (GitHub)</a>
           <a href="https://discord.gg/fjkcdAVdS" class="footer-link" target="_blank">Join Discord Community</a>
         </div>
@@ -508,27 +637,5 @@
 
     <script type="module" src="js/app.js"></script>
     <script type="module" src="js/lookup-controller.js"></script>
-    <script>
-      const badgeObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.attributeName === 'src') {
-            const img = mutation.target;
-            const parent = img.parentElement;
-            if (parent && img.src) {
-              parent.style.setProperty('--badge-url', `url("${img.src}")`);
-            }
-          }
-        });
-      });
-      document.querySelectorAll('.rank-badge-img').forEach((img) => {
-        badgeObserver.observe(img, {
-          attributes: true
-        });
-        if (img.src) {
-          img.parentElement.style.setProperty('--badge-url', `url("${img.src}")`);
-        }
-      });
-    </script>
   </body>
-
 </html>

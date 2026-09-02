@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/@primer/css@20/dist/primer.css">
+</head>
+<body>
+  <div class="container-lg p-4">
+    <div class="Box">
+      <div class="Box-header">
+        <h2 class="Box-title">Suggest a Skill</h2>
+      </div>
+      <div class="Box-body">
+        <form id="skillForm">
+          <div class="form-group">
+            <label for="skills">Skills (ID : Name) <span class="text-danger">*</span></label>
+            <textarea class="form-control" id="skills" 
+                      placeholder="SKILL-001 : Frontend Development&#10;SKILL-002 : Backend API" 
+                      required></textarea>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" required>
+              I confirm these IDs are new and unique
+            </label>
+          </div>
+          <button class="btn btn-primary" type="submit">Submit Suggestion</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

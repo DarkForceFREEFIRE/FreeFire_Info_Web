@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clan Hub - Walker Regedits</title>
+    <link href="https://cdn.jsdelivr.net/npm/product-sans-webfont@1.0.0/GoogleSans.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body data-theme="dark">
+
+    <header class="app-bar animate-fade-up">
+      <div class="header-inner">
+        <div class="brand-group">
+          <span class="portal-badge">WR</span>
+          <span class="brand-text">Walker Regedits <span class="accent-dim font-mono">UTILITIES</span></span>
+        </div>
+
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="lookup.html" class="nav-link">FF Info</a>
+          <a href="clan.html" class="nav-link active">Clan Hub</a>
+          <a href="token.html" class="nav-link">Token Gen</a>
+          <a href="signature.html" class="nav-link">Signature</a>
+          <a href="docs.html" class="nav-link">API Docs</a>
+        </nav>
+
+        <div class="app-bar-actions">
+          <label class="theme-toggle-compact" id="theme-toggle" aria-checked="true" title="Toggle Theme">
+            <div class="toggle-switch-track">
+              <div class="toggle-switch-thumb"></div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <main class="router-container">
+      <section class="view-section animate-fade-up">
+        <div class="app-content">
+
+          <!-- Clan Search Deck -->
+          <div class="search-command-deck">
+            <div class="command-group" style="flex: 1;">
+              <label class="compact-label" for="clan-id-input">Clan ID</label>
+              <div class="search-box">
+                <img src="icons/Guild.svg" class="search-icon" alt="Clan">
+                <input type="text" id="clan-id-input" class="fluent-input" placeholder="e.g. 1028000098" value="1028000098">
+              </div>
+            </div>
+
+            <div class="command-group" style="width: 200px;">
+              <label class="compact-label" for="clan-region-select">Region</label>
+              <div class="search-box">
+                <select id="clan-region-select" class="fluent-input" style="padding-left: 14px; cursor: pointer;">
+                  <option value="SG" selected>Singapore (SG)</option>
+                  <option value="IND">India (IND)</option>
+                  <option value="BR">Brazil (BR)</option>
+                  <option value="US">United States (US)</option>
+                  <option value="ID">Indonesia (ID)</option>
+                  <option value="RU">Russia (RU)</option>
+                  <option value="BD">Bangladesh (BD)</option>
+                  <option value="PK">Pakistan (PK)</option>
+                  <option value="SAC">South America (SAC)</option>
+                </select>
+              </div>
+            </div>
+
+            <button id="search-clan-btn" class="fluent-btn primary query-submit-btn">
+              <img src="icons/Cloud Search.svg" alt="Search" class="btn-svg inverted">
+              Inspect Clan
+            </button>
+          </div>
+
+          <div id="clan-loader" class="fluent-card result-card hidden">
+            <div class="loader-content">
+              <div class="spinner-win11"></div>
+              <p class="text-secondary">Retrieving guild telemetry...</p>
+            </div>
+          </div>
+
+          <!-- Clan Workspace -->
+          <div id="clan-workspace" class="hidden">
+
+            <!-- Hero Banner -->
+            <div class="clan-hero-banner">
+              <div class="clan-hero-content">
+                <div style="display: flex; align-items: center; gap: 20px;">
+                  <div class="clan-badge-display">
+                    <img id="clan-badge-icon" src="icons/Clan.svg" style="width: 48px; height: 48px; object-fit: contain;" alt="Badge">
+                  </div>
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <h1 id="clan-name-text" style="font-size: 28px; margin: 0;">--</h1>
+                      <span class="portal-badge" id="clan-level-tag">LEVEL 1</span>
+                    </div>
+                    <div class="tags-row" style="justify-content: flex-start; margin-top: 8px;">
+                      <span class="tag">Clan ID: <strong id="clan-id-tag" class="font-mono">--</strong></span>
+                      <span class="tag" id="clan-region-tag">SG</span>
+                      <span class="tag" id="clan-created-tag">Created: --</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display: flex; gap: 24px; text-align: right;">
+                  <div>
+                    <span class="compact-label">Total Activeness</span>
+                    <div class="huge-metric-val accent-text" id="clan-total-activeness" style="font-size: 28px; margin: 4px 0 0 0;">--</div>
+                  </div>
+                  <div>
+                    <span class="compact-label">Honor Points</span>
+                    <div class="huge-metric-val text-success" id="clan-honor-points" style="font-size: 28px; margin: 4px 0 0 0;">--</div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="clan-slogan-box" class="signature-quote" style="margin-top: 16px;">"--"</div>
+            </div>
+
+            <!-- Two-Column Clan Grid -->
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 20px; align-items: start;">
+
+              <!-- Left Side: Leadership & Rules -->
+              <div style="display: flex; flex-direction: column; gap: 20px;">
+
+                <div class="fluent-card detail-subcard">
+                  <h3 class="subcard-title">
+                    <img src="icons/Guild owner.svg" alt="Leader"> Guild Leadership Roster
+                  </h3>
+                  <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 6px;">
+                    <div class="roster-card">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="portal-badge" style="font-size: 8px; padding: 2px 6px;">CAPTAIN</span>
+                        <span id="roster-captain-uid" class="font-mono" style="font-weight: 700; font-size: 13px;">--</span>
+                      </div>
+                      <a id="inspect-captain-btn" href="#" class="tag accent-text" style="font-size: 10px;">Inspect Profile &rarr;</a>
+                    </div>
+
+                    <div class="roster-card">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="tag" style="font-size: 8px; padding: 2px 6px; background: rgba(56, 189, 248, 0.15); color: #38bdf8;">DEPUTY</span>
+                        <span id="roster-deputy-uid" class="font-mono" style="font-weight: 700; font-size: 13px;">--</span>
+                      </div>
+                      <a id="inspect-deputy-btn" href="#" class="tag accent-text" style="font-size: 10px;">Inspect Profile &rarr;</a>
+                    </div>
+
+                    <div style="margin-top: 6px;">
+                      <span class="compact-label" style="display: block; margin-bottom: 6px;">Vice Captains</span>
+                      <div id="roster-vice-container" style="display: flex; flex-wrap: wrap; gap: 6px;">
+                        <span class="text-secondary" style="font-size: 11px;">None assigned</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="fluent-card detail-subcard">
+                  <h3 class="subcard-title">
+                    <img src="icons/Settings.svg" alt="Rules"> Entry Requirements & Capacity
+                  </h3>
+                  <div class="stats-metric-grid">
+                    <div class="metric-tile">
+                      <span class="metric-title">Member Capacity</span>
+                      <span class="metric-value" id="clan-capacity-val">--</span>
+                    </div>
+                    <div class="metric-tile">
+                      <span class="metric-title">Weekly Activeness</span>
+                      <span class="metric-value" id="clan-weekly-activeness">--</span>
+                    </div>
+                    <div class="metric-tile">
+                      <span class="metric-title">Min Level Requirement</span>
+                      <span class="metric-value" id="clan-entry-level">Lv.1</span>
+                    </div>
+                    <div class="metric-tile">
+                      <span class="metric-title">Min BR Rank</span>
+                      <span class="metric-value" id="clan-entry-rank">None</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Right Side: Activeness Logs -->
+              <div class="fluent-card detail-subcard">
+                <h3 class="subcard-title">
+                  <img src="icons/Timeline.svg" alt="Logs"> Recent Clan Activeness Stream
+                </h3>
+                <div style="overflow-x: auto;">
+                  <table class="activeness-log-table">
+                    <thead>
+                      <tr>
+                        <th>Member UID</th>
+                        <th>Contribution</th>
+                        <th>Timestamp</th>
+                      </tr>
+                    </thead>
+                    <tbody id="activeness-logs-body">
+                      <tr>
+                        <td colspan="3" class="text-secondary" style="text-align: center; padding: 20px;">No recent activeness entries.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <footer class="portal-footer">
+      <div class="footer-bottom">
+        <div class="footer-col brand-col">
+          <div class="brand-group">
+            <span class="portal-badge">WR</span>
+            <span class="brand-text">Walker Regedits</span>
+          </div>
+          <p class="text-secondary text-dim font-mono" style="margin-top:10px; max-width:300px; font-size:11px; line-height:1.4;">
+            Dedicated utility hub for player stats tracking. Real-time data retrieved directly via public API platforms. Unofficial tool.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>TOOLS</h4>
+          <a href="lookup.html" class="footer-link">Player Info</a>
+          <a href="clan.html" class="footer-link">Clan Hub</a>
+          <a href="token.html" class="footer-link">Token Gen</a>
+          <a href="signature.html" class="footer-link">Signature</a>
+          <a href="docs.html" class="footer-link">API Reference</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>DEVELOPERS & CREDITS</h4>
+          <a href="https://wzapi.vercel.app" class="footer-link" target="_blank">wzapi.vercel.app</a>
+          <a href="https://github.com/DarkForceFREEFIRE" class="footer-link" target="_blank">DarkForceFREEFIRE (GitHub)</a>
+          <a href="https://discord.gg/fjkcdAVdS" class="footer-link" target="_blank">Join Discord Community</a>
+        </div>
+      </div>
+
+      <div class="footer-copyright font-mono text-secondary">
+        <span>&copy; 2026 Walker Regedits - Unofficial Free Fire Utilities</span>
+      </div>
+    </footer>
+
+    <div id="status-toast" class="toast hidden"></div>
+
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/clan-controller.js"></script>
+  </body>
+
+</html>
