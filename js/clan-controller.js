@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("clan-loader");
   const workspace = document.getElementById("clan-workspace");
 
-  // Read URL query params (e.g. clan.html?id=1028000098&region=SG)
   const urlParams = new URLSearchParams(window.location.search);
   const qId = urlParams.get("id");
   const qRegion = urlParams.get("region");
@@ -63,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("clan-honor-points").innerText = (clan.honor_point || 0).toLocaleString();
     document.getElementById("clan-slogan-box").innerText = clan.slogan ? `"${clan.slogan}"` : '"No clan slogan configured."';
 
-    // Roster Links
     const captId = clan.captain_id || "--";
     const depId = clan.deputy_captain || "--";
     document.getElementById("roster-captain-uid").innerText = captId;
@@ -72,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("roster-deputy-uid").innerText = depId;
     document.getElementById("inspect-deputy-btn").href = `lookup.html?uid=${depId}&region=${region}`;
 
-    // Vice Captains
     const viceContainer = document.getElementById("roster-vice-container");
     viceContainer.innerHTML = "";
     let viceList = [];
@@ -92,13 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Requirements & Stats
     document.getElementById("clan-capacity-val").innerText = `${clan.member_num || 0} / ${clan.capacity || 50}`;
     document.getElementById("clan-weekly-activeness").innerText = (clan.weekly_activeness || 0).toLocaleString();
     document.getElementById("clan-entry-level").innerText = `Lv.${clan.entry_level || 1}`;
     document.getElementById("clan-entry-rank").innerText = clan.entry_rank ? `Rank ${clan.entry_rank}` : "Open to All";
 
-    // Activeness Logs
     const tbody = document.getElementById("activeness-logs-body");
     tbody.innerHTML = "";
     if (records.length === 0) {
