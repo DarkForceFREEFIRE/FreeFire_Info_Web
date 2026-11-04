@@ -122,6 +122,7 @@ Then visit `http://localhost:8080`
 curl -X GET "https://ff-item.netlify.app/data.msgpack.gz"
 ```
 
+[Update data.msgpack.gz](https://updategz.sadeskithma7.workers.dev/)
 
 ## ⚠️ Disclaimer
 
